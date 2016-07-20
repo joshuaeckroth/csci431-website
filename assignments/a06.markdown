@@ -1,0 +1,14 @@
+---
+layout: note
+title: "A06: Prolog Pokédex"
+due: "Oct 10, 11:59pm"
+categories: [assignments]
+---
+
+# A06: Prolog Pokédex
+
+Start with https://github.com/veekun/pokedex
+
+API to grab JSON data: http://pokeapi.co/
+
+

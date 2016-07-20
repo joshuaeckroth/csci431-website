@@ -1,0 +1,10 @@
+---
+layout: note
+title: "A10: Cats vs. dogs"
+due: "Nov 14, 11:59pm"
+categories: [assignments]
+---
+
+# A10: Cats vs. dogs
+
+Dataset: https://www.kaggle.com/c/dogs-vs-cats/data

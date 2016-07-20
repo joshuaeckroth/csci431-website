@@ -1,0 +1,9 @@
+---
+layout: note
+title: "A07: Automated jury"
+due: "Oct 17, 11:59pm"
+categories: [assignments]
+---
+
+# A07: Automated jury
+

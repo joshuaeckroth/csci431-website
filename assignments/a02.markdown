@@ -1,0 +1,9 @@
+---
+layout: note
+title: "A02: Go Fish AI"
+due: "Sep 12, 11:59pm"
+categories: [assignments]
+---
+
+# A02: Go Fish AI
+

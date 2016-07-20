@@ -1,0 +1,10 @@
+---
+layout: note
+title: "A09: NFL play-by-play"
+due: "Nov 7, 11:59pm"
+categories: [assignments]
+---
+
+# A09: NFL play-by-play
+
+Use NFL play-by-play data to predict success(?) or yards(?) (regression)

@@ -1,0 +1,13 @@
+---
+layout: note
+title: "A04: Wedding seat assignment"
+due: "Sep 26, 11:59pm"
+categories: [assignments]
+---
+
+# A04: Wedding seat assignment
+
+Inspired by [this StackOverflow post](http://stackoverflow.com/a/1591577).
+
+
+

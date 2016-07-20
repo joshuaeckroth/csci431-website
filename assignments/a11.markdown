@@ -1,0 +1,13 @@
+---
+layout: note
+title: "A11: News classification"
+due: "Nov 21, 11:59pm"
+categories: [assignments]
+---
+
+# A11: News classification
+
+Naive bayesian approach
+
+
+

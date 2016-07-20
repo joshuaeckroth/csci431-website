@@ -1,0 +1,13 @@
+---
+layout: note
+title: "A05: Student advisor"
+due: "Oct 3, 11:59pm"
+categories: [assignments]
+---
+
+# A05: Student advisor
+
+expert system that helps (CSCI) students decide classes, etc.; based on already-taken classes, grades, interests, etc.
+
+
+
