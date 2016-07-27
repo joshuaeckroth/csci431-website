@@ -83,3 +83,4 @@ for individual in population:
 print max_fit_individual
 ~~~
 
+

@@ -115,7 +115,6 @@ CODEBASE="http://active.macromedia.com/flash5/cabs/swflash.cab#version=5,0,0,0">
 <PARAM NAME="LOOP" VALUE="true">
 <EMBED SRC="/flash/8puzzle-bfs.swf" WIDTH="605" HEIGHT="300" PLAY="true" LOOP="true" QUALITY="best" 
 PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"> 
-</EMBED>
 </OBJECT>
 <br/>
 <a href="/images/8puzzle-bfs.png">View final image</a>
@@ -133,7 +132,6 @@ CODEBASE="http://active.macromedia.com/flash5/cabs/swflash.cab#version=5,0,0,0">
 <PARAM NAME="LOOP" VALUE="true">
 <EMBED SRC="/flash/8puzzle-dfs.swf" WIDTH="145" HEIGHT="800" PLAY="true" LOOP="true" QUALITY="best" 
 PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"> 
-</EMBED>
 </OBJECT>
 </div>
 
