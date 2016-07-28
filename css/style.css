@@ -113,6 +113,7 @@ td#metabox div.officehours {
 
 .right {
     float: right;
+    margin-left: 10px;
 }
 
 img {
