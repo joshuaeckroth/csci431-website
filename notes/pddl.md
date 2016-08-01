@@ -9,6 +9,11 @@ layout: note
 - level
 - points
 
+## Search strategies
+
+## Fast Downward planner
+
+note which heuristics support which features: http://www.fast-downward.org/Doc/Heuristic
 
 ## Example: Blocks world
 

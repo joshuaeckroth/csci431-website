@@ -1,9 +1,211 @@
 ---
 layout: note
-title: "A02: Go Fish AI"
+title: "A02: Git planner"
 due: "Sep 12, 11:59pm"
 categories: [assignments]
 ---
 
-# A02: Go Fish AI
+# A02: Git planner
+
+Your task is to write [PDDL](/notes/pddl.html) code to generate a
+series of git commands that update the files or repository from a
+given starting state to a given goal state.
+
+Students who successfully complete this assignment should be able to:
+
+1. Write non-trivial planning domain and problem files in PDDL format and execute the fast-downward planner.
+2. Describe the basic "git workflow" and explain terminology like "working space", "index", and "local repository".
+3. Demonstrate the use of Unix "man pages" to learn about commands like git.
+4. Generate solutions to git puzzles with their very own self-crafted planner :)
+
+## Background about git
+
+As you know, git is a tool that keeps track of the states of files
+over time, i.e., a version control system (VCS). All VCS's provide a
+variety of commands that let the user indicate which files should be
+committed, reverted, and so on. These commands and the way they
+interact defines each VCS's "workflow."
+
+All workflows involve at least two concepts:
+
+- "workspace" -- the files on your computer.
+- "repository" -- the history of changes to all tracked files.
+
+Unlike other VCS's, git adds another concept in the workflow:
+
+- "index" -- a temporary holding ground for changes (that may or may
+  not match the workspace) and that are not yet committed, so not yet
+  part of the repository.
+
+Git and many other VCS's also have concepts of branches, pushes and
+pulls, etc. These significantly complicate matters so we will not
+worry about them here. We are only going to work with the workspace,
+index, and (local) repository.
+
+![Git workflow](/images/git-transport.png)
+
+Image from [Oliver Steele](http://blog.osteele.com/posts/2008/05/my-git-workflow/).
+
+## Predicates
+
+These predicates correspond to the status shown by `git status` (more
+specifically, `git status --porcelain`), except the `stashed`
+predicate which `git status` does not show.
+
+- `(untracked ?f)` -- file exists in workspace but has never been "added" to index for any commit.
+- `(modified-in-workspace ?f)` -- file has been modified but this change has not been "added" to the index.
+- `(deleted-in-workspace ?f)` -- file has been deleted but this change has not be "added" (or "rm'ed") to the index.
+- `(updated-in-index ?f)` -- file has been modified and this change has been "added" to the index but not committed.
+- `(added-to-index ?f)` -- a new file has been "added" to the index but not committed.
+- `(deleted-from-index ?f)` -- a deleted file has been "added" (or "rm'ed") to the index but not committed.
+- `(committed ?f)` -- all changes were added to the index and then committed.
+
+## Actions
+
+I've intentionally not described some of these actions. Refer to the man pages, e.g., `man git-add` or `man git-checkout`.
+
+- `(add ?f)` -- corresponds to `git add <file>`. If a file was deleted in the workspace, you can still use `git add` to record that deletion in the index.
+- `(checkout ?f)` -- corresponds to `git checkout <file>`.
+- `(reset ?f)` -- corresponds to `git reset -- <file>`; this is an "undo" for `git add <file>`, i.e., it clears the index of any data about the file, but does not touch the file in the workspace.
+- `(reset-hard)` -- corresponds to `git reset --hard`; erases all recorded changes in the index and rewrites tracked files in the workspace to their last committed state. This operation is dangerous!
+- `(commit)` -- corresponds to `git commit`.
+
+## Deliverables
+
+- `domain.pddl`
+
+## Advice
+
+I have provided a script, `pddl-problem-from-repl`, that executes `git
+status` on the current repository and prints the start of a PDDL
+problem file representing the current state of the repository. Using
+this tool, you can try various git commands and see their effects in
+terms of the predicates defined above.
+
+For example, given this git repo:
+
+~~~
+mkdir probX
+cd probX
+git init
+echo "aaa" > a.txt
+echo "bbb" > b.txt
+git add a.txt
+~~~
+
+The `pddl-problem-from-repo` script gives this output:
+
+~~~
+(define (problem p)
+  (:domain git)
+  (:objects "a.txt" "b.txt")
+  (:init
+   ;; initial conditions determined by 'git status --porcelain' output
+   ;; A  a.txt
+   (added-to-index "a.txt")
+   ;; ?? b.txt
+   (untracked "b.txt")
+   )
+  ;; TODO: goal must be specified
+  (:goal
+  )
+)
+~~~
+
+You can see that a.txt is considered `added-to-index` while b.txt is considered `untracked`. Now, running `git reset a.txt` results in:
+
+~~~
+(define (problem p)
+  (:domain git)
+  (:objects "a.txt" "b.txt")
+  (:init
+   ;; initial conditions determined by 'git status --porcelain' output
+   ;; ?? a.txt
+   (untracked "a.txt")
+   ;; ?? b.txt
+   (untracked "b.txt")
+   )
+  ;; TODO: goal must be specified
+  (:goal
+  )
+)
+~~~
+
+
+# Example problems
+
+Here are some examples that your domain file must be able to
+solve. The setup (with actual git commands) is just for illustration;
+do you not need to actually create an example repository and example
+files. The PDDL problem file and a plan, as found by fast-downward,
+are also given. All that is missing is your domain file.
+
+### Example 1
+
+Setup:
+
+~~~
+mkdir prob1
+cd prob1
+git init
+echo "aaa" > a.txt
+~~~
+
+Goal:
+
+- `a.txt` containing just "aaa" is stored in the repository.
+
+Solution:
+
+~~~
+git add a.txt
+git commit
+~~~
+
+Corresponding problem file:
+
+~~~
+(define (problem p)
+  (:domain git)
+  (:objects "a.txt")
+  (:init
+   ;; initial conditions determined by 'git status --porcelain' output
+   ;; ?? a.txt
+   (untracked "a.txt")
+   )
+  (:goal
+   (committed "a.txt")
+   )
+)
+~~~
+
+Plan as found by fast-downward:
+
+~~~ bash
+$ ../fast-downward/fast-downward.py prob1.pddl --search "astar(blind())"
+
+$ cat sas_plan
+(add "a.txt")
+(commit )
+; cost = 2 (unit cost)
+~~~
+
+### Example 2
+
+### Example N
+
+Erases b.txt since it was added to the index but then a reset-hard
+occurred. If it was never added to the index, then reset-hard would
+have left it alone.
+
+~~~
+echo "bbb" > b.txt
+git add b.txt
+git reset --hard
+~~~
+
+
+
+## Testing script
+
 

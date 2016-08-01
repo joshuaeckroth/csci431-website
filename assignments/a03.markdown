@@ -1,9 +1,9 @@
 ---
 layout: note
-title: "A03: Git planner"
+title: "A03: Go Fish AI"
 due: "Sep 19, 11:59pm"
 categories: [assignments]
 ---
 
-# A03: Git planner
+# A03: Go Fish AI
 
