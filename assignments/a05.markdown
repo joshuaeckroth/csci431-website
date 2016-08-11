@@ -7,7 +7,45 @@ categories: [assignments]
 
 # A05: Student advisor
 
-expert system that helps (CSCI) students decide classes, etc.; based on already-taken classes, grades, interests, etc.
+Using the [Drools rules engine](/notes/drools.html), write rules for a
+student advisor expert system. A student advisor would guide students
+on class selection based on their major (and corresponding major
+requirements), the classes they have already taken and their grade,
+and their interests. For this assignment, we'll restrict our focus to
+CSCI majors, and we'll ignore non-major classes and general education
+requirements.
+
+## Knowledge base
+
+### Facts
+
+Recall that in Drools, "types" are effectively Java classes. However,
+unless you need to implement additional functionality, you do not need
+to write the class yourself; Drools will generate it to match the type
+specification.
+
+- `Student` type: name
+- `Course` type: course name, course number, unit count; note, prerequisites can be complex so they're better represented as rules
+- `Semester` type: semester name, year
+- `CourseAttempt` type: student attempted a course in a particular semester and earned a particular grade
+- `Preference` type: some student has some preference, e.g., preference for security or AI or networks
+
+### Rules
+
+- course prerequisites; these can be complex, e.g., prereqs for CSCI 211: "CSCI 141 and either MATH 141Q or MATH 130 or MATH 125Q"
+- major requirements; include minimum GPA requirements
+
+Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sciences/computer-science/computer-science-bs/) for the requirements for a CSCI degree. You'll need to include some math courses as well as CSCI/CINF courses in order to represent the various prereqs and major requirements.
+
+### Goals
+
+- Which classes should I take next?
+- Which classes do I still need?
+- What are my options to satisfy some requirement, e.g., elective major courses?
+
+## Deliverables
+
+You will only submit the "drl" Drools rules file.
 
 
 

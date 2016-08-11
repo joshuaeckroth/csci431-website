@@ -13,10 +13,14 @@ given starting state to a given goal state.
 
 Students who successfully complete this assignment should be able to:
 
-1. Write non-trivial planning domain and problem files in PDDL format and execute the fast-downward planner.
-2. Describe the basic "git workflow" and explain terminology like "working space", "index", and "local repository".
-3. Demonstrate the use of Unix "man pages" to learn about commands like git.
-4. Generate solutions to git puzzles with their very own self-crafted planner :)
+1. Write non-trivial planning domain and problem files in PDDL format
+   and execute the fast-downward planner.
+2. Describe the basic "git workflow" and explain terminology like
+   "working space", "index", and "local repository".
+3. Demonstrate the use of Unix "man pages" to learn about commands
+   like git.
+4. Generate solutions to git puzzles with their very own self-crafted
+   planner :)
 
 ## Background about git
 
@@ -42,9 +46,7 @@ pulls, etc. These significantly complicate matters so we will not
 worry about them here. We are only going to work with the workspace,
 index, and (local) repository.
 
-![Git workflow](/images/git-transport.png)
-
-Image from [Oliver Steele](http://blog.osteele.com/posts/2008/05/my-git-workflow/).
+![Git workflow](/images/git-workflow.png)
 
 ## Predicates
 
@@ -72,7 +74,13 @@ I've intentionally not described some of these actions. Refer to the man pages, 
 
 ## Deliverables
 
+Files:
+
 - `domain.pddl`
+
+The tester provides the various problem PDDL files. All you need to
+provide is the domain file, i.e., the file that encodes the possible
+actions.
 
 ## Advice
 
@@ -132,7 +140,7 @@ You can see that a.txt is considered `added-to-index` while b.txt is considered 
 ~~~
 
 
-# Example problems
+## Example problems
 
 Here are some examples that your domain file must be able to
 solve. The setup (with actual git commands) is just for illustration;
@@ -153,7 +161,7 @@ echo "aaa" > a.txt
 
 Goal:
 
-- `a.txt` containing just "aaa" is stored in the repository.
+- `a.txt` containing just "aaa" is committed.
 
 Solution:
 
@@ -181,7 +189,7 @@ Corresponding problem file:
 
 Plan as found by fast-downward:
 
-~~~ bash
+~~~
 $ ../fast-downward/fast-downward.py prob1.pddl --search "astar(blind())"
 
 $ cat sas_plan
@@ -191,6 +199,63 @@ $ cat sas_plan
 ~~~
 
 ### Example 2
+
+Setup:
+
+~~~
+mkdir prob2
+cd prob2
+git init
+echo "aaa" > a.txt
+echo "bbb" > b.txt
+git add a.txt
+~~~
+
+Goals:
+
+- "Undo" the `git add` operation so a.txt remains untracked
+- Add and commit b.txt
+
+Solution (one possible ordering):
+
+~~~
+git reset a.txt
+git add b.txt
+git commit
+~~~
+
+Corresponding problem file:
+
+~~~
+(define (problem p)
+  (:domain git)
+  (:objects "a.txt" "b.txt")
+  (:init
+   ;; initial conditions determined by 'git status --porcelain' output
+   ;; A  a.txt
+   (added-to-index "a.txt")
+   ;; ?? b.txt
+   (untracked "b.txt")
+   )
+  ;; TODO: goal must be specified
+  (:goal
+   (and (untracked "a.txt")
+        (committed "b.txt"))
+  )
+)
+~~~
+
+Plan as found by fast-downward:
+
+~~~
+$ ../fast-downward/fast-downward.py prob1.pddl --search "astar(blind())"
+
+$ cat sas_plan
+(add "b.txt")
+(reset "a.txt")
+(commit )
+; cost = 3 (unit cost)
+~~~
 
 ### Example N
 

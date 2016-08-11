@@ -5,9 +5,7 @@ layout: note
 
 # Syllabus
 
-<p>
 CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
-</p>
 
 ## About me
 
@@ -15,7 +13,7 @@ CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
 
 - Eliz Hall 214, 386-740-2519
 
-- Office hours: TBD
+- Office hours:  Mon/Wed 12-2:30
 
 ## Textbook
 

@@ -6,10 +6,14 @@ layout: note
 # Prolog
 
 Prolog is a programming language that allows us to "program" with
-declarative knowledge. It puts limitations on the kinds of logical
+declarative, symbolic knowledge. It puts limitations on the kinds of logical
 statements we can write. These limitations are essential for allowing
 Prolog programs to work efficiently and always provide an answer (or
 determine there is no answer).
+
+Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or use on londo by running `prolog`.
+
+## Logic programming paradigm
 
 Because Prolog is a "Turing-complete" language, we can write any program
 in Prolog. Of course, a program that is easy to write in Java or C++ will,
@@ -29,7 +33,6 @@ is possible. Prolog programs often feel like they're programs written in
 
 - Programs written in Prolog are "executed" by performing queries.
 
-Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or use on londo by running `prolog`.
 
 ## Simple example
 

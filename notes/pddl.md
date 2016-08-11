@@ -9,6 +9,8 @@ layout: note
 - level
 - points
 
+look at: http://users.cecs.anu.edu.au/~patrik/pddlman/writing.html
+
 ## Search strategies
 
 ## Fast Downward planner
