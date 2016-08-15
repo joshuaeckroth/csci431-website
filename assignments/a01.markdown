@@ -7,3 +7,139 @@ categories: [assignments]
 
 # A01: Organic pathfinding
 
+This assignment helps you practice with variations of uninformed and informed search. Although all search algorithms, even informed search like A\*, can be effective for many problem solving tasks, a common use is pathfinding. The problem of pathfinding is to find a series of actions or steps from a starting point to a goal point. In most cases, we prefer the shortest path or the most efficient.
+
+Humans and other animals engage in pathfinding every day. However, we do not necessarily always follow the most efficient path, nor do we seem to entirely plan the path in our minds before making the first step (particularly if we cannot see around an obstruction). How do we find paths? Perhaps we can discover some insights into this question by finding a model or replication of the kinds of paths that humans make.
+
+## Background
+
+Organic paths have been documented extensively, often by architects. For example, consider the following two photos, published in Klaus Humpert's [*Lauf-Spuren*](http://www.edition-et.de/images/laufspuren.pdf) ("running tracks") from 2007:
+
+![Organic pathfinding](/images/organic-pathfinding-2.png)
+
+Humpert observes which individuals choose to walk through the garden and compares them to individuals who chose the longer, paved route. For our purposes, it is interesting to observe that a path through the garden was forged in spite of the paved walkway. Clearly, the reason is that the direct path is faster, and the garden was not a sufficient barrier to prevent people from trudging through it and forging a new path.
+
+![Organic pathfinding](/images/organic-pathfinding-1.png)
+
+Humpert shows several examples of one or more paths being formed around an obstacle or muddy terrain. For our purposes, it is interesting that only a small number (1 or 2) alternate paths are formed rather than a new path for every individual. This indicates people and other animals prefer established paths before making their own. Note also that one person does not make a path; rather, many people must follow a similar path before it is forged and an attractor to future individuals.
+
+Organic paths have also been the subject of a curious urban legend about university planning. I have found several references to a story like the following, although the university in question often changes:
+
+> At the University of California at Irvine, when they first built its
+> campus, they just planted grass. Then they waited a year and looked
+> at where people had made paths in the grass and built the sidewalks
+> there. --
+> [Larry Wall](http://www.softpanorama.org/People/Wall/larry_wall_articles_and_interviews.shtml),
+> creator of Perl
+
+The design of paths in Aldrich Park (at UCI) seems to support Larry Wall's story:
+
+![Aldrich Park](/images/organic-pathfinding-aldrich-park.png)
+
+Regardless of the veracity of the story or if any school, for that matter, actually designed their walkways in this manner, the story seems like it could be true. It seems that the "optimal" paths to secure in concrete are those that people form organically. As an analogy, the story suggests that careful design before user testing will never be as good as getting honest feedback from actual users and modifying plans accordingly.
+
+In fact, the phenomenon of organic pathfinding goes by another name: [desire paths](https://en.wikipedia.org/wiki/Desire_path). There is a small fanbase online, as evidenced by [this Flickr group](https://www.flickr.com/groups/desire_paths/) and [this podcast episode](http://99percentinvisible.org/article/least-resistance-desire-paths-can-lead-better-design/).
+
+According to my research, nobody has ever tried to reproduce so-called desire paths in software. This assignment asks you to do just that.
+
+## Task
+
+Your task is to modify some Python code to perform different kinds of pathfinding searches on some given maps. You will be required to produce each of these searches:
+
+- A\* search
+- Best-first search
+- Beam search
+- Beam search with "human" heuristics
+
+Breadth-first search is shown in the examples below, but it is too slow and produces path that look nothing like organic paths. It has been disabled in the code.
+
+Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" and "heuristic" functions of the generic search algorithm.
+
+On londo, you'll find the files `search.py` and `paths.py` in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual). You will modify `paths.py` only. Refer to the file for details.
+
+When you run `paths.py` on londo, using command `python paths.py`, it will produce images like the ones below. These images show the various paths forged across many iterations. The starting and ending points are indicated by blue (starting) and green (ending) pixels. Red pixels are impassible terrain (e.g., trees). The grayscale colors represent action cost, i.e., ease of walking on that pixel: darker is easier, so black represents pavement (more or less) and white represents weeds. As simulated people follow their own paths, each pixel they follow gets slightly darker since they are wearing down the path.
+
+## Examples
+
+### Garden
+
+Consider this map, representing the garden with surrounding sidewalk documented by Humpert. Recall that blue pixels represent possible starting points (randomly chosen on each iteration) and green represent possible ending points. Each map is actually 50x50 pixels, but shown here enlarged.
+
+The starting map and each result after 500 simulated people are shown in the table. The search algorithm is indicated below each image. Notice that beam and beam with human heuristics perform most human-like. Although it's difficult to see, best-first search never follows the round sidewalk.
+
+<table width="100%">
+<tr>
+<td><img src="/images/road-config-garden.png" /><br/>Starting map</td>
+<td><img src="/images/road-config-garden-bfs.png" /><br/>Breadth-first search</td>
+<td><img src="/images/road-config-garden-best-first.png" /><br/>Best-first search</td>
+</tr>
+<tr>
+<td><img src="/images/road-config-garden-astar.png" /><br/>A* search</td>
+<td><img src="/images/road-config-garden-beam.png" /><br/>Beam search</td>
+<td><img src="/images/road-config-garden-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+</tr>
+</table>
+
+### Tree obstacle
+
+In this example, also following Humpert's observations, we have a tree in the middle of the map. The red pixels cannot be traversed.
+
+<table width="100%">
+<tr>
+<td><img src="/images/road-config-tree.png" /><br/>Starting map</td>
+<td><img src="/images/road-config-tree-bfs.png" /><br/>Breadth-first search</td>
+<td><img src="/images/road-config-tree-best-first.png" /><br/>Best-first search</td>
+</tr>
+<tr>
+<td><img src="/images/road-config-tree-astar.png" /><br/>A* search</td>
+<td><img src="/images/road-config-tree-beam.png" /><br/>Beam search</td>
+<td><img src="/images/road-config-tree-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+</tr>
+</table>
+
+Notice that only the "beam human" search correctly walks around the tree. Both beam and beam-human began to form a path on the other side of the tree.
+
+### Tree with sidewalks
+
+Consider the "desire path" formed below (image borrowed from the [Flickr group](https://www.flickr.com/groups/desire_paths/)).
+
+![Desire path with tree and sidewalks](/images/organic-pathfinding-tree-sidewalks.jpg)
+
+Notice how only the beam-human algorithm correctly simulates human behavior.
+
+<table width="100%">
+<tr>
+<td><img src="/images/road-config-tree-sidewalks.png" /><br/>Starting map</td>
+<td><img src="/images/road-config-tree-sidewalks-bfs.png" /><br/>Breadth-first search</td>
+<td><img src="/images/road-config-tree-sidewalks-best-first.png" /><br/>Best-first search</td>
+</tr>
+<tr>
+<td><img src="/images/road-config-tree-sidewalks-astar.png" /><br/>A* search</td>
+<td><img src="/images/road-config-tree-sidewalks-beam.png" /><br/>Beam search</td>
+<td><img src="/images/road-config-tree-sidewalks-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+</tr>
+</table>
+
+### Aldrich Park
+
+Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich Park seems to consist of paved organice paths. The map below tries to recreate the initial design of the park with the circular sidewalk. We see that some curvy paths are formed across the park with beam and beam-human searches.
+
+
+<table width="100%">
+<tr>
+<td><img src="/images/road-config-aldrich-park.png" /><br/>Starting map</td>
+<td><img src="/images/road-config-aldrich-park-bfs.png" /><br/>Breadth-first search</td>
+<td><img src="/images/road-config-aldrich-park-best-first.png" /><br/>Best-first search</td>
+</tr>
+<tr>
+<td><img src="/images/road-config-aldrich-park-astar.png" /><br/>A* search</td>
+<td><img src="/images/road-config-aldrich-park-beam.png" /><br/>Beam search</td>
+<td><img src="/images/road-config-aldrich-park-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+</tr>
+</table>
+
+## Deliverables
+
+Add files `search.py` and `paths.py` to your git repository. You only need to modify `paths.py`. See the file for instructions about what to modify.
+
+
