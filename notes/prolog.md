@@ -11,7 +11,7 @@ statements we can write. These limitations are essential for allowing
 Prolog programs to work efficiently and always provide an answer (or
 determine there is no answer).
 
-Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or use on londo by running `prolog`.
+Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or use on londo by running `pl`.
 
 ## Logic programming paradigm
 

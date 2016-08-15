@@ -7,4 +7,9 @@ categories: [assignments]
 
 # A09: NFL play-by-play
 
+This assignment helps you practice classification and classification evaluation. Your task is to train a classifier that best predicts whether an NFL play will be successful. We will use the NFL play-by-play data from [NFLsavant.com](http://nflsavant.com/about.php) dataset. Details forthcoming.
+
+{% comment %}
 Use NFL play-by-play data to predict success(?) or yards(?) (regression)
+{% endcomment %}
+

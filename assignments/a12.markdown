@@ -7,7 +7,7 @@ categories: [assignments]
 
 # A12: Metatron
 
-add some feature to the robot
+This assignment helps you practice with robotics and the Robot Operating System in particular. Details forthcoming.
 
 
 

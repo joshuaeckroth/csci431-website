@@ -7,3 +7,5 @@ categories: [assignments]
 
 # A03: Go Fish AI
 
+This assignment helps you practice with adversarial search, specifically expectimax search. Details forthcoming.
+

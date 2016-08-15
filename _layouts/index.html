@@ -70,6 +70,11 @@
               </li>
               <li>
                 <div class="post-title"><a href="/notes/abductive-reasoning.html">Abductive reasoning</a></div>
+                <ul>
+                  <li>
+                    <div class="post-title"><a href="/notes/paragon.html">Paragon</a></div>
+                  </li>
+                </ul>
               </li>
               <li>
                 <div class="post-title"><a href="/notes/clustering.html">Discovering clusters of data</a></div>
@@ -137,14 +142,14 @@
             </ul>
             <h2 style="margin-top: 20px;">Study guides</h2>
             <ul class="posts">
-              {% for p in site.pages sort_by:title order:ascending %}
-              {% if p.categories contains 'studyguides' %}
               <li>
-                <div class="post-title"><a href="{{ p.url }}">{{ p.title }}</a></div>
-                <div class="post-due">{% if p.date %}{{ p.date }}{% endif %}</div>
+                <div class="post-title"><a href="/guide/midterm-review.html">Midterm review</a></div>
+                <div class="post-due">Wed Oct 19</div>
               </li>
-              {% endif %}
-              {% endfor %}
+              <li>
+                <div class="post-title"><a href="/guide/final-review.html">Final review</a></div>
+                <div class="post-due">Tue Dec 13 1-3pm</div>
+              </li>
             </ul>
           </td>
           <td id="metabox">

@@ -7,8 +7,12 @@ categories: [assignments]
 
 # A06: Prolog Pokédex
 
+This assignment helps you practice with Prolog. Details forthcoming.
+
+{% comment %}
 Start with https://github.com/veekun/pokedex
 
 API to grab JSON data: http://pokeapi.co/
+{% endcomment %}
 
 

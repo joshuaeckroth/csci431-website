@@ -7,3 +7,5 @@ categories: [assignments]
 
 # A08: Song clusters
 
+This assignment helps you practice inferring the presence of clusters in data. We will use data from the [Million Song](http://labrosa.ee.columbia.edu/millionsong/) dataset. Details forthcoming.
+
