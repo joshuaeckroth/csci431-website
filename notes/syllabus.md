@@ -9,7 +9,7 @@ CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
 
 ## About me
 
-- Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu)
+- Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
 
 - Eliz Hall 214, 386-740-2519
 
@@ -17,17 +17,36 @@ CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
 
 ## Textbook
 
-You will not need a textbook.
+There is no textbook for this class.
 
 ## Grading
 
-### Grading rubric
+- Attendance on work days (usually Fridays): 5%
+- Homeworks (12 of them): 55%
+- Midterm: 20%
+- Final exam: 20%
 
-### Late work
+Late work is penalized 20% for each day that it is late. Submissions
+more than 3 days late receive no credit. Tests cannot be made up
+unless a doctor's note is provided.
 
-## Schedule
+### Test dates
 
+- Midterm: Wed Oct 19
+- Final exam: Tue Dec 13, 1-3pm
 
+### Attendance
+
+The grading rubric for attendance is as follows, out of 3 points:
+
+- attended at least 75% of work days: 3 pts
+- attended at least 50% of work days: 2 pts
+- attended at least 25% of work days: 1 pt
+- attended fewer than 25% of work days: 0 pts
+
+### Homework
+
+Grading rubric forthcoming.
 
 ## Honor code
 
