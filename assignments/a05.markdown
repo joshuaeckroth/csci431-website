@@ -7,13 +7,7 @@ categories: [assignments]
 
 # A05: Student advisor
 
-Using the [Drools rules engine](/notes/drools.html), write rules for a
-student advisor expert system. A student advisor would guide students
-on class selection based on their major (and corresponding major
-requirements), the classes they have already taken and their grade,
-and their interests. For this assignment, we'll restrict our focus to
-CSCI majors, and we'll ignore non-major classes and general education
-requirements.
+This assignment helps you practice designing and using an expert system. Your task is to write rules for the [Drools rules engine](/notes/drools.html) for a student advisor expert system. A student advisor system would guide students on class selection based on their major (and corresponding major requirements), the classes they have already taken and their grade, and their interests. For this assignment, we'll restrict our focus to CSCI majors, and we'll ignore non-major classes and general education requirements.
 
 ## Knowledge base
 
