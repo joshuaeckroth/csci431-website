@@ -36,7 +36,7 @@ The design of paths in Aldrich Park (at UCI) seems to support Larry Wall's story
 
 ![Aldrich Park](/images/organic-pathfinding-aldrich-park.png)
 
-Regardless of the veracity of the story or if any school, for that matter, actually designed their walkways in this manner, the story seems like it could be true. It seems that the "optimal" paths to secure in concrete are those that people form organically. As an analogy, the story suggests that careful design before user testing will never be as good as getting honest feedback from actual users and modifying plans accordingly.
+The legend has been [realized recently on Virginia Tech's campus](http://www.vtnews.vt.edu/articles/2014/08/080514-vpa-drillfieldpaths.html). Even so, the veracity of the story is not as interesting as its tedency to be believed. The story seems like it *could* be true. It seems that the "optimal" paths to cover in concrete are those that people formed organically. As an analogy, the story suggests that careful design before user testing will never be as good as getting honest feedback from actual users and modifying plans accordingly.
 
 In fact, the phenomenon of organic pathfinding goes by another name: [desire paths](https://en.wikipedia.org/wiki/Desire_path). There is a small fanbase online, as evidenced by [this Flickr group](https://www.flickr.com/groups/desire_paths/) and [this podcast episode](http://99percentinvisible.org/article/least-resistance-desire-paths-can-lead-better-design/).
 
