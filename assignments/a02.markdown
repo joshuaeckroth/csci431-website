@@ -33,6 +33,8 @@ pulls, etc. These significantly complicate matters so we will not
 worry about them here. We are only going to work with the workspace,
 index, and (local) repository.
 
+The following diagram shows the operations that need to be understood by the git planner, and how the impact the workspace, index, and repository. See the sections below for details about each command.
+
 ![Git workflow](/images/git-workflow.png)
 
 ## Predicates
@@ -61,13 +63,7 @@ I've intentionally not described some of these actions. Refer to the man pages, 
 
 ## Deliverables
 
-Files:
-
-- `domain.pddl`
-
-The tester provides the various problem PDDL files. All you need to
-provide is the domain file, i.e., the file that encodes the possible
-actions.
+You only need to define and submit the `domain.pddl` file. I will provide the various problem files that your domain needs to solve.
 
 ## Advice
 
@@ -244,6 +240,7 @@ $ cat sas_plan
 ; cost = 3 (unit cost)
 ~~~
 
+{% comment %}
 ### Example N
 
 Erases b.txt since it was added to the index but then a reset-hard
@@ -257,12 +254,7 @@ git reset --hard
 ~~~
 
 
-
 ## Testing script
 
-
-
-## Deliverables
-
-You will need to submit only `domain.pddl`.
+{% endcomment %}
 
