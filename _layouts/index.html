@@ -135,6 +135,17 @@
               {% endif %}
               {% endfor %}
             </ul>
+            <h2 style="margin-top: 20px;">Study guides</h2>
+            <ul class="posts">
+              {% for p in site.pages sort_by:title order:ascending %}
+              {% if p.categories contains 'studyguides' %}
+              <li>
+                <div class="post-title"><a href="{{ p.url }}">{{ p.title }}</a></div>
+                <div class="post-due">{% if p.date %}{{ p.date }}{% endif %}</div>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
           </td>
           <td id="metabox">
             <div class="classname">CSCI 431</div>
