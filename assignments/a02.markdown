@@ -7,20 +7,7 @@ categories: [assignments]
 
 # A02: Git planner
 
-Your task is to write [PDDL](/notes/pddl.html) code to generate a
-series of git commands that update the files or repository from a
-given starting state to a given goal state.
-
-Students who successfully complete this assignment should be able to:
-
-1. Write non-trivial planning domain and problem files in PDDL format
-   and execute the fast-downward planner.
-2. Describe the basic "git workflow" and explain terminology like
-   "working space", "index", and "local repository".
-3. Demonstrate the use of Unix "man pages" to learn about commands
-   like git.
-4. Generate solutions to git puzzles with their very own self-crafted
-   planner :)
+This assignment helps you practice with the [PDDL](/notes/pddl.html) language and automated planning systems in general. Your task is to write PDDL code to generate a series of git commands that update the files or repository from a given starting state to a given goal state.
 
 ## Background about git
 
@@ -273,4 +260,9 @@ git reset --hard
 
 ## Testing script
 
+
+
+## Deliverables
+
+You will need to submit only `domain.pddl`.
 
