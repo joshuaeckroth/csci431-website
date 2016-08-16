@@ -7,27 +7,33 @@ categories: [assignments]
 
 # A03: Connect Four AI
 
-This assignment helps you practice with adversarial search, specifically minimax with alpha-beta pruning. Your task is to improve a realization of a Connect Four AI.
+This assignment helps you practice with adversarial search, specifically minimax with alpha-beta pruning. Your task is to improve a given Connect Four AI.
 
 ## Background
 
 The game Connect Four is a classic example of zero-sum, deterministic, perfect information games. Just like tic-tac-toe, both players can see the entire state of the game, there is no randomness involved (no dice, for example), and only one player can win all the points (so it's zero-sum).
 
+![Connect Four](/images/connect-4.jpg)
+
 We'll use the following simple rules for our variation of the game:
 
 - The game is played on a grid of 7 horizontal positions and 6 vertical positions.
 - Players alternate adding one token to the grid. A token may be added to any column that is not full, and the token falls to the lowest free slot on that column.
-- The first player to get four tokens in a row or diagonally with no gaps wins.
+- The first player to get four tokens in a row horizontally or vertically or diagonally with no gaps wins.
 
-Because Connect Four is a zero-sum, deterministic, perfect information game, we can build an AI with minimax. Of course, we're not crazy, so we'll use alpha-beta pruning as well, since alpha-beta pruning is an optimization that doesn't change the best move that minimax would normally find.
+Because Connect Four is a zero-sum, deterministic, perfect information game, we can build an AI with minimax. Of course, since we're not crazy, we'll use alpha-beta pruning as well. Recall that alpha-beta pruning is an optimization that doesn't change the best move that minimax would normally find.
 
-I have implemented the Connect Four game and an AI. Find it on londo at `/home/jeckroth/csci431/assignments/A03/connect-four.py`.
+I have implemented the Connect Four game and an AI. Find it on londo at `/home/jeckroth/csci431/assignments/A03/`.
 
 ## Analysis of AI performance
 
-If we allow the minimax-driven AI to search all possible moves (to maximum depth), the AI will produce perfect play. However, that's not possible since there are about 4.5 quadrillion possible game states. Limiting the depth of the search tree solves our problem and gives a good (though not perfect) AI.
+Your task is to improve the AI that's coded in the Python script. You are not asked to change the fundamental algorithm, but rather make it search fewer states. In order to test the number of states searched, the Python script has additional code for running experiments.
 
-The `connect-four.py` code has a function, `experiment()`, that generates various random starting configurations with different numbers of pre-established moves, and then runs vanilla minimax and minimax with alpha-beta pruning. We would expect that alpha-beta pruning will result in significantly fewer examined states. This expectation is met in the plot below. We see that different maximum search depths result in different kinds of savings with alpha-beta. Specifically, very deep search (six moves ahead) results in extreme savings: with no pre-established moves, alpha-beta pruning reduces the search space by about 99% (about 135k searched states vs. about 1300 searched states).
+The `connect-four.py` code has a function, `experiment()`, that generates various random starting configurations with different numbers of pre-established moves, and then runs vanilla minimax and minimax with alpha-beta pruning. We would expect that alpha-beta pruning will result in significantly fewer examined states.
+
+Note that if we allow the minimax-driven AI to search all possible moves (to maximum depth), the AI will produce perfect play. However, that's not possible since there are about 4.5 quadrillion possible leaf nodes in the search tree. Limiting the depth of the search tree solves our problem and gives a good (though not perfect) AI.
+
+A summary of the benefit of alpha-beta pruning is shown the plot below. We see that different maximum search depths result in different kinds of savings with alpha-beta. Specifically, very deep search (six moves ahead) results in extreme savings: with no pre-established moves, alpha-beta pruning reduces the search space by about 99% (about 135k searched states vs. about 1300 searched states).
 
 ![Connect Four alpha-beta pruning on/off](/images/connect-four-ab-depth-experiment.png)
 
@@ -51,7 +57,7 @@ Turn in the improved `connect-four.py` script.
 
 Consider the impact each of the following have on minimax and alpha-beta pruning:
 
-- the order "possible transitions" are examined, depending on whether the search is minimizing or not
+- the order "possible transitions" (next moves) are examined, depending on whether the search is minimizing or not
 - the accuracy of the utility function
 - the accuracy of the estimated utility function
 

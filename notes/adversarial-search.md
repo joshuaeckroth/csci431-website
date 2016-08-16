@@ -42,6 +42,13 @@ agents attempting to make decisions that maximize their own utility.
 We will not be studying game theory, as a whole, but we will learn how
 to "play" zero-sum games.
 
+| | Deterministic | Stochastic |
+|---|
+| <b>Perfect information</b> | Chess, Checkers, Connect Four,<br/>Go, Othello | Backgammon, Monopoly |
+| <b>Imperfect information</b> | | Bridge, Poker, Scrabble |
+
+Table from [Leif Kusoffsky](https://www.nada.kth.se/kurser/kth/2D1350/progp02/lecture2.pdf).
+
 ## Expansion of the search problem
 
 The components of a search problem included the following:
@@ -143,104 +150,6 @@ PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Vers
 <a href="/images/ttt-minimax-example.png">View final image</a>
 </div>
 
-## Python code for minimax
-
-~~~ python
-def minimax(state):
-    max_trans = None
-    max_u = None
-    transitions = possible_transitions(state, 'x')
-    # Find the transition (move) that provides the maximum
-    # utility, assuming the opponent also makes a best move
-    for trans, nextstate in transitions.iteritems():
-        # after making our move, find the best move the
-        # opponent can make (best for opponent = worse for us;
-        # if we consider the opponent winning as negative
-        # utility, we want to find the minimum utility move
-        # of the opponent's possible moves)
-        u = min_utility(nextstate, 'o')
-        if max_u is None or u > max_u:
-            max_trans = trans
-            max_u = u
-    return max_trans
-
-def min_utility(state, player):
-    # if the current state is a win/loss/tie, stop searching
-    if is_winning(state, player) or \
-            is_winning(state, switch_player(player)) or \
-            is_tie(state):
-        return utility(state, 'x')
-    else:
-        transitions = possible_transitions(state, player)
-        min_u = None
-        for nextstate in transitions.values():
-            # after making a move (current player is in the
-            # "player" variable), find the minimum next
-            # move and return its utility
-            u = max_utility(nextstate, switch_player(player))
-            if min_u is None or u < min_u:
-                min_u = u
-        return min_u
-
-def max_utility(state, player):
-    # if the current state is a win/loss/tie, stop searching
-    if is_winning(state, player) or \
-            is_winning(state, switch_player(player)) or \
-            is_tie(state):
-        return utility(state, 'x')
-    else:
-        transitions = possible_transitions(state, player)
-        max_u = None
-        for nextstate in transitions.values():
-            # after making a move (current player is in the
-            # "player" variable), find the maximum next
-            # move and return its utility
-            u = min_utility(nextstate, switch_player(player))
-            if max_u is None or u > max_u:
-                max_u = u
-        return max_u
-~~~
-
-## Python code for tic-tac-toe components
-
-Here is some code for tic-tac-toe specific components used by the
-minimax algorithm. Not all the code needed to play tic-tac-toe is
-shown here, however.
-
-~~~ python
-def switch_player(player):
-    if player == 'x': return 'o'
-    else: return 'x'
-
-def is_winning(state, player):
-    winning = False
-    for i in [0,1,2]:
-        if state[i][0] == state[i][1] == state[i][2] == player:
-            winning = True
-    for j in [0,1,2]:
-        if state[0][j] == state[1][j] == state[2][j] == player:
-            winning = True
-    if state[0][0] == state[1][1] == state[2][2] == player:
-        winning = True
-    if state[0][2] == state[1][1] == state[2][0] == player:
-        winning = True
-    return winning
-
-def is_tie(state):
-    blanks = 0
-    for i in [0,1,2]:
-        for j in [0,1,2]:
-            if state[i][j] == ' ': blanks += 1
-    return(blanks == 0 and \
-               not is_winning(state, 'x') and \
-               not is_winning(state, 'o'))
-
-def utility(state, player):
-    if is_winning(state, player): return 1
-    if is_winning(state, switch_player(player)): return -1
-    return 0
-~~~
-
 ## Alpha-beta pruning
 
 The minimax search is very costly. Far too many states are
@@ -252,7 +161,6 @@ The key insight is that when we are performing the "max" step (or
 equivalently, the "min" step), if we find that a certain move gives a
 maximum utility X (by searching its entire subtree), we can avoid any
 searches of subtrees whose minimum value is less than X.
-
 
 Look here, from `min_utility` (similar code is found in `max_utility`
 and `minimax` functions as well):
@@ -323,104 +231,6 @@ Alpha-beta pruning performs *much* better than vanilla minimax:
 |                                 4 |                          176.2 |                                81.8 |
 |                                 6 |                           11.0 |                                 9.2 |
 |                                 8 |                            1.3 |                                 1.3 |
-
-## Python code for alpha-beta pruning
-
-The minimax code above needs few modifications to support alpha-beta
-pruning:
-
-~~~ python
-def minimax_ab(state):
-    max_trans = None
-    max_u = None
-    alpha = None
-    beta = None
-    transitions = possible_transitions(state, 'x')
-    # Find the transition (move) that provides the maximum
-    # utility, assuming the opponent also makes a best move
-    for trans, nextstate in transitions.iteritems():
-        # after making our move, find the best move the
-        # opponent can make (best for opponent = worse for us;
-        # if we consider the opponent winning as negative
-        # utility, we want to find the minimum utility move
-        # of the opponent's possible moves)
-        u = min_utility_ab(nextstate, 'o', alpha, beta)
-        if max_u is None or u > max_u:
-            max_trans = trans
-            max_u = u
-        # if the utility we just found is greater than beta, and these
-        # utilities can only get bigger (because we're in a max
-        # stage), then there is no reason to check further
-        if beta is not None and u >= beta:
-            return trans
-        # if the utility we just found (from the min stage) is greater
-        # than alpha, we found a new greatest min; this will restrict
-        # future searches not to look further if they are minimizing
-        # and they find a utility less than alpha
-        if alpha is None or u > alpha:
-            alpha = u
-    return max_trans
-
-def min_utility_ab(state, player, alpha, beta):
-    # if the current state is a win/loss/tie, stop searching
-    if is_winning(state, player) or \
-            is_winning(state, switch_player(player)) or \
-            is_tie(state):
-        return utility(state, 'x')
-    else:
-        transitions = possible_transitions(state, player)
-        min_u = None
-        for nextstate in transitions.values():
-            # after making a move (current player is in the
-            # "player" variable), find the minimum next
-            # move and return its utility
-            u = max_utility_ab(nextstate, switch_player(player), alpha, beta)
-            if min_u is None or u < min_u:
-                min_u = u
-            # if the utility we just found is smaller than alpha, and
-            # these utilities can only get smaller (because we're in a
-            # min stage), then there is no reason to check further
-            if alpha is not None and u <= alpha:
-                return u
-            # if the utility we just found (from the max stage) is
-            # smaller than beta, we found a new smallest max; this
-            # will restrict future searches not to look further if
-            # they are maximizing and they find a utility greater than
-            # beta
-            if beta is None or u < beta:
-                beta = u
-        return min_u
-
-def max_utility_ab(state, player, alpha, beta):
-    # if the current state is a win/loss/tie, stop searching
-    if is_winning(state, player) or \
-            is_winning(state, switch_player(player)) or \
-            is_tie(state):
-        return utility(state, 'x')
-    else:
-        transitions = possible_transitions(state, player)
-        max_u = None
-        for nextstate in transitions.values():
-            # after making a move (current player is in the
-            # "player" variable), find the maximum next
-            # move and return its utility
-            u = min_utility_ab(nextstate, switch_player(player), alpha, beta)
-            if max_u is None or u > max_u:
-                max_u = u
-            # if the utility we just found is greater than beta, and
-            # these utilities can only get bigger (because we're in a
-            # max stage), then there is no reason to check further
-            if beta is not None and u >= beta:
-                return u
-            # if the utility we just found (from the min stage) is
-            # greater than alpha, we found a new greatest min; this
-            # will restrict future searches not to look further if
-            # they are minimizing and they find a utility less than
-            # alpha
-            if alpha is None or u > alpha:
-                alpha = u
-        return max_u
-~~~
 
 ## A poor example?
 
