@@ -5,18 +5,15 @@ layout: note
 
 # Uninformed search
 
-- high
-- level
-- points
+A search strategy is either "informed" or "uninformed." Uninformed search is a strategy that tries to find a solution without taking into account the cost of each action nor does it prefer to examine more promising actions first. Uninformed search is, therefore, rarely useful, but serves as a good starting point for understanding all the variations of search.
 
 ## Overview
 
 We learned in the [Search](/notes/search.html) lecture notes that search
 problems have the following components: a starting state, possible
-actions, a transition model that describes how actions change one
+transitions that describes how actions change one
 state to another, a goal criteria, and a way of calculating the cost
-of a sequence of actions (a "path" cost). We do not use the path cost
-when executing uninformed search.
+of each action. We do not use the action cost when executing uninformed search.
 
 The transition model defines a state space, which can be represented
 as a directed graph (vertices are states, edges are actions).

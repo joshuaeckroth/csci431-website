@@ -5,59 +5,17 @@ layout: note
 
 # Informed search
 
-- high
-- level
-- points
-- **rerun benchmarks; reread for beam search**
+Most search problems can be solved more efficiently and find better solutions than breadth-first or depth-first search. All we need is a way of judging which actions should be examined first based on some function of goodness, called a "heuristic." Based on exactly how that function is defined, we have one of several possible informed search strategies, of which some are more appropriate than others for certain tasks.
 
-## Generic search algorithm
-
-Here is the algorithm again, first seen in the
-[Uninformed search](/notes/uninformed-search.html) lecture notes.
-
-~~~
-1. create an empty list called "closedset"; this list will contain
-   states that have been visited
-
-2. create a list called "openset" that contains just the starting
-   state; this list contains states that have not been visited but are
-   known to exist
-
-3. create an empty map (key/value pairs) called "parents"; this map
-   contains the previous state of each state that has been visited
-
-4. while the openset is not empty:
-
-   a. grab a state from the openset (and remove it);
-      put it in the closedset (since we're now looking at it)
-
-   b. if that state is the goal, hey we're done!
-
-      i. return a reconstructed path from the goal state to the start
-         state (this is easy: recursively grab parent states from the
-         "parents" map)
-
-   c. it's not the goal state; for each next state that is accessible
-      from here:
-
-       i. if this next state is in the closedset (it has been visited
-          before), ignore it
-
-      ii. if this next state is not in the openset, put it in the
-          openset and record its parent
-
-   d. (repeat the loop)
-
-5. if the openset is empty and we never found the goal, oops!
-~~~
+## Heuristics
 
 In the uninformed searches, the random search used no particular
 technique for choosing the next state to check. Breadth-first search
 (BFS) checked the earliest discovered state, and depth-first search
 (DFS) checked the most recently discovered state.
 
-BFS is probably the right solution if the goal state is not deep in
-the search graph. DFS is probably the right solution if the opposite
+BFS is probably an acceptable solution if the goal state is not deep in
+the search graph. DFS is probably an acceptable solution if the opposite
 is the case. Naturally, random search is probably never a good idea.
 
 However, many problems do not fit simple descriptions like "the goal
@@ -73,38 +31,46 @@ the problem. Normally, we talk about heuristics in a more
 problem-specific sense. A heuristic would be applied in step `4.a.`,
 in which we choose the next state to check.
 
-## Heuristics for 8-puzzle
+The heuristic always represents "estimate of how close this state is to the goal," so you always want to look at states with a lower heuristic value. As we'll see below, the heuristic value is not the whole story; we will also want to know the path cost to this state (cost so far) plus the heuristic (estimated cost from here to the goal).
+
+### Heuristics for 8-puzzle
 
 Here are some heuristics we might apply to the 8-puzzle problem. Each
 heuristic is a function of a state, i.e., $h(s) = n$ where $s$ is a
 state and $n$ is an integer:
 
-- (OP): The number of tokens that are out of place.
+- OP: The number of tokens that are out of place.
 
-- (MD): The sum of "Manhattan-distances" between each token and its
+- MD: The sum of "[Manhattan-distances](https://en.wikipedia.org/wiki/Taxicab_geometry)" between each token and its
   goal position.
 
-- (RC): Number of tokens out of row plus number of tokens out of column.
+- RC: Number of tokens out of row plus number of tokens out of column.
 
-- Perform a breadth-first search from the state to the goal, counting
-  the number of moves in the shortest path. This "heuristic" is
-  perfect; but it requires solving the whole problem before choosing
-  to follow that state (which is ridiculous).
+These heuristics will be compared below after we discuss our first informed search strategy, "best-first search."
 
 ## Best-first search
 
-Best-first retains a record of every state that has been visited as
-well as the heuristic value of that state. At step `4.a.`, the best
-state ever visited is retrieved and search continues from there. This
-makes best-first search appear to jump around the search tree, like a
+Best-first visits first whichever state in the openset has the lowest heuristic value. This preference occurs at step `4.a.` in the generic search algorithm. The preference makes best-first search appear to jump around the search tree, like a
 random search, but of course best-first search is not random. The
 memory requirements for best-first search are not as bad as
 breadth-first. This is because breadth-first search does not use a
 heuristic to avoid obviously worse states.
 
-## Beam search
+Here is a comparison of the different 8-puzzle heuristics. We see that MD, Manhattan distance, is best in all ways so we'll continue only with that heuristic in the remainder of our analyses.
 
-## More sophisticated heuristics
+| Heuristic | Avg. path cost | Avg. checked states | Avg. max openset |
+|---|
+| OP | 22.04 | 168.09 | 116.13 |
+| MD | 14.58 | 60.79 | 52.01 |
+| RC | 18.30 | 70.56 | 65.02 |
+
+### Beam search
+
+Beam search is a variant of best-first search that limits the size of the openset to a maximum number of states. Suppose this maximum is 10 states. Then whenever a newly discovered state is discovered, its heuristic value is calculated and the state is added to the openset (ordered by heuristic value). Next, if the openset has grown too large, only the best 10 states are retained.
+
+Beam search therefore caps the memory requirements for search. This is essential in very large search spaces such as speech recognition and machine translation, where "possible transitions" includes all the words in the dictionary. Beam search is also useful for simulating agents with limited memory, such as humans and other animals.
+
+## Just a heuristic is not enough
 
 Unfortunately, both best-first and beam search can
 yield terrible solutions. Imagine a maze-navigating robot in a maze
@@ -120,18 +86,18 @@ If the robot simply kept track of how "deep" it had gone into the
 maze, and if it had reason to believe that the goal cannot possibly be
 "this deep," it would back up before going even deeper.
 
-In other words, there is more to an appropriate heuristic than
+In other words, there is more to an estimate of "goodness of a state" than the heuristic that estimates 
 closeness to the goal. One must also keep in mind how many steps have
 already been taken. For example, if we are solving the 8-puzzle game,
 we should consider how many moves have already been made. If we are
 planning a driving route, we should consider how far we have already
 traveled (or planned to travel); perhaps there is a shorter route if
-we abandon the path we are on.
+we abandon the path we are on. (These considerations take place during the route-finding process, not while actually on the road, since you cannot just transport yourself to an alternative state from the openset!)
 
-Thus, a good heuristic function actually has two parts: $f(s) = g(s) +
-h(s)$, where $s$ is a state, $g$ computes the cost of arriving at $s$
+Thus, a good cost function actually has two parts: $f(s) = g(s) +
+h(s)$, where $s$ is a state, $g$ computes the *actual* cost of arriving at $s$
 from the initial state (the number of moves to $s$ or the distance
-traveled so far), and $h$ is our heuristic, i.e., our estimate of how
+traveled so far; we know this value by examing the state's parents), and $h$ is our heuristic, i.e., our estimate of how
 far away $s$ is from the goal.
 
 In the 8-puzzle, $g$ is simply the number of moves made so far (to get
@@ -143,7 +109,7 @@ the goal.
 
 ## A\* search
 
-Let's modify best-first search to use the new complex heuristic $f(s)
+Let's modify best-first search to use the new cost function $f(s)
 = g(s) + h(s)$. This is the algorithm known as A (not A\*).
 
 If $g$ is the number of moves made so far (number of "hops" in
@@ -156,19 +122,19 @@ if we keep $h$ constantly equal to 0.0. This is because it acts like
 breadth-first search, in that it always considers better alternatives
 before going "deeper." The A algorithm here is optimal on weighted
 graphs because it simply considers the true path cost (unlike
-breadth-first search), and proceeds from the lowest cost path.
+breadth-first search), and proceeds from the lowest cost path. 
 
-Furthermore, if $h(s)$ always /underestimates/ the true cost of a path
+Furthermore, if the heuristic $h(s)$ always *underestimates* the true cost of a path
 from $s$ to the goal, then the A algorithm is optimal. If we call the
 true cost function from $s$ to the goal $h^\*(s)$, then we are saying
 that if $h(s) \leq h^\*(s)$ for all $s$, then A is optimal. When this
 restriction is met, we call the algorithm A\*.
 
-An $h$ that meets this /underestimation/ criterion is an /admissible/
-heuristic, and turns the A algorithm into A*, which we call an
-admissible search algorithm. Furthermore, A* is the most efficient
+An $h$ that meets this *underestimation* criterion is an *admissible*
+heuristic, and turns the A algorithm into A\*, which we call an
+admissible search algorithm. Furthermore, A\* is the most efficient
 algorithm (called "optimally efficient") that uses some particular
-heuristic. This means that any other search algorithm using the same
+heuristic $h(s)$. This means that any other search algorithm using the same
 heuristic will check no fewer states than A\*.
 
 How poorly $h$ estimates the actual cost to the goal makes one $h$
@@ -181,7 +147,7 @@ If $h$ overestimates the true cost to the goal, then our search
 algorithm will obviously make the wrong choices. It will move the
 robot farther from the end of the maze rather than towards the end.
 
-## IDA\* (Iterative Deepening A\*)
+### IDA\* (Iterative Deepening A\*)
 
 The A\* algorithm has very bad space complexity (see below) because it
 might, in the worst case, keep a memory of every state ever
@@ -196,7 +162,7 @@ BFS, IDA\* can reach "deep" solutions faster than A\* but also find just
 as optimal solutions since it uses the same estimator function $f(s)$
 as A\*.
 
-## Comparisons
+## Theoretical comparison
 
 Refer to the [search notes](/notes/search.html) (at the bottom) for an
 explanation of the variables $n$ (total possible states), $b$ (branch
@@ -215,16 +181,16 @@ time complexity. But, we can give A\* a good heuristic function and its
 time complexity will decrease, while BFS will stay the same. Also, we
 know that A\* is optimally efficient for some heuristic function; that
 is to say, no other algorithm can use the same heuristic function to
-find the goal faster. A\* makes the best use of a heuristic function.
+find the goal faster. A\* makes the best use of a heuristic function by adding the value of the heuristic to the actual path cost.
 
 ## Experiments
 
 Now we'll look at the results of experiments with the 8-puzzle
-problem. The breadth-first search (BFS) results are the 0
+problem. The breadth-first search (BFS) results are the $y=0$
 line. Results from other searches are shown as how far they differ
-from BFS. So, if a search is higher than the 0 line in these results,
+from BFS. So, if a search is higher than the $y=0$ line in these results
 it performs worse (in all graphs, higher is worse); if it is under the
-0 line, it performs better than BFS.
+$y=0$ line, it performs better than BFS.
 
 The x-axis in the graphs shows the complexity of the 8-puzzle
 problem. Starting with a solved 8-puzzle, we perform some number of
@@ -232,11 +198,11 @@ random moves. The optimal solution to the puzzle is at most that many
 moves (the moves we made may "cancel each other out" in some cases, so
 the optimal solution back to the starting state may involve fewer
 moves). Since random search performs so badly, we do not show its
-performance characteristics in the graphs after 10 moves.
+performance characteristics in some of the graphs after 4 moves.
 
 ### Number of checked states (time)
 
-![States checked](/images/search-checked.png)
+![States checked](/images/8puzzle-search-checked.png)
 
 We use "number of checked states" as a proxy for computational
 time. Random is obviously quite bad. Interesting, IDDFS is also bad;
@@ -249,21 +215,14 @@ efficient."
 
 ### Maximum number of states in memory
 
-![States in memory](/images/search-memory.png)
+![States in memory](/images/8puzzle-search-memory.png)
 
 "Memory" is measured as the maximum size ever encountered of the
-~openset~. Beam search keeps the `openset` the smallest,
-overall, because it always deletes the list and creates a new list
-with only the next accessible states.
-
-BFS uses a lot of memory because it keeps knowledge of all accessible
-states from every state higher up in the "search tree." Other
-algorithms generally prefer keeping knowledge of states accessible
-from only the best states.
+`openset`. BFS uses a lot of memory because it adds all possible transitions from a level of the search tree before proceeding to the next level and visiting those new states.
 
 ### Length of path (goodness of solutions)
 
-![Search path](/images/search-path.png)
+![Search path](/images/8puzzle-search-path.png)
 
 We learned that A\* is optimal (with respect to the path cost of the
 solution). Breadth-first search is also optimal since we have a graph
@@ -281,43 +240,6 @@ possibly because it is more likely it will look at a shallow node
 (there are up to four from each state) than a deep node.
 
 ## More experiments
-
-### 8-puzzle
-
-All numbers are compared to breadth-first search, the control
-case. The numbers reflect averages across 20 runs.
-   
-| Search type   | Resulting path length | Largest closedset | Largest openset |
-|---------------+-----------------------+-------------------+-----------------|
-| A*            |                   0.0 |             -24.7 |           -15.6 |
-| Beam |                  +4.9 |             -13.6 |           -18.1 |
-| Best-first    |                  +1.5 |             -10.8 |            -6.3 |
-
-### Discussion
-
-A* finds an equally-good path as breadth-first (because both
-breadth-first and A* are optimal with unweighted graphs). However, A*
-checks fewer states ("largest closedset" is smaller).
-
-DFS was not tested here because it checks far too many states; the
-simulations would have taken hours.
-
-### Goodale routing
-
-All numbers are compared to breadth-first search, the control
-case. The numbers reflect averages across 20 runs.
-
-| Search type   | Resulting path length | Largest closedset | Largest openset |
-|---------------+-----------------------+-------------------+-----------------|
-| A\*            |                  -1.9 |              -4.5 |            -1.1 |
-| Beam |                 +17.4 |              -1.0 |            -1.9 |
-| Best-first    |                  -1.9 |              +0.7 |            +0.1 |
-| Depth-first   |                  +8.6 |              +1.6 |            +0.7 |
-
-### Discussion
-
-A\* again finds the best paths; but so does best-first (in this
-experiment; sometimes best-first does worse).
 
 ### Maze path-finding
 

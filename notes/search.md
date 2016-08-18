@@ -5,6 +5,10 @@ layout: note
 
 # Search
 
+We can think of AI as having two major approaches: search and pattern recognition. The latter is often called "machine learning." This course is divided into two major parts. The first part focuses on variations of search, while the latter focuses on machine learning.
+
+For much of the history of AI, search was the only effective approach. In fact, it seemed essential to intelligence:
+
 > Problem-solving searches require trial and error in that they
 > generally do not go directly to the solution without traversing and
 > retracing some blind alleys&#x2014;sometimes many, sometimes few. When a
@@ -84,26 +88,21 @@ possibly intelligent.
 A problem may be solvable by a search technique if the problem has
 each of the following features:
 
--   **Initial state:** some description of the agent's starting situation
+- **Initial state:** some description of the agent's starting situation
 
--   **Possible actions:** the set of actions (such as chess moves)
-    available to the agent, also called "applicable" actions; the
-    possible actions depend on the state
+- **Possible transitions:** the set of actions (such as chess moves) available
+  to the agent given the agent's current state, also called "applicable"
+actions; the possible transitions depend on the state; in this class, we'll also
+attach the state that results from that action in `(action,
+resulting-state)` pairs
 
--   **Transition model:** some way of figuring out what an action *does*;
-    in other words, a `resultOf(state, action)` function which
-    returns a state; the transition model defines a state space,
-    which takes the form of a directed graph (vertices are states,
-    edges are actions)
+- **Goal criteria:** some way of finding out if the agent has reached its
+  search goal; the function `is_goal(state)` is a boolean function
 
--   **Goal criteria:** some way of finding out if the agent has reached
-    its search goal; the function `goal?(state)` is a
-    boolean function (i.e., a predicate)
-
--   **Path cost:** a function that calculates the cost of a path (a
-    sequence of actions); for example, a driving agent may
-    calculate a path cost by adding the number of driving
-    minutes between each city in its route
+- **Action cost:** a function that calculates the cost of a particular action
+  from a particular state; for example, a driving agent may calculate an action
+cost traveling East on I-4 from Orlando for 40 miles to the next waypoint (next
+state) be 80 minutes
 
 Of course, each of these components assumes a liberal abstraction away
 from most of the details that the agent will be facing in reality. For
