@@ -49,15 +49,17 @@ Your task is to modify some Python code to perform different kinds of pathfindin
 - A\* search
 - Best-first search
 - Beam search
-- Beam search with "human" heuristics
+- "Human" search
 
 Breadth-first search is shown in the examples below, but it is too slow and produces path that look nothing like organic paths. It has been disabled in the code.
 
 Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" and "heuristic" functions of the generic search algorithm.
 
-On londo, you'll find the files `search.py` and `paths.py` in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual). You will modify `paths.py` only. Refer to the file for details.
+On londo, you'll find the files `search.py` and `paths.py` in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual, i.e., `csci431-A01`). You will modify `paths.py` only. Refer to the file for details.
 
-When you run `paths.py` on londo, using command `python paths.py`, it will produce images like the ones below. These images show the various paths forged across many iterations. The starting and ending points are indicated by blue (starting) and green (ending) pixels. Red pixels are impassible terrain (e.g., trees). The grayscale colors represent action cost, i.e., ease of walking on that pixel: darker is easier, so black represents pavement (more or less) and white represents weeds. As simulated people follow their own paths, each pixel they follow gets slightly darker since they are wearing down the path.
+When you run `paths.py` on londo, using command `python paths.py`, it will produce images like the ones below. When you have the strategies implemented correctly, the runtime should be about three minutes.
+
+The images below show the various paths forged across many iterations. The starting and ending points are indicated by blue (starting) and green (ending) pixels. Red pixels are impassible terrain (e.g., trees). The grayscale colors represent action cost, i.e., ease of walking on that pixel: darker is easier, so black represents pavement (more or less) and white represents weeds. As simulated people follow their own paths, each pixel they follow gets slightly darker since they are wearing down the path.
 
 ## Examples
 
@@ -65,7 +67,7 @@ When you run `paths.py` on londo, using command `python paths.py`, it will produ
 
 Consider this map, representing the garden with surrounding sidewalk documented by Humpert. Recall that blue pixels represent possible starting points (randomly chosen on each iteration) and green represent possible ending points. Each map is actually 50x50 pixels, but shown here enlarged.
 
-The starting map and each result after 500 simulated people are shown in the table. The search algorithm is indicated below each image. Notice that beam and beam with human heuristics perform most human-like. Although it's difficult to see, best-first search never follows the round sidewalk.
+The starting map and each result after 500 simulated people are shown in the table. The search algorithm is indicated below each image. Notice that "human" strategy perform most human-like. Although it's difficult to see, best-first search never follows the round sidewalk.
 
 <table width="100%">
 <tr>
@@ -76,7 +78,7 @@ The starting map and each result after 500 simulated people are shown in the tab
 <tr>
 <td><img src="/images/road-config-garden-astar.png" /><br/>A* search</td>
 <td><img src="/images/road-config-garden-beam.png" /><br/>Beam search</td>
-<td><img src="/images/road-config-garden-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+<td><img src="/images/road-config-garden-human.png" /><br/>"Human" search</td>
 </tr>
 </table>
 
@@ -93,11 +95,11 @@ In this example, also following Humpert's observations, we have a tree in the mi
 <tr>
 <td><img src="/images/road-config-tree-astar.png" /><br/>A* search</td>
 <td><img src="/images/road-config-tree-beam.png" /><br/>Beam search</td>
-<td><img src="/images/road-config-tree-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+<td><img src="/images/road-config-tree-human.png" /><br/>"Human" search</td>
 </tr>
 </table>
 
-Notice that only the "beam human" search correctly walks around the tree. Both beam and beam-human began to form a path on the other side of the tree.
+Notice that only the "human" search correctly walks around the tree.
 
 ### Tree with sidewalks
 
@@ -105,7 +107,7 @@ Consider the "desire path" formed below (image borrowed from the [Flickr group](
 
 ![Desire path with tree and sidewalks](/images/organic-pathfinding-tree-sidewalks.jpg)
 
-Notice how only the beam-human algorithm correctly simulates human behavior.
+Notice how only the "human" algorithm correctly simulates human behavior.
 
 <table width="100%">
 <tr>
@@ -116,13 +118,13 @@ Notice how only the beam-human algorithm correctly simulates human behavior.
 <tr>
 <td><img src="/images/road-config-tree-sidewalks-astar.png" /><br/>A* search</td>
 <td><img src="/images/road-config-tree-sidewalks-beam.png" /><br/>Beam search</td>
-<td><img src="/images/road-config-tree-sidewalks-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+<td><img src="/images/road-config-tree-sidewalks-human.png" /><br/>"Human" search</td>
 </tr>
 </table>
 
 ### Aldrich Park
 
-Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich Park seems to consist of paved organice paths. The map below tries to recreate the initial design of the park with the circular sidewalk. We see that some curvy paths are formed across the park with beam and beam-human searches.
+Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich Park seems to consist of paved organice paths. The map below tries to recreate the initial design of the park with the circular sidewalk. We see that some curvy paths are formed across the park with beam and "human" searches.
 
 
 <table width="100%">
@@ -134,12 +136,22 @@ Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich
 <tr>
 <td><img src="/images/road-config-aldrich-park-astar.png" /><br/>A* search</td>
 <td><img src="/images/road-config-aldrich-park-beam.png" /><br/>Beam search</td>
-<td><img src="/images/road-config-aldrich-park-beam_human.png" /><br/>Beam search with "human" heuristics</td>
+<td><img src="/images/road-config-aldrich-park-human.png" /><br/>"Human" search</td>
 </tr>
 </table>
 
 ## Deliverables
 
-Add files `search.py` and `paths.py` to your git repository. You only need to modify `paths.py`. See the file for instructions about what to modify.
+Copy all files from `/home/jeckroth/csci431/assignments/A01` to your own directory. You only need to modify `paths.py`. See the file for instructions about what to modify. Be sure at least `paths.py` is committed in your git repository.
 
+## Grading rubric
+
+Out of 5 points:
+
+- 5 pts: Your modifications produce images very similar to the ones shown above (note, you do not need to reproduce breadth-first search). You do not need to exactly match the images, but "qualitatively" do so, e.g., your "human" strategy should curve around the tree in one case and cut through the garden in another case.
+- 4 pts: Your modifications produce the above images except the "human" search. In this case, you should be able to nearly exactly produce the above images.
+- 3 pts: Your modifications produce 2 of the 4 images (among best-first, A\*, beam, and "human").
+- 2 pts: Your modifications produce 1 of the above images (among best-first, A\*, beam, and "human").
+- 1 pts: Regardless of the quality of your improvements, the code does not run to completion.
+- 0 pts: No submission.
 
