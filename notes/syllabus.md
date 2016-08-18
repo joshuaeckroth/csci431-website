@@ -19,6 +19,10 @@ CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
 
 There is no textbook for this class.
 
+## Python requirement
+
+Several assignments require that you understand and write Python code, including the first assignment. You will need to learn Python on your own, though we will spend a small amount of time reviewing the language in class. In all assignments involving Python, you will start with existing code that must be modified or extended. For quickly learning the essentials, I suggest the website [Learn X in Y Minutes, where X=Python](https://learnxinyminutes.com/docs/python/).
+
 ## Grading
 
 - Attendance on work days (usually Fridays): 5%
@@ -46,7 +50,9 @@ The grading rubric for attendance is as follows, out of 3 points:
 
 ### Homework
 
-Grading rubric forthcoming.
+Homework will be submitted via Bitbucket. Create an account on Bitbucket and, for every assignment, create a new repository and add me (username 'joshuaeckroth') as a reader. Always name the repository `csci431-A01` or similar.
+
+See the individual assignments for the grading rubric. Homeworks are always out of 5 points.
 
 ## Honor code
 
