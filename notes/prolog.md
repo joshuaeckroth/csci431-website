@@ -658,10 +658,11 @@ Avg = 207750.
 
 ## Prolog by other names
 
+- [LogicJS](https://github.com/mcsoto/LogicJS) for JavaScript
 - [Python Pyke](http://pyke.sourceforge.net/)
 - [core.logic](https://github.com/clojure/core.logic) for Clojure
 - [Racklog](http://docs.racket-lang.org/racklog/), logic programming for Racket (Scheme)
-- [C# Prolog](http://sourceforge.net/projects/cs-prolog/) --- use Prolog inside your C# programs
+- [C# Prolog](http://sourceforge.net/projects/cs-prolog/), use Prolog inside your C# programs
 - Translate your Prolog code to Java with [PrologCafe](http://kaminari.istc.kobe-u.ac.jp/PrologCafe/)
 
 

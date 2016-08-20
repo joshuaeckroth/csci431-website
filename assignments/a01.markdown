@@ -51,23 +51,23 @@ Your task is to modify some Python code to perform different kinds of pathfindin
 - Beam search
 - "Human" search
 
-Breadth-first search is shown in the examples below, but it is too slow and produces path that look nothing like organic paths. It has been disabled in the code.
+Breadth-first search is shown in the examples below, but it is too slow and produces paths that look nothing like organic paths. It has been disabled in the code.
 
-Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" and "heuristic" functions of the generic search algorithm.
+Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" $g(s)$ and "heuristic" $h(s)$ functions of the generic search algorithm.
 
-On londo, you'll find the files `search.py` and `paths.py` in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual, i.e., `csci431-A01`). You will modify `paths.py` only. Refer to the file for details.
+On londo, you'll find the files `search.py`, `paths.py`, and some images in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual, i.e., `csci431-A01`). You will modify `paths.py` only. Refer to the file for details.
 
 When you run `paths.py` on londo, using command `python paths.py`, it will produce images like the ones below. When you have the strategies implemented correctly, the runtime should be about three minutes.
 
-The images below show the various paths forged across many iterations. The starting and ending points are indicated by blue (starting) and green (ending) pixels. Red pixels are impassible terrain (e.g., trees). The grayscale colors represent action cost, i.e., ease of walking on that pixel: darker is easier, so black represents pavement (more or less) and white represents weeds. As simulated people follow their own paths, each pixel they follow gets slightly darker since they are wearing down the path.
+The images below show the various paths forged across many iterations. The starting and ending points are indicated by blue (starting) and green (ending) pixels. Red pixels are impassible terrain (e.g., trees). The grayscale colors represent action cost, i.e., ease of walking on that pixel: darker is easier, so black represents pavement (more or less) and white represents bushes. As simulated people follow their own paths, each pixel they follow gets slightly darker since they are wearing down the path.
 
 ## Examples
 
 ### Garden
 
-Consider this map, representing the garden with surrounding sidewalk documented by Humpert. Recall that blue pixels represent possible starting points (randomly chosen on each iteration) and green represent possible ending points. Each map is actually 50x50 pixels, but shown here enlarged.
+Consider this map, representing the garden with surrounding sidewalk documented by Humpert. Recall that blue pixels represent possible starting points (a starting point is randomly chosen on each iteration) and green represent possible ending points. Each map is actually 50x50 pixels, but shown here enlarged.
 
-The starting map and each result after 500 simulated people are shown in the table. The search algorithm is indicated below each image. Notice that "human" strategy perform most human-like. Although it's difficult to see, best-first search never follows the round sidewalk.
+The starting map and each final map after 500 simulated people are shown in the table. The search algorithm is indicated below each image. Notice that the beam and "human" strategies perform most human-like in the garden example. Although it's difficult to see, best-first search never follows the round sidewalk (which is not human-like).
 
 <table width="100%">
 <tr>
@@ -124,7 +124,7 @@ Notice how only the "human" algorithm correctly simulates human behavior.
 
 ### Aldrich Park
 
-Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich Park seems to consist of paved organice paths. The map below tries to recreate the initial design of the park with the circular sidewalk. We see that some curvy paths are formed across the park with beam and "human" searches.
+Finally, consider Larry Wall's story about UC Irvine. I pointed out that Aldrich Park seems to consist of paved organic paths. The map below tries to recreate the initial design of the park with the circular sidewalk. We see that some curvy paths are formed across the park with beam and "human" searches.
 
 
 <table width="100%">

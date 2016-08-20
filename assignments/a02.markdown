@@ -240,6 +240,10 @@ $ cat sas_plan
 ; cost = 3 (unit cost)
 ~~~
 
+## Grading rubric
+
+Out of 5 points:
+
 {% comment %}
 ### Example N
 
@@ -257,4 +261,5 @@ git reset --hard
 ## Testing script
 
 {% endcomment %}
+
 

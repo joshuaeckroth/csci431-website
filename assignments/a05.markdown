@@ -41,5 +41,7 @@ Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sci
 
 You will only submit the "drl" Drools rules file.
 
+## Grading rubric
 
+Out of 5 points:
 

@@ -37,3 +37,6 @@ I implemented a fitness function based on distance (close friends increases fitn
 
 Modify `weddingseats.py` and submit that single file.
 
+## Grading rubric
+
+Out of 5 points:

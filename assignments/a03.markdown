@@ -39,7 +39,7 @@ A summary of the benefit of alpha-beta pruning is shown the plot below. We see t
 
 ## Task
 
-Your task is to improve the provided Connect Four AI implementation, which uses minimax plus alpha-beta pruning, so that the AI is even more efficient. Your improvements must reduce the number of states examined.
+Your task is to improve the provided Connect Four AI implementation, which uses minimax plus alpha-beta pruning, so that the AI is even more efficient and wins more games. Your improvements must reduce the number of states examined and win more than 50% of the games against the default minimax alpha-beta AI that's already implemented.
 
 - Examine the code in `connect-four.py`. You'll find three functions that effectively do nothing (each marked with TODO):
   - `possible_transitions_improved`
@@ -47,11 +47,26 @@ Your task is to improve the provided Connect Four AI implementation, which uses 
   - `estimate_utility_improved`
 - Write new definitions for those three functions that produce a more efficient search.
 
-Test your improvements by running the `test-connect-four.sh` script. That script will run `connect-four.py` and save the output to a CSV file; it will then produce a statistical summary of the results plus a plot.
+Test your improvements by running the `test-connect-four.sh` script. That script will run `connect-four.py` and save the output to a CSV file; it will then produce a statistical summary of the results plus a plot. This script takes about one minute to run. Here is an example of its output:
+
+~~~
+
+~~~
 
 ## Deliverables
 
 Turn in the improved `connect-four.py` script.
+
+## Grading rubric
+
+Out of 5 points:
+
+- 5 pts: Your improved functions result in fewer states checked (more efficient) *and* produce wins more than 50% of the time.
+- 4 pts: Your improved functions result produce wins more than 50% of the time, even though they are not more efficient.
+- 3 pts: Your improved functions result in fewer states checked (more efficient), but fail to produce wins.
+- 2 pts: Your improved functions are neither more efficient nor produce more wins, but you have correctly implemented some some good ideas in the improved functions (this is a judgment call).
+- 1 pt: Regardless of the quality of your improvements, the code does not run to completion.
+- 0 pts: No submission.
 
 ## Advice
 

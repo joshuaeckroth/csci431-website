@@ -6,29 +6,39 @@ layout: note
 # Planning
 
 Planning is another search problem, but it is slightly different than
-8-puzzle, chess, etc. In a planning problem, we typically do not
-completely describe a state. Rather, we give just partial
+8-puzzle, path-finding, etc. We use planning rather than simple search when the domain is very large and there are simply too many states to search with one of the search strategies we've learned previously.
+
+Instead, a planner searches across partial state descriptions. We describe planning problems in a new language, PDDL, rather than an explicit function of possible transitions.
+
+## Motivation
+
+In a planning problem, we typically do not completely describe a state. Rather, we give just partial
 descriptions, like `on(monkey, floor), at(monkey, 5, 2)`. There might
-be lots of other things in the room besides the monkey, but we don't
-want to describe all those other facts. Breadth-first search,
+be lots of other things in the room besides the monkey, even things relevant to our planning problem, but we don't
+want to describe all those other facts for every possible state transition. Breadth-first search,
 depth-first search, A\*, etc. would have trouble with these kinds of
 states because they are incomplete.
 
-But we can handle these states by treating it as a planning
+But we can handle these incomplete states by treating them as a planning
 problem. The way the planning algorithm works, and the way we describe
 planning problems, is slightly different because we want to know how
 different actions add or remove facts from the state; the action does
 not describe all the facts of the state that will result.
 
-Here is an example (from your book) to illustrate the problem
-BFS/DFS/A\* would face. Suppose we have 10 airports, 50 planes, and 200
-pieces of cargo. All the cargo is at SFO and needs to be at
-JFK. Planes are assumed to have infinite capacity. There are three
-actions: load cargo, unload cargo, and fly the plane from one airport
-to another. Suppose each of the 50 planes can fly to 9 other
-airports, and that each of the 200 packages can be loaded on any
-plane. Then we have 9\*50\*50\*200 possible actions at the start; that's
-4.5 million possible actions.
+Here is an example to illustrate the problem BFS/DFS/A\* would face. Suppose we
+have 10 airports, 50 planes, and 200 pieces of cargo. All the cargo is at SFO
+and needs to be at JFK. Planes are assumed to have infinite capacity. There are
+three actions: load cargo, unload cargo, and fly the plane from one airport to
+another. Suppose each of the 50 planes can fly to 9 other airports, and that
+each of the 200 packages can be loaded on any plane. Then we have
+9\*50\*50\*200 possible actions at the start; that's 4.5 million possible
+actions, just for the first move.
+
+## Types of planning problems
+
+- Classical: 
+- Partially-observable:
+- Probabilistic:
 
 ## Definition of a classical planning problem
 
@@ -50,7 +60,7 @@ plane. Then we have 9\*50\*50\*200 possible actions at the start; that's
     negative literals are allowed. E.g., `on(monkey, box),
                     not(on(bananas, box))`.
 
-## Typical assumptions
+### Typical assumptions
 
 -   Atomic time: Each action is indivisible
 
@@ -69,6 +79,18 @@ plane. Then we have 9\*50\*50\*200 possible actions at the start; that's
     included in the state description. Anything not listed is false.
 
 (From: <http://people.cs.pitt.edu/~litman/courses/cs2710/lectures/ch10RNa.pdf>)
+
+### Limitations of classical planning
+
+Classical planning considers what to do in what order, but
+not any of the following:
+
+- When actions happen and how long they take.
+- Limited resources that actions may need.
+- Semi-observable environments.
+- Dynamic environments.
+- Uncertain environments.
+- Stochastic (partially random) environments.
 
 ## Generic planning algorithm
 
@@ -125,7 +147,7 @@ cancel out some part of our goal.)
       # or we are already at the goal, so return no-plan
       return no-plan
 
-## The frame problem
+## A philosophical issue: The frame problem
 
 Our actions indicate what effects the actions have, e.g., the "climb"
 action in which the monkey climbs on the box results in the monkey
@@ -166,19 +188,3 @@ problem, but in the real world it matters a lot.
 > represented so that it can be efficaciously brought to bear?
 > &#x2014; ["Cognitive Wheels: The frame problem of AI," Daniel C. Dennett](http://web.fc.uaem.mx:8080/~bruno/material/dennet_93_cognitiveWheels.pdf)
 
-## Limitations of classical planning
-
-Classical planning considers what to do in what order, but
-not&#x2026;
-
--   When actions happen and how long they take.
--   Limited resources that actions may need.
--   Semi-observable environments.
--   Dynamic environments.
--   Uncertain environments.
--   Stochastic (partially random) environments.
-
-## Solving a planning problem
-
-1. Identify *predicates* that help describe *partial states*.
-2. Identify *actions* that have preconditions (predicates) and postconditions (predicates)
