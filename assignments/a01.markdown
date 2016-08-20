@@ -13,7 +13,7 @@ Humans and other animals engage in pathfinding every day. However, we do not nec
 
 ## Background
 
-Organic paths have been documented extensively, often by architects. For example, consider the following two photos, published in Klaus Humpert's [*Lauf-Spuren*](http://www.edition-et.de/images/laufspuren.pdf) ("running tracks") from 2007:
+Organic paths have been documented extensively, often by architects. For example, consider the following set of photos, published in Klaus Humpert's [*Lauf-Spuren*](http://www.edition-et.de/images/laufspuren.pdf) ("running tracks") from 2007:
 
 ![Organic pathfinding](/images/organic-pathfinding-2.png)
 
@@ -53,7 +53,7 @@ Your task is to modify some Python code to perform different kinds of pathfindin
 
 Breadth-first search is shown in the examples below, but it is too slow and produces paths that look nothing like organic paths. It has been disabled in the code.
 
-Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" $g(s)$ and "heuristic" $h(s)$ functions of the generic search algorithm.
+Recall from our [uninformed search](/notes/uninformed-search.html) and [informed search](/notes/informed-search.html) notes that we can reproduce many variations of search algorithms by just modifying the "action cost" $g(s)$ and "heuristic" $h(s)$ functions of the generic search algorithm. "Human" search can be programmed by figuring out the right variations of $g(s)$ and $h(s)$.
 
 On londo, you'll find the files `search.py`, `paths.py`, and some images in the `/home/jeckroth/csci431/assignments/A01` directory. Copy these files to your own directory (and create a git repository as usual, i.e., `csci431-A01`). You will modify `paths.py` only. Refer to the file for details.
 
