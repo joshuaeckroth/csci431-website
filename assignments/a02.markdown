@@ -451,9 +451,9 @@ $ cat sas_plan
 Out of 5 points:
 
 - 5 pts: All example problems produce a correct plan.
-- 4 pts: 4/5 example problems produce a correct plan.
-- 3 pts: 3/5 example problems produce a correct plan.
-- 2 pts: 2/5 example problems produce a correct plan.
+- 4 pts: 4 of 5 example problems produce a correct plan.
+- 3 pts: 3 of 5 example problems produce a correct plan.
+- 2 pts: 2 of 5 example problems produce a correct plan.
 - 1 pt: A `domain.pddl` file was submitted but it has syntax or logic errors and is unable to produce any plans.
 - 0 pts: No submission.
 
