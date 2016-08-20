@@ -7,6 +7,10 @@ layout: note
 
 CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
 
+MWF 3:30-4:20p Eliz 210; pre-reqs: CSCI 221
+
+This course covers a wide array of topics related to contemporary artificial intelligence and machine learning techniques and tools. Our focus will be on practical techniques that can be immediately applied outside of the classroom. By the end of the course, you should be able to apply an appropriate AI technique in a novel situation.
+
 ## About me
 
 - Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
@@ -53,6 +57,26 @@ The grading rubric for attendance is as follows, out of 3 points:
 Homework will be submitted via Bitbucket. Create an account on Bitbucket and, for every assignment, create a new repository and add me (username 'joshuaeckroth') as a reader. Always name the repository `csci431-A01` or similar.
 
 See the individual assignments for the grading rubric. Homeworks are always out of 5 points.
+
+## Calendar
+
+The list of assignments on the homepage are coordinated with the following order of topics:
+
+- Week 1: Search
+- Week 2: Planning
+- Week 3: Adversarial search
+- Week 4: Genetic algorithms
+- Week 5: Expert systems
+- Week 6: Prolog
+- Week 7: Abductive reasoning
+- Week 8: Midterm
+- Week 9: Clustering
+- Week 10: Classification
+- Week 11: Neural networks / deep learning
+- Week 12: Text processing and classification
+- Week 13: Robotics
+- Week 14: Robotics
+- Week 15: Final exam
 
 ## Honor code
 
