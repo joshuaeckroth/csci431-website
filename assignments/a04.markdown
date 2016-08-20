@@ -40,3 +40,12 @@ Modify `weddingseats.py` and submit that single file.
 ## Grading rubric
 
 Out of 5 points:
+
+- 5 pts: Reasonable crossover, mutation, and fitness functions are coded so that solutions are found. "Reasonable" here is a judgment call. Note, a random crossover function is considered unreasonable.
+- 4 pts: Unreasonable (e.g., random or otherwise poorly-performing) crossover, mutation, and fitness functions are coded so that (poor) solutions are found. "Unreasonable" here is a judgment call.
+- 3 pts: Reasonable crossover and fitness functions are defined but no mutation function is defined; yet still solutions are found.
+- 2 pts: An unreasonble crossover and/or unreasonable fitness function is defined but no mutation function is defined; yet still (poor) solutions are found.
+- 1 pt: Incomplete/non-functional crossover function, or otherwise broken/non-functional code is submitted.
+- 0 pts: No submission.
+
+
