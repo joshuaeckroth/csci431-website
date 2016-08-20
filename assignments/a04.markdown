@@ -35,7 +35,7 @@ I implemented a fitness function based on distance (close friends increases fitn
 
 ## Deliverables
 
-Modify `weddingseats.py` and submit that single file.
+Modify `weddingseats.py` available on londo at `/home/jeckroth/csci431/assignments/A04` and submit that single file.
 
 ## Grading rubric
 
