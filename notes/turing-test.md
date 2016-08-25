@@ -287,6 +287,8 @@ into deep conversation.
 
 ## The Turing test in culture
 
+Annie Dorsen's [*Hello Hi There*](http://www.anniedorsen.com/showproject.php?id=6) project pairs two chatbots against each other, each trained on text from [Chomsky and Foucault's famous debate](https://www.youtube.com/watch?v=3wfNl2L0Gf8) and the YouTube comments on that video. Each performance is randomize and unique.
+
 <div style="text-align: center">
 <iframe width="640" height="360"
 src="http://www.youtube.com/embed/3PiwEQQNnBk?rel=0" frameborder="0"
@@ -295,11 +297,15 @@ allowfullscreen></iframe>
 
 <br/>
 
+[Cleverbot](http://www.cleverbot.com/) is one of the better chatbots. A short film was created based on a transcript with Cleverbot.
+
 <div style="text-align: center">
 <iframe width="640" height="360" src="http://www.youtube.com/embed/QkNA7sy5M5s?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <br/>
+
+Consider this test from *Do Androids Dream of Electric Sheep*, which was adapted into the film *Blade Runner*:
 
 > Seated where he could catch the readings on the two gauges of the Voigt-Kampff testing
 apparatus, Rick Deckard said, "I'm going to outline a number of social situations. You are to
@@ -343,7 +349,7 @@ and momentary tremor. He noted that and hunted cautiously for the next question.
 <iframe width="474" height="54" frameborder="0" src="http://www.radiolab.org/widgets/ondemand_player/#file=http%3A%2F%2Fwww.radiolab.org%2Faudio%2Fxspf%2F137407%2F;containerClass=radiolab"></iframe>
 <br/>
 1 hour / <a href="http://www.podtrac.com/pts/redirect.mp3/audio.wnyc.org/radiolab/radiolab053111.mp3">Download</a> / <a href="http://www.radiolab.org/2011/may/31/">Radiolab website for this episode</a> / Image: <a href="http://www.flickr.com/photos/paulmoody/314897848/">Paul Moody</a>
-</br>
+<br/>
 </div>
 
 ### The Turing Problem (Radiolab, March 19, 2012)

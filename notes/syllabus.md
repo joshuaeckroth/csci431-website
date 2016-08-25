@@ -60,8 +60,6 @@ See the individual assignments for the grading rubric. Homeworks are always out 
 
 ## Calendar
 
-The list of assignments on the homepage are coordinated with the following order of topics:
-
 - Week 1: Search
 - Week 2: Planning
 - Week 3: Adversarial search
@@ -77,6 +75,18 @@ The list of assignments on the homepage are coordinated with the following order
 - Week 13: Robotics
 - Week 14: Robotics
 - Week 15: Final exam
+
+Homework due dates:
+
+<ul>
+{% for p in site.pages sort_by:title order:ascending %}
+{% if p.categories contains 'assignments' %}
+<li>
+<a href="{{ p.url }}">{{ p.title }}</a>, due {{ p.due }}
+</li>
+{% endif %}
+{% endfor %}
+</ul>
 
 ## Honor code
 
