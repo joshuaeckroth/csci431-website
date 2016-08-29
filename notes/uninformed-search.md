@@ -174,15 +174,21 @@ is very "deep," such as in mazes.
 
 Refer to the [search notes](/notes/search.html) (at the bottom) for an
 explanation of the variables $n$ (total possible states), $b$
-(branch factor), $d$ (search depth of least-cost solution), and
-$m$ (maximum search depth, which may be $\infty$).
+(branch factor), and $d$ (search depth of least-cost solution).
 
 
 | Metric | Random | Breadth-first | Depth-first | IDDFS |
 |--------+---------------+---------------------+-------------------|
-| Complete? | Yes        | Yes  | Yes | Yes |
-| Always optimal? (uninformed search) | No | Yes       | No   | Yes |
-| Time complexity | $O(n)$ | $O(b^d)$ | $O(b^d)$ | $O(b^d)$ |
-| Space complexity | $O(n)$ | $O(b^d)$ | $O(m)$ if $m$ finite,<br/> $O(n)$ otherwise | $O(bd)$ |
+| Complete?<br/>(always finds the goal) | Yes        | Yes  | Yes | Yes |
+| Optimal?<br/>(always finds shortest path to goal,<br/>when action costs are all equal) | No | Yes       | No   | Yes |
+| Time complexity | $O(n)$ | $O(b^d)$ | $O(n)$ | $O(b^d)$ |
+| Space complexity | $O(n)$ | $O(b^d)$ | $O(n)$ | $O(b^d)$ |
+
+Some explanation:
+
+- Random: time complexity is $O(n)$ because might need to check up to all nodes to find the goal; space complexity is $O(n)$ because might need to store up to every node in the openset.
+- Breadth-first: time complexity is $O(b^d)$ because every node at every level is checked before finding the goal at depth $d$; space complexity is $O(b^d)$ because up to all nodes in the fringe up to level $d$ need to be stored in the openset.
+- Depth-first: time complexity is $O(n)$ because might need to check up to every node (like in 8-puzzle if the it starts searching states further and further from the goal); space complexity is $O(n)$ for the same reason; if there is a search depth limit of $m$, then space complexity would be $O(bm)$.
+- IDDFS: space and time complexity are, worst case, the same as breadth-first search because with a given depth limit $m$, if IDDFS doesn't find the goal, it eventually searches every node up to depth $m$.
 
 
