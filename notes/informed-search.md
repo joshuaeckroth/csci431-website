@@ -115,7 +115,7 @@ Let's modify best-first search to use the new cost function $f(s)
 If $g$ is the number of moves made so far (number of "hops" in
 the search tree) and $h$ is always equal to 0.0, then we have
 breadth-first search. Recall that breadth-first search is optimal for
-unweighted graphs (graphs were the edges always have weight 1.0).
+unweighted graphs (graphs where the edges always have weight 1.0).
 
 Actually, the A algorithm is optimal as well, even on weighted graphs,
 if we keep $h$ constantly equal to 0.0. This is because it acts like
