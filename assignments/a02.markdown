@@ -7,11 +7,11 @@ categories: [assignments]
 
 # A02: Git planner
 
-This assignment helps you practice with the [PDDL](/notes/pddl.html) language and automated planning systems in general. Your task is to write PDDL code to generate a series of git commands that update the files or repository from a given starting state to a given goal state.
+This assignment helps you practice with the [PDDL](/notes/pddl.html) language and automated planning systems in general. Your task is to write PDDL code to generate a series of git commands that update the files or repository from a given initial repository state to a given goal state.
 
 ## Background about git
 
-As you know, git is a tool that keeps track of the states of files
+As you know, git is a tool that keeps track of the contents of files
 over time, i.e., a version control system (VCS). All VCS's provide a
 variety of commands that let the user indicate which files should be
 committed, reverted, and so on. These commands and the way they
@@ -61,14 +61,15 @@ Recall that in a planning problem, an "action" transforms one state to another, 
 
 ## Task
 
-Write a `domain.pddl` file that solves the planning problems show below. All files are available on londo at `/home/jeckroth/csci431/assignment/A02`, except the missing `domain.pddl` file.
+Write a `domain.pddl` file that solves the planning problems shown below. All files are available on londo at `/home/jeckroth/csci431/assignment/A02`, except the missing `domain.pddl` file.
 
-You can test your PDDL code by running `fast-downward.py prob1.pddl --search "astar(blind())" where `prob1.pddl` is whichever problem file you want to test. Your `domain.pddl` file will be loaded automatically.
+You can test your PDDL code by running `fast-downward.py prob1.pddl --search "astar(blind())"` where `prob1.pddl` is whichever problem file you want to test. Your `domain.pddl` file will be loaded automatically. Feel free to try different search strategies and heuristics (see the [PDDL](/notes/pddl.html) notes).
 
 ## Deliverables
 
-You only need to define and submit the `domain.pddl` file. The various problem files that your domain needs to solve are listed below. All files are available on londo at `/home/jeckroth/csci431/assignment/A02`.
+You only need to define and submit the `domain.pddl` file. The various problem files that your domain needs to solve are listed below. All files are available on londo at `/home/jeckroth/csci431/assignment/A02`. Name your repository `csci431-A02`.
 
+{% comment %}
 ## Advice
 
 You can find out what the various actions listed above do to a git repository
@@ -130,14 +131,15 @@ You can see that a.txt is considered `added-to-index` while b.txt is considered 
 )
 ~~~
 
+{% endcomment %}
 
 ## Example problems
 
 Here are some examples that your domain file must be able to
 solve. The setup (with actual git commands) is just for illustration;
-do you not need to actually create an example repository and example
+you do not need to actually create an example repository and example
 files. The corresponding PDDL problem file and a generated plan, as found by
-`fast-downward.py`, are also given. All that is missing is your domain file, `domain.pddl`.
+Fast Downward, are also given. All that is missing is your domain file, `domain.pddl`.
 
 ### Example 1
 

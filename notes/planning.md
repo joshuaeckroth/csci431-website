@@ -6,7 +6,7 @@ layout: note
 # Planning
 
 Planning is another search problem, but it is slightly different than
-8-puzzle, path-finding, etc. We use planning rather than simple search when the domain is very large and there are simply too many states to search with one of the search strategies we've learned previously.
+8-puzzle, path-finding, etc. We use planning rather than simple search when the domain is very large and there are too many states to search with one of the search strategies we've learned previously.
 
 Instead, a planner searches across partial state descriptions. We describe planning problems in a new language, PDDL, rather than an explicit function of possible transitions.
 
@@ -22,7 +22,7 @@ states because they are incomplete.
 But we can handle these incomplete states by treating them as a planning
 problem. The way the planning algorithm works, and the way we describe
 planning problems, is slightly different because we want to know how
-different actions add or remove facts from the state; the action does
+different actions *add* or *remove* facts from the state; the action does
 not describe all the facts of the state that will result.
 
 Here is an example to illustrate the problem BFS/DFS/A\* would face. Suppose we
@@ -36,30 +36,35 @@ actions, just for the first move.
 
 ## Types of planning problems
 
-- Classical: 
-- Partially-observable:
-- Probabilistic:
+We will only focus on "classical" planning, although more sophisticated planning problems exist and remain active research.
+
+- Classical: each state is "atomic", like a single node in a graph; the outcome of every action is known; each action takes a single unit of time to complete.
+- Temporal: like classical except actions take variable time to complete, so multiple actions may be performed simultaneously; deadlines may be involved.
+- Partially-observable: states cannot be fully observed, instead there is a probability of a state having certain properties; effects of actions are not fully known.
 
 ## Definition of a classical planning problem
+
+Like the definition of a search problem, a classical planning problem is made up of an initial state, possible actions, and goal criteria. However, unlike the search problems we examined earlier, states in a planning problem are not fully described. Rather, conjunctions of "predicates" like `at(monkey, 5, 2)` or negated predicates like `not(at(monkey, 5, 2))` are used instead to describe a state. When a predicate involves no variables, it is called a "literal."
 
 -   **Initial state:** a conjunction of positive "literals" (no variables), e.g.,
     `on(monkey, floor), at(monkey, 5, 2), at(box, 3,
                        0), on(bananas, box)`
 
--   **Actions:** a set of possible actions to take. Each action has an
-    action name, **relevant variables**, **preconditions**, and
-    **effects**. Think of an action like a function with
-    arguments. The preconditions say under what conditions
-    the action is valid; they can refer to the arguments. The
-    effects say what the result of the action is; they can
-    also refer to the arguments, and can include positive and
-    negative effects, sometimes separated as "add" effects
-    and "delete" effects.
+-   **Actions:** a set of possible actions to take. Each action has an action
+    name, **relevant variables**, **preconditions**, and **effects**. Think of
+an action like a function with arguments. The preconditions say under what
+conditions the action is valid; they can refer to the arguments. The effects
+say what the result of the action is; they can also refer to the arguments, and
+can include positive and negative effects, sometimes separated as "add" effects
+and "delete" effects. For example, the `move` action might involve variables
+`thing`, `from`, and `to`, have precondition `at(thing, from)` and
+postcondition or effect `not(at(thing, from)), at(thing, to)`.
 
--   **Goal state:** another conjunction of literals. Both positive and
+-   **Goal criteria:** another conjunction of literals. Both positive and
     negative literals are allowed. E.g., `on(monkey, box),
                     not(on(bananas, box))`.
 
+{% comment %}
 ### Typical assumptions
 
 -   Atomic time: Each action is indivisible
@@ -187,4 +192,6 @@ problem, but in the real world it matters a lot.
 > not mere belief) about the changing world, how can this knowledge be
 > represented so that it can be efficaciously brought to bear?
 > &#x2014; ["Cognitive Wheels: The frame problem of AI," Daniel C. Dennett](http://web.fc.uaem.mx:8080/~bruno/material/dennet_93_cognitiveWheels.pdf)
+
+{% endcomment %}
 
