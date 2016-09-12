@@ -5,10 +5,9 @@ layout: note
 
 # Adversarial search
 
-- high
-- level
-- points
+The search techniques we have learned so far (A\*, best-first, planning, etc.) are not suitable for *games* in which there are at least two agents who act as adversaries. In adversarial situations, we must find a move that maximizes our chances of winning the game, assuming our adversary is playing optimally.
 
+{% comment %}
 > "It was a watershed event, but it doesn't have to do with computers
 becoming intelligent," said Douglas Hofstadter, a professor of
 computer science at Indiana University and author of several books
@@ -22,6 +21,7 @@ thinker, just that you can bypass deep thinking in playing chess, the
 way you can fly without flapping your wings." --- Bruce Weber,
 "[Mean Chess-Playing Computer Tears at Meaning of Thought](http://www.rci.rutgers.edu/~cfs/472_html/Intro/NYT_Intro/ChessMatch/MeanChessPlaying.html),"
 *The New York Times*, Feb 19, 1996
+{% endcomment %}
 
 ## Zero-sum games
 
@@ -40,12 +40,12 @@ mathematical subject that covers any situation involving several
 agents attempting to make decisions that maximize their own utility.
 
 We will not be studying game theory, as a whole, but we will learn how
-to "play" zero-sum games.
+to "play" zero-sum games. In fact, we will only focus on deterministic games with perfect information (both players see the full game state), as shown in the following table:
 
 | | Deterministic | Stochastic |
 |---|
-| <b>Perfect information</b> | Chess, Checkers, Connect Four,<br/>Go, Othello | Backgammon, Monopoly |
-| <b>Imperfect information</b> | | Bridge, Poker, Scrabble |
+| <b>Perfect information</b> | Chess, Checkers, Connect Four,<br/>Go, Othello, Tic-tac-toe | Backgammon, Monopoly |
+| <b>Imperfect information</b> | Battleship | Bridge, Poker, Scrabble |
 
 Table from [Leif Kusoffsky](https://www.nada.kth.se/kurser/kth/2D1350/progp02/lecture2.pdf).
 
@@ -53,19 +53,10 @@ Table from [Leif Kusoffsky](https://www.nada.kth.se/kurser/kth/2D1350/progp02/le
 
 The components of a search problem included the following:
 
-- **Initial state** -- some description of the agent's starting situation
+- **Initial state**
+- **Possible transitions**
 
-- **Possible actions** -- the set of actions (such as chess moves)
-     available to the agent, also called "applicable" actions; the
-     possible actions depend on the state
-
-- **Transition model** -- some way of figuring out what an action *does*;
-     in other words, a `resultOf(state, action)` function which
-     returns a state; the transition model defines a state space,
-     which takes the form of a directed graph (vertices are states,
-     edges are actions)
-
-Note that we have left out "Goal criteria" and "Path cost." In order
+Note that we have left out "Goal criteria" and "Action cost." In order
 to support adversarial search, we add the following:
 
 - **Players** -- a list of players (we'll look at 2-player games) and
@@ -75,12 +66,12 @@ to support adversarial search, we add the following:
 - **Terminal tests** -- a function or functions that test for final states
                     (winning/losing/tied states)
 
-- **Utility function** -- a function `utility(state, player)` that returns
-     a real number (or integer) representing the value to `player` of
-     `state`; presumably, winning states have the highest utility,
+- **Utility function** -- a function `utility(state)` that returns
+     a real number (or integer) representing the value of
+     `state` to the computer player; presumably, winning states have the highest utility,
      losing states the lowest utility, tied states have zero utility,
      and states that are not terminal have a utility calculated by
-     looking at the utilities of following states
+     looking at the utilities of deeper states
 
 ## I move, you move, etc.
 
@@ -129,21 +120,51 @@ best move, so when we choose our move, we want to find the move that
 performs best (max) assuming the opponent also performs best (min;
 i.e., max for the opponent, min for us).
 
+~~~ python
+def minimax(state, player, minimizing = False, depth = 0):
+
+  # keep track of best move
+  best_move = None
+  best_u = None
+
+  moves = possible_transitions(state, player):
+  for move, nextstate in moves.iteritems():
+    # if the state is a win/loss/tie, stop searching (base case of recursion)
+    if is_terminal(nextstate):
+      u = utility(nextstate)
+    else:
+      # after making move, find the best move the other player can make
+      player = switch_player(player)
+      minimizing = not minimizing # flip state
+      u = minimax(nextstate, player, minimizing, depth + 1)
+
+    # if we're minimizing, find the minimum utility; if maximizing, find the maximum utility
+    if best_u is None or (minimizing and u < best_u) or (not minimizing and u > best_u):
+      best_move = move
+      best_u = u
+
+  # recursive calls expect a utility to be returned; original call expects a move to be returned
+  if depth == 0:
+    return best_move
+  else:
+    return best_u
+~~~
+
 Here is an example search tree for tic-tac-toe. We basically have a
 depth-first search but also propogate information about utilities (max
 or min) upwards.
 
 
 <div style="text-align: center">
-<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 WIDTH="474" HEIGHT="550"
 CODEBASE="http://active.macromedia.com/flash5/cabs/swflash.cab#version=5,0,0,0">
 <PARAM NAME="MOVIE" VALUE="./flash/ttt-minimax-example.swf">
 <PARAM NAME="PLAY" VALUE="true">
 <PARAM NAME="QUALITY" VALUE="best">
 <PARAM NAME="LOOP" VALUE="true">
-<EMBED SRC="/flash/ttt-minimax-example.swf" WIDTH="474" HEIGHT="550" PLAY="true" LOOP="true" QUALITY="best" 
-PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"> 
+<EMBED SRC="/flash/ttt-minimax-example.swf" WIDTH="474" HEIGHT="550" PLAY="true" LOOP="true" QUALITY="best"
+PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
 </EMBED>
 </OBJECT>
 <br/>
@@ -162,56 +183,76 @@ equivalently, the "min" step), if we find that a certain move gives a
 maximum utility X (by searching its entire subtree), we can avoid any
 searches of subtrees whose minimum value is less than X.
 
-Look here, from `min_utility` (similar code is found in `max_utility`
-and `minimax` functions as well):
-
 ~~~ python
-min_u = None
-for nextstate in transitions.values():
-    # after making a move (current player is in the
-    # "player" variable), find the minimum next
-    # move and return its utility
-    u = max_utility(nextstate, switch_player(player))
-    if min_u is None or u < min_u:
-        min_u = u
-return min_u
+##### NOTICE updated function parameters:
+def minimax(state, player, minimizing = False, depth = 0, alpha = None, beta = None):
+
+  # keep track of best move
+  best_move = None
+  best_u = None
+
+  moves = possible_transitions(state, player):
+  for move, nextstate in moves.iteritems():
+    # if the state is a win/loss/tie, stop searching (base case of recursion)
+    if is_terminal(nextstate):
+      u = utility(nextstate)
+    else:
+      # after making move, find the best move the other player can make
+      player = switch_player(player)
+      minimizing = not minimizing # flip state
+
+      ##### PASS current values of alpha, beta to recursive call
+      u = minimax(nextstate, player, minimizing, depth + 1, alpha, beta)
+
+    # if we're minimizing, find the minimum utility; if maximizing, find the maximum utility
+    if best_u is None or (minimizing and u < best_u) or (not minimizing and u > best_u):
+      best_move = move
+      best_u = u
+
+  ##### NEW code for alpha-beta pruning
+
+  if minimizing:
+    # if the utility we just found is smaller than alpha, and
+    # these utilities can only get smaller (because we're in a
+    # min stage), then there is no reason to check further
+    if alpha is not None and u <= alpha:
+      break
+    # if the utility we just found (from the max stage) is
+    # smaller than beta, we found a new smallest max; this
+    # will restrict future searches not to look further if
+    # they are maximizing and they find a utility greater than
+    # beta
+    if beta is None or u < beta:
+      beta = u
+
+  else:
+    # if the utility we just found is greater than beta, and these
+    # utilities can only get bigger (because we're in a max
+    # stage), then there is no reason to check further
+    if beta is not None and u >= beta:
+      break
+    # if the utility we just found (from the min stage) is
+    # greater than alpha, we found a new greatest min; this
+    # will restrict future searches not to look further if
+    # they are minimizing and they find a utility less than
+    # alpha
+    if alpha is None or u > alpha:
+      alpha = u
+
+  ##### END of new code
+
+  # recursive calls expect a utility to be returned; original call expects a move to be returned
+  if depth == 0:
+    return best_move
+  else:
+    return best_u
 ~~~
 
-The variable `min_u` here will only get smaller. Recall that the
-utility that `min_utility` returns will be used by the `max_utility`
-function. So different calls to `min_utility` will be compared to pick
-out the maximum `min_utility` value. Suppose the `min_utilty` function
-was told (via a parameter) that some other call to `min_utility`
-produced a minimum utility of $\alpha$, and that so far, $\alpha$ is the
-greatest minimum utility found so far (the maximum of the
-minimums).
+Suppose `minimizing` is True. Then the variable `u` here will only get smaller as each move is checked. We can avoid searching all possible moves if `u` gets smaller than (or equal to) some threshold. We know that the utility returned from this function may be used by the minimax function that called us, and that parent function must be *maximizing*. Thus, our parent function will only use the largest utility from the various child functions it calls. The $\alpha$ parameter is given by the parent function to the child function to say, "one of my children has already returned a utility of $\alpha$, and I'm maximizing; so if you (child) find that you're going to return a utility smaller than $\alpha$, just stop searching right then and there." (If $\alpha$ is `None`, then we have no parent function, so none of this matters and alpha-beta pruning doesn't do anything.)
 
-Then if =min_u= ever goes smaller than $\alpha$, there is no reason to
-continue searching the other transitions (game moves), because `min_u`
-can only go smaller (being a minimum), and any value smaller than
-$\alpha$ (the previously-found maximum `min_u` produced by earlier
-function calls) will simply be ignored when maximizing.
+In summary, when minimizing, the $\alpha$ parameter is used to stop the search. The $\alpha$ parameter is passed by the parent function. It represents the largest value seen so far in the parent function's search. Note that we're sure the parent function is maximizing, since the current function is minimizing; so the parent only wants utilities larger than $\alpha$. When `u` gets minimized so much in the current search that it goes lower than $\alpha$, the search is stopped. Values lower than $\alpha$ will not be used by the parent function anyway.
 
-The same can be said about `max_u` in the `max_utility` function; we
-use the $\beta$ parameter to keep track of the smallest `max_u` so far
-seen.
-
-When maximizing (in `max_utility`), we will only change $\alpha$ because
-we want to know the maximum of the minimums ($\alpha$ is the greatest
-lower bound); when minimizing (in `min_utility`), we will only change
-$\beta$.
-
-  - $\alpha$ -- the utility of the best (highest-value) choice we have
-              found so far at any choice point along the path in the
-              "max" mode of minimax
-
-  - $\beta$ -- the utility of the best (lowest-value) choice for the
-             "min" mode of minimax
-
-As we search down the tree, we provide the recursive search procedure
-our currently-known best $\alpha$ and $\beta$. If the recursive search
-sees that some subtree cannot give any utility better than $\alpha$ (or
-worse than $\beta$) then we don't bother searching further from there.
+The $\beta$ parameter is used in exactly the same way, except that it represents the lowest utility seen so far, and the maximizing search will stop early if it finds a utility greater than or equal to $\beta$. Thus, the minimizing search sets $\beta$ and passes it along to a child maximizing search in order to help the child stop its search early if the utilities it finds start creeping up on $\beta$ and will thus be ignored by the parent.
 
 It's very important to realize that the alpha-beta pruning procedure
 does not produce different answers than minimax. Alpha-beta pruning
@@ -224,7 +265,7 @@ without alpha-beta pruning](/images/ttt-minimax-example-2.png).
 
 Alpha-beta pruning performs *much* better than vanilla minimax:
 
-| Number of x/o tokens on the board | Average minimax states checked | Average $\alpha-\beta$ states checked |
+| Number of x/o tokens on the board | Average minimax states checked | Average $\alpha,\beta$ states checked |
 |-----------------------------------+--------------------------------+-------------------------------------|
 |                                 0 |                       549946.0 |                             29019.0 |
 |                                 2 |                         7293.0 |                              1308.0 |
