@@ -47,9 +47,33 @@ Required path: `resources/META-INF/kmodule.xml`
 
 Example path: `resources/cc/artifice/csci431/studentadvisor/StudentAdvisor.drl`
 
-Note, any classes use in the rules file need to have typical getters/setters.
+Note, any classes used in the rules file need to have typical getters/setters.
 
 ![DRL file](/images/drools-rule-file.png)
+
+## Queries
+
+Besides rules, you can define queries to collect objects that satisfy certain conditions. Then, in your main Java code, you can (for example) get these objects into a list and do something with them (like print them).
+
+DRL file:
+
+~~~ java
+query "people over the age of 30" 
+    person : Person( age > 30 )
+end
+~~~
+
+Java code:
+
+~~~ java
+System.out.println("These people are are over 30:");
+
+QueryResults results = ksession.getQueryResults("people over the age of 30"); // parameter should match query name
+for(QueryResultsRow row : results) {
+    Person person = (Person)row.get("person");
+    System.out.println(person.getName() + "\n");
+}
+~~~
 
 ## Other rules engines
 

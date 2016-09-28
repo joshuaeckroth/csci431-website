@@ -5,6 +5,9 @@ layout: note
 
 # Prolog
 
+> Prolog: Completely, 100% useless right up until it's exactly the right tool for a very hard, very specific job. [(source)](https://www.reddit.com/r/compsci/comments/54tidh/what_in_your_opinion_is_the_most_esoteric_and/d84x6xk)
+
+
 Prolog is a programming language that allows us to "program" with
 declarative, symbolic knowledge. It puts limitations on the kinds of logical
 statements we can write. These limitations are essential for allowing

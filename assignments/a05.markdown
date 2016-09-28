@@ -20,11 +20,12 @@ These templates include all the Drools libraries (JAR files), plus example Java 
 
 ### Facts
 
-Every fact has a type, i.e., a class. You can create types in your DRL file, but these cannot be referenced in your main Java code. Ultimately, you'll probably want at least these types:
+Every fact has a type, i.e., a class. (You can create types in your DRL file using `declare MyType`, but these cannot be referenced in your main Java code.) Ultimately, you'll probably want **at least** these types:
 
 - `Student` type: name
 - `Course` type: course name, course number, unit count; note, prerequisites can be complex so they're better represented as rules
 - `Semester` type: semester name, year
+- `CourseOffering` type: a course is offered in a particular semester
 - `CourseAttempt` type: student attempted a course in a particular semester and earned a particular grade
 - `Preference` type: some student has some preference, e.g., preference for security or AI or networks
 
@@ -32,14 +33,14 @@ Every fact has a type, i.e., a class. You can create types in your DRL file, but
 
 - Course prerequisites; these can be complex, e.g., prereqs for CSCI 211: "CSCI 141 and either MATH 141Q or MATH 130 or MATH 125Q"
 - Major requirements; include minimum GPA requirements
+- Preferences (some preferences might be inferred, some might be obtained directly from user input)
+- Choices for next semester; depends on student preferences and what they have already taken
 
-Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sciences/computer-science/computer-science-bs/) for the requirements for a CSCI degree. You'll need to include some math courses as well as CSCI/CINF courses in order to represent the various prereqs and major requirements.
+Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sciences/computer-science/computer-science-bs/) for the requirements for a CSCI degree.
 
-### Goals
+## Goal
 
-- Which classes should I take next?
-- Which classes do I still need?
-- What are my options to satisfy some requirement, e.g., elective major courses?
+Your advising system should ask the user for some basic facts (which courses they've taken, what grades they earned, etc.); it should make some inferences about preferences; and it should give a selection of courses the student should take in the next semester based on this information.
 
 ## Deliverables
 
@@ -48,4 +49,12 @@ Submit all your source code and DRL files.
 ## Grading rubric
 
 Out of 5 points:
+
+- 5 pts: The goal (stated above) is met, and you have at least 20 rules and at least three distinct preferences (e.g., security, AI, and graphics).
+- 4 pts: The goal is met but you have fewer than 20 rules and/or fewer than three distinct preferences.
+- 3 pts: The goal is not fully met but you have at least 10 rules and the program runs properly.
+- 2 pts: The goal is not fully met and you have fewer than 10 rules, but the program runs properly.
+- 1 pt: The goal is not fully met and the program accomplishes little, but has no syntax errors or runtime errors.
+- 0 pts: The program has syntax or runtime errors (crashes), or no submission.
+
 
