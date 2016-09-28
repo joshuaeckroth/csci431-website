@@ -7,16 +7,20 @@ categories: [assignments]
 
 # A05: Student advisor
 
-This assignment helps you practice designing and using an expert system. Your task is to write rules for the [Drools rules engine](/notes/drools.html) for a student advisor expert system. A student advisor system would guide students on class selection based on their major (and corresponding major requirements), the classes they have already taken and their grade, and their interests. For this assignment, we'll restrict our focus to CSCI majors, and we'll ignore non-major classes and general education requirements.
+This assignment helps you practice designing and using an expert system. Your task is to write rules for the [Drools rules engine](/notes/drools.html) for a student advisor expert system. A student advisor system would guide students on class selection based on their major (and corresponding major requirements), the classes they have already taken and their grade, and their interests. For this assignment, we'll restrict our focus to CSCI majors, the system will only need to suggest classes for the next semester, and we'll ignore non-major classes and general education requirements.
+
+## Template projects
+
+These templates include all the Drools libraries (JAR files), plus example Java code and a DRL rules file.
+
+- Eclipse: [student-advisor-eclipse.zip](/zips/student-advisor-eclipse.zip)
+- IntelliJ IDEA: [student-advisor-intellij.zip](/zips/student-advisor-intellij.zip)
 
 ## Knowledge base
 
 ### Facts
 
-Recall that in Drools, "types" are effectively Java classes. However,
-unless you need to implement additional functionality, you do not need
-to write the class yourself; Drools will generate it to match the type
-specification.
+Every fact has a type, i.e., a class. You can create types in your DRL file, but these cannot be referenced in your main Java code. Ultimately, you'll probably want at least these types:
 
 - `Student` type: name
 - `Course` type: course name, course number, unit count; note, prerequisites can be complex so they're better represented as rules
@@ -26,8 +30,8 @@ specification.
 
 ### Rules
 
-- course prerequisites; these can be complex, e.g., prereqs for CSCI 211: "CSCI 141 and either MATH 141Q or MATH 130 or MATH 125Q"
-- major requirements; include minimum GPA requirements
+- Course prerequisites; these can be complex, e.g., prereqs for CSCI 211: "CSCI 141 and either MATH 141Q or MATH 130 or MATH 125Q"
+- Major requirements; include minimum GPA requirements
 
 Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sciences/computer-science/computer-science-bs/) for the requirements for a CSCI degree. You'll need to include some math courses as well as CSCI/CINF courses in order to represent the various prereqs and major requirements.
 
@@ -39,7 +43,7 @@ Refer to the [Stetson Catalog](http://catalog.stetson.edu/undergraduate/arts-sci
 
 ## Deliverables
 
-You will only submit the "drl" Drools rules file.
+Submit all your source code and DRL files.
 
 ## Grading rubric
 
