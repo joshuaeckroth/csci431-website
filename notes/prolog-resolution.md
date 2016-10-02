@@ -5,11 +5,9 @@ layout: note
 
 # Prolog resolution
 
-- high
-- level
-- points
+Resolution is the process (in Prolog) of determining whether a **rule** can be proved. The process uses [unification](/notes/prolog-unification.html) to match variables and predicates, but the process known as resolution concerns the depth-first search process for finding variable assignments that satisfy rules (and the rules they refer to, etc. recursively).
 
-## An example
+## Resolution algorithm
 
 Suppose we have the following Prolog knowledge base:
 
@@ -28,7 +26,7 @@ k(X) :- f(X), g(X), h(X).
 How does Prolog determine whether `k(Y)` is true (provable)? That is,
 how does Prolog determine the value for `Y` that makes the query true?
 
-Its search process can be see in this graphic. The process is as
+Its search process can be see in the graphic below. The process is as
 follows:
 
 1. Create a temporary variable `_G34` (randomly-named) to stand in
@@ -61,6 +59,8 @@ follows:
 
 ![Prolog resolution](/images/prolog-resolution-ex1.png)
 
+## Another example
+
 Now we'll switch to this knowledge base:
 
 ~~~ prolog
@@ -78,6 +78,8 @@ proof, which means there are four different sets of variable
 assignments.
 
 ![Prolog resolution](/images/prolog-resolution-ex2.png)
+
+## A list example
 
 Finally, let's look at a list predicate.
 

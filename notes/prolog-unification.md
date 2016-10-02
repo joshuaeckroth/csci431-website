@@ -5,10 +5,6 @@ layout: note
 
 # Prolog unification
 
-- high
-- level
-- points
-
 When programming in Prolog, we spend a lot of time thinking about how
 variables and rules "match" or "are assigned." There are actually two
 aspects to this. The first, "unification," regards how terms are

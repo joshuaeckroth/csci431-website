@@ -9,33 +9,31 @@ layout: note
 
 
 Prolog is a programming language that allows us to "program" with
-declarative, symbolic knowledge. It puts limitations on the kinds of logical
-statements we can write. These limitations are essential for allowing
-Prolog programs to work efficiently and always provide an answer (or
-determine there is no answer).
+declarative, symbolic knowledge. It is a Turing-complete language, and thus supports loops, variables, etc. but Prolog programs consist primarily of "facts" and "rules" that state the relations between facts. The rules are activated by "queries". By using variables in the queries, we can find out the values of the variables that make the queries true (according to the facts and rules involved), and thus we get a kind of computation.
 
-Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or use on londo by running `pl`.
+Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or run it on londo with the command `pl`.
 
 ## Logic programming paradigm
 
 Because Prolog is a "Turing-complete" language, we can write any program
 in Prolog. Of course, a program that is easy to write in Java or C++ will,
-in all likelihood, be *very* difficult to write in Prolog, although it
+in all likelihood, be **very difficult** to write in Prolog, although it
 is possible. Prolog programs often feel like they're programs written in
 "reverse," since they are written declaratively rather than procedurally.
 
 - Prolog programs have two parts: a database (of facts and rules),
-  and an interactive "query" tool; the database must be saved in a text file.
+  and an interactive "query" tool; the database must be saved in a text file, usually with extension `.pl`.
 
 - Prolog databases are "consulted" (loaded), and then the query tool
   is used to "make queries" (ask questions) about the database.
 
-- How queries are answered is generally beyond the control of the
+- How queries are answered is mostly beyond the control of the
   programmer; Prolog uses a depth-first search to figure out how to
-  answer queries; this is (generally) non-negotiable.
+  answer queries; this is (mostly) non-negotiable.
 
-- Programs written in Prolog are "executed" by performing queries.
+- Programs written in Prolog are "executed" by performing queries. By using variables in queries, we get computation.
 
+Note, Prolog rules can also include input/output statements, so just evaluating a rule with a query can result in computation as well.
 
 ## Simple example
 
@@ -57,7 +55,13 @@ male(jim).
 ~~~
 
 We type that into a file, maybe named `family.pl`, and "consult" the
-file in the query tool.
+file in the query tool, like so:
+
+``` bash
+$ nano family.pl # type the file, then quit nano
+$ pl             # start prolog
+?- [family].     # "consult" (load) the file
+```
 
 Now what? Well, we can ask questions:
 
@@ -102,9 +106,9 @@ P = pat,
 C = jim.
 ~~~
 
-I typed the `;` --- we type that to get the next answer, it means "or" while comma means "and."
+We type `;` to get the next answer. Semicolon means "or" while comma means "and."
 
-If I don't actually care who the children are, I can replace `C` with
+If we don't actually care who the children are, we can replace `C` with
 `_` like so:
 
 ~~~ prolog
@@ -124,7 +128,7 @@ Now let's ask, "Who are the female parents?"
 P = pat.
 ~~~
 
-The comma means "AND." So the query requires that `P` is a parent and
+The comma means "and." So the query requires that `P` is a parent and
 a female.
 
 ## Defining complex predicates (rules)
@@ -258,7 +262,7 @@ Y = ann ;
 false.
 ~~~
 
-We do simulate an "OR" by writing multiple definitions for the same rule:
+We can simulate an "or" by writing multiple definitions for the same rule:
 
 ~~~ prolog
 engineer(X) :- mechanical_engineer(X).
@@ -270,7 +274,7 @@ engineer(X) :- electrical_engineer(X).
 % etc. etc.
 ~~~
 
-In each rule, we use commas to represent "AND," but (generally) do not write "OR" inside a rule. When required, which is rare, we can use semicolons.
+In each rule, we use commas to represent "and," but (generally) do not write "or" inside a rule. When required, which is rare, we can use semicolons.
 
 ## Negation as failure
 
@@ -282,15 +286,14 @@ Let's say we want a predicate like "this person is not a father."
 Well, we know how to figure out who *is* a father: we have the
 `father` rule. How can we define a "is not a father" rule?
 
-The first thing to note is Prolog does not allow us to use negatives
-in facts. We cannot write "not father(jim)."
+The first thing to note is Prolog does not allow us to use "not" at the head
+(left side) of a rule. We cannot write "not father(jim)."
 
-Instead, to prove a negative in Prolog, we use a little trick: we
-assume everything stated in the database is *everything that
-exists*. This is the "closed-world assumption." Anything not stated in
-the database does not exist. So, we can "prove" that `jim` is not a
-father by *failing* to prove that `jim` is a father (with our `father`
-rule).
+Instead, to prove a negative in Prolog, we use a little trick: we assume
+everything stated in the database is *everything that exists*. This is the
+**closed-world assumption**. Any fact *not* stated in the database is assumed
+to be false.  So, we can "prove" that `jim` is not a father by **failing** to
+prove that `jim` is a father (with our `father` rule).
 
 ~~~ prolog
 not_a_father(X) :- \+father(X).
@@ -312,9 +315,9 @@ ultimately search *every possibility* in order to prove something; thus, negatio
 can be computationally expensive).
 
 We cannot use `\+` on the left-side of a rule or written as a fact
-because it makes no sense to say, "this will fail to be proven
-always." Only positive statements can be on the left of a rule or
-written as a fact.
+because it makes no sense to say, "this will fail to be proved
+always." Only positive statements may be on the left of a rule or
+may stated as a fact.
 
 This connection between "failing to prove" and "negation" is called
 "negation as failure." Negation as failure means, "proving the
@@ -339,7 +342,7 @@ head(X, [X|_]).
 ~~~
 
 The code `[X|_]` means there is a list that starts with `X` and the
-rest (after the `|`) I don't care about (hence the `_`). Here are some
+rest (after the `|`) we don't care about (hence the `_`). Here are some
 uses of this predicate:
 
 ~~~ prolog
@@ -374,7 +377,7 @@ member(X, [X|_]).
 member(X, [_|Tail]) :- member(X, Tail).
 ~~~
 
-Example usage (I'm typing `.` after some responses because I don't
+Example usage (we type `.` after some responses because we don't
 want other possible answers):
 
 ~~~ prolog
@@ -423,7 +426,7 @@ family(10392,
         person(amy, fox, born(17, december, 1990), unemployed)]).
 
 family(38463, 
-       person(susan, rothchild, born(13, september, 1972), works(osu, 75000)),
+       person(susan, rothchild, born(13, september, 1972), works(stetson, 75000)),
        person(jess, rothchild, born(20, july, 1975), works(nationwide, 123500)),
        % here are the children...
        [person(ace, rothchild, born(2, january, 2010), unemployed)]).
@@ -436,7 +439,7 @@ use the `family` predicate. Here are some examples:
 
 ~~~ prolog
 ?- family(38463, X, Y, Z).
-X = person(susan, rothchild, born(13, september, 1972), works(osu, 75000)),
+X = person(susan, rothchild, born(13, september, 1972), works(stetson, 75000)),
 Y = person(jess, rothchild, born(20, july, 1975), works(nationwide, 123500)),
 Z = [person(ace, rothchild, born(2, january, 2010), unemployed)].
 
@@ -532,7 +535,7 @@ We can use it like so:
 ~~~ prolog
 ?- exists(X).
 X = person(tom, fox, born(7, may, 1960), works(cnn, 152000)) ;
-X = person(susan, rothchild, born(13, september, 1972), works(osu, 75000)) ;
+X = person(susan, rothchild, born(13, september, 1972), works(stetson, 75000)) ;
 X = person(ann, fox, born(19, april, 1961), works(nyu, 65000)) ;
 X = person(jess, rothchild, born(20, july, 1975), works(nationwide, 123500)) ;
 X = person(pat, fox, born(5, october, 1983), unemployed) ;
@@ -565,10 +568,10 @@ LastName = rothchild.
 Let's get a little more sophisticated. Here is an interesting query:
 
 ~~~ prolog
-% Find all people born after 1980 who do not work at OSU
+% Find all people born after 1980 who do not work at Stetson
 
 ?- exists(person(FirstName, LastName, born(_, _, Year), Job)),
-      Year > 1980, Job \= osu.
+      Year > 1980, Job \= stetson.
 
 FirstName = pat,
 LastName = fox,
@@ -596,7 +599,7 @@ householdSize(ID, Size) :-
     family(ID, _, _, Children),
     length(Children, ChildrenCount),
     Size is 2 + ChildrenCount.
-~~~ prolog
+~~~
 
 E.g.,
 
