@@ -29,8 +29,10 @@ Two terms *unify* if they can be matched. Two terms can be matched if:
 
 - they are the same term (obviously), or
 
-- they contain variables that can be unified so that the two terms
-  without variables are the same.
+- they contain variables that can be uniformly instantiated so that the two
+  terms without variables are the same. "Uniformly" instantiated means that
+each distinct variable gets the same value, e.g., all `X` variables in the term
+get the same value.
 
 For example, suppose our knowledge base is:
 

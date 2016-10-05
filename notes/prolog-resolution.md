@@ -23,8 +23,8 @@ h(b).
 k(X) :- f(X), g(X), h(X).
 ~~~
 
-How does Prolog determine whether `k(Y)` is true (provable)? That is,
-how does Prolog determine the value for `Y` that makes the query true?
+How does Prolog determine whether a query, say `k(Y)`, is true (provable)? That
+is, how does Prolog determine the value for `Y` that makes the query true?
 
 Its search process can be see in the graphic below. The process is as
 follows:
