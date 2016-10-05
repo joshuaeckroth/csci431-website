@@ -1,18 +1,61 @@
 ---
 layout: note
 title: "A06: Prolog Pokédex"
-due: "Oct 10, 11:59pm"
+due: "Oct 17, 11:59pm"
 categories: [assignments]
 ---
 
 # A06: Prolog Pokédex
 
-This assignment helps you practice with Prolog. Details forthcoming.
+This assignment helps you practice with Prolog. Your task is to write rules that encode the various game rules (gen VI / XY) regarding breeding. See below for the exact rules (in English) that need to be encoded.
 
-{% comment %}
-Start with https://github.com/veekun/pokedex
+Start with the code on londo in the directory `/home/jeckroth/csci431/assignments/A06/`. Write your code in the `breeding.pl` file. The files `pok_facts.pl` and `pok_moves.pl` have been pre-populated with facts (no rules) with data translated from [this github project](https://github.com/veekun/pokedex).
 
-API to grab JSON data: http://pokeapi.co/
-{% endcomment %}
+## Breeding rules
 
+The following rules are, to the best of my knowledge, accurate for the gen VI / XY games. Some special exceptions (e.g., involving legendary Pokémon) are not included for simplicity's sake.
+
+Two Pokémon can breed if,
+
+- both parents are adults in their species evolution
+- both parents are not genderless
+- both parents have the same egg group, and that group is not `no_eggs`
+
+Ditto is an exception to all of those rules. A Ditto can breed with any other non-Ditto Pokémon, as long as the other is an adult in its evolution.
+
+The child Pokémon is the baby version of the species of the mother, except in the case of breeding with Ditto, in which case the child is the baby version of the non-Ditto parent.
+
+Moves are inherited from the parents according to the following rules:
+
+- if both parents know the same Level Up move and the baby can learn that move by levelling up, the baby can be born with that move (see the `pok_move` facts in `pok_moves.pl`)
+- if either parent knows an Egg move that the baby can learn as an egg move but not learn by level up, the baby can be born with that move
+
+Ultimately, the baby will have at most four moves. Preference is given to Level Up moves.
+
+## Query support
+
+## Test cases
+
+A series of test cases are given in `breeding_tests.pl`. Run the test cases with this londo command:
+
+```
+pl -s breeding_tests.pl -t run_tests
+```
+
+If the tests pass, you should see only some dots (1 dot per test group) and no error or warning messages.
+
+## Deliverables
+
+Submit your `breeding.pl` file. Include the files `breeding_tests.pl`, `pok_moves.pl`, and `pok_facts.pl` as well, even though you do not need to modify them.
+
+**Note: You must not write any new facts. Only write rules.** The files `pok_facts.pl` and `pok_moves.pl` have all the facts that are needed.
+
+## Grading rubric
+
+- 5 pts: All tests pass with no warnings (no Singleton warnings, etc.).
+- 4 pts: 
+- 3 pts:
+- 2 pts:
+- 1 pt:
+- 0 pts:
 
