@@ -1,7 +1,7 @@
 ---
 layout: note
 title: "A06: Prolog Pokédex"
-due: "Oct 17, 11:59pm"
+due: "Oct 24, 11:59pm"
 categories: [assignments]
 ---
 
