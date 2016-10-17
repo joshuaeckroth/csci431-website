@@ -30,7 +30,7 @@ Several assignments require that you understand and write Python code, including
 ## Grading
 
 - Attendance on work days (usually Fridays): 5%
-- Homeworks (12 of them): 55%
+- Homeworks (11 of them): 55%
 - Midterm: 20%
 - Final exam: 20%
 
@@ -40,7 +40,7 @@ unless a doctor's note is provided.
 
 ### Test dates
 
-- Midterm: Wed Oct 19
+- Midterm: Fri Oct 28 
 - Final exam: Tue Dec 13, 1-3pm
 
 ### Attendance
