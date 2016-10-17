@@ -32,8 +32,6 @@ Moves are inherited from the parents according to the following rules:
 
 Ultimately, the baby will have at most four moves. Preference is given to Level Up moves.
 
-## Query support
-
 ## Test cases
 
 A series of test cases are given in `breeding_tests.pl`. Run the test cases with this londo command:
@@ -50,12 +48,19 @@ Submit your `breeding.pl` file. Include the files `breeding_tests.pl`, `pok_move
 
 **Note: You must not write any new facts. Only write rules.** The files `pok_facts.pl` and `pok_moves.pl` have all the facts that are needed.
 
+You'll probably want to start your `breeding.pl` file like so:
+
+~~~ prolog
+:- [pok_facts]. % import pok_facts.pl
+:- [pok_moves]. % import pok_moves.pl
+~~~
+
 ## Grading rubric
 
-- 5 pts: All tests pass with no warnings (no Singleton warnings, etc.).
-- 4 pts: 
-- 3 pts:
-- 2 pts:
-- 1 pt:
-- 0 pts:
+- 5 pts: All 8 tests pass with no warnings (no Singleton warnings, etc.).
+- 4 pts: Between 5 and 7 tests pass with no warnings.
+- 3 pts: 3 or 4 tests pass with no warnings.
+- 2 pts: 1 or 2 tests pass with no warnings, or more tests pass with warnings.
+- 1 pt: No tests pass, but code has no syntax or logic errors (i.e., the code can be loaded and queried).
+- 0 pts: Code has syntax or logic errors, cannot be loaded and/or queried, or missing submission.
 
