@@ -17,7 +17,7 @@ The following rules are, to the best of my knowledge, accurate for the gen VI / 
 
 Two Pokémon can breed if,
 
-- both parents are adults in their species evolution
+- both parents are adults in their species evolution (note, this doesn't match how the game actually works)
 - both parents are not genderless
 - both parents have the same egg group, and that group is not `no_eggs`
 
