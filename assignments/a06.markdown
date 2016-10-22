@@ -18,7 +18,7 @@ The following rules are, to the best of my knowledge, accurate for the gen VI / 
 Two Pokémon can breed if,
 
 - both parents are adults in their species evolution (note, this doesn't match how the game actually works)
-- both parents are not genderless
+- neither parent is genderless
 - both parents have the same egg group, and that group is not `no_eggs`
 
 Ditto is an exception to all of those rules. A Ditto can breed with any other non-Ditto Pokémon, as long as the other is an adult in its evolution.
