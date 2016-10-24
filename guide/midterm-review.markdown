@@ -2,7 +2,7 @@
 layout: note
 title: Midterm review
 categories: [studyguides]
-date: Wed Oct 28
+date: Wed Oct 26
 ---
 
 # Midterm review
