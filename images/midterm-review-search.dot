@@ -1,0 +1,27 @@
+digraph g {
+    rankdir="LR";
+
+    a [label="A\nh=5", shape="box"];
+    b [label="B\nh=5"];
+    c [label="C\nh=3"];
+    d [label="D\nh=1"];
+    e [label="E\nh=4"];
+    f [label="F\nh=2"];
+    g [label="G\nh=0", shape="doublecircle"];
+    a -> b [label="1"];
+    a -> c [label="1"];
+    c -> d [label="2"];
+    d -> c [label="1"];
+    d -> e [label="3"];
+    c -> f [label="2"];
+    d -> f [label="1"];
+    g -> c [label="3"];
+    f -> g [label="2"];
+    d -> g [label="1"];
+    b -> e [label="2"];
+    e -> f [label="4"];
+    e -> d [label="3"];
+    b -> a [label="2"];
+}
+
+
