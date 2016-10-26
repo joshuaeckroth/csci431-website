@@ -21,21 +21,21 @@ For example, here is a graphical representation of possible transitions and acti
 
 ## Planning
 
-Know how to read and write PDDL files. Be able to generate a valid plan from given PDDL problem and domain files, without using any software (be able to do it "by hand").
-
 Be able to write a PDDL file to represent a planning problem given in English.
+
+For example, consider this planning problem:
+
+> The goal is to wash and dry a load of laundry. There is one washer and one dryer. The clothes must be washed before they can be dried. In order to wash clothes, the clothes have to be loaded into the washer, soap added, and the washer turned on. There can't be clothes already in the washer. Likewise, the clothes cannot be moved to the dryer if there are already clothes in the dryer. The initial state is that the washer is empty, the dryer is empty, and we have a basket of dirty clothes. Ultimately, we want both the washer and dryer to be unloaded, and the basket to have clean clothes.
 
 ## Adversarial search
 
 Given some starting tic-tac-toe board, be able draw and label a tic-tac-toe search tree, like the one below, with min/max labels on downward arrows, and utility values (1 or 0 or -1) on upward arrows.
 
-For example, starting with this board:
+For example, start with this board:
 
 ![Tic-tac-toe start](/images/midterm-guide-ttt-start.png)
 
-Answer:
-
-![Tic-tac-toe solution](/images/midterm-guide-ttt-solution.png)
+The answer is available on the [Midterm review solutions](/guide/midterm-review-solutions.html).
 
 ## Genetic algorithms
 
@@ -54,8 +54,6 @@ For example, consider the following logic about an issue tracking (ticketing) sy
 > A ticket is either open or closed, every ticket has an integer priority, as well as a "newCustomer" boolean field. Whenever a customer creates a ticket, the ticket gets added to the database. If the customer has never issued a ticket before, the ticket should have its "newCustomer" field set to "true". Each ticket starts at priority 0. If the description of the ticket matches an existing open ticket (assume a matching function exists), then its priority is changed to the priority of the existing ticket plus 1; the priority of the existing tickets are left unchanged. If the customer has submitted more than 2 tickets with the same description, the priority of the new ticket is increased by 1. If the resulting priority of the ticket is greater than 3, an email is sent to the customer stating that "we are working hard on this problem." If the description of the ticket matches a closed ticket, this ticket is closed as well (and priority is set to -1).
 
 ## Prolog
-
-Given a particular "trace" of a Prolog search process for given rules, be able to list the facts that must be present. These facts will not be given to you, they must be inferred from the trace.
 
 Know how to write Prolog code that represents a given set of facts and rules, stated in English.
 
