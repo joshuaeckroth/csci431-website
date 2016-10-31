@@ -1,0 +1,10 @@
+---
+layout: note
+title: "A07: Automated jury"
+due: "Nov 9, 11:59pm"
+categories: [assignments]
+---
+
+# A07: Automated jury
+
+This assignment helps you practice probabilistic inference using the [ProbLog](/notes/problog.html) language. Details forthcoming; we'll develop the case-to-be-solved in class.

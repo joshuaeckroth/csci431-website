@@ -5,16 +5,9 @@ layout: note
 
 # Bayesian inference
 
-- $P(a|b) = P(b|a)P(a)/P(b)$ is Bayes' formula ("Bayes' rule", "Bayes'
-  theorem"); it is just a rewrite of the rules of probability. It is
-  required that $P(b) \neq 0$.
-- Sometimes, we only want to know if $P(h\_1|e) > P(h\_2|e)$
-  (probability of hypothesis 1 is greater than probability of
-  hypothesis 2, given the evidence). Then we only have to compare
-  $\alpha P(e|h\_1)P(h\_1)$ vs. $\alpha P(e|h\_2)P(h\_2)$, where $\alpha =
-  1/P(e)$, which we never need to calculate.
-- $P(h)$ is the "prior" of a hypothesis (cause/explanation) $h$.
-- $P(h\|e)$ is the "posterior" of $h$, given evidence $e$ is observed.
+We have learned several techniques for representing knowledge and making inferences: search, planning, rules engines, and logic programming. In each of these cases, the knowledge was *certain*, meaning there was no question about whether the outcome of the action or rule would hold true when the action or rule preconditions were met. For example, we could state with Prolog that if you are female and have a child, you are a mother.
+
+However, much real-world knowledge is partially *uncertain.* For example, being a smoker does not *imply* that you will develop lung cancer, but there is some probability of it. I order to handle uncertain knowledge and inference, we need a way to specify the degree of certainty, or probability, of the actions, rules, or other kinds of knowledge.
 
 ## Motivation
 
@@ -71,17 +64,19 @@ $\vee$, and $\neg$ mean "and", "or", and "not" in the usual way. We'll
 also use $P()$ notation to represent the *probability* something being
 true or false.
 
-| Notation         | Meaning                                                       |
-|------------------+---------------------------------------------------------------|
-| $P(a)$           | The probability that $a$ (a proposition) is true              |
-| $P(a \wedge b)$  | The probability that both $a$ and $b$ are true                |
-| $P(\neg a)$      | The probability that $a$ is false                             |
+| Notation | Meaning |
+| -------- | ------- |
+| $P(a)$ | The probability that $a$ (a proposition) is true |
+| $P(a \wedge b)$ | The probability that both $a$ and $b$ are true |
+| $P(\neg a)$ | The probability that $a$ is false |
 | $P(a \vert{} b)$ | The probability that $a$ is true if $b$ is assumed to be true |
 
-| Rule                                        | Explanation                                                                                                                                                                                                                         |
-|---------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| $0 \leq P(a) \leq 1$                        | A probability is always between $0$ and $1$.                                                                                                                                                                                        |
-| $P(a) = 1.0 - P(\neg a)$                    | The probability of something being true and the probability of the opposite add up to $1$.                                                                                                                                          |
+Here are some rules of probabilities:
+
+| Rule | Explanation |
+| ---- | ----------- |
+| $0 \leq P(a) \leq 1$                        | A probability is always between $0$ and $1$.       |
+| $P(a) = 1.0 - P(\neg a)$                    | The probability of something being true and the probability of the opposite add up to $1$. |
 | $P(a \wedge b) = P(a \vert{} b) P(b)$       | The probability of two statements being true simultaneously equals the probability that one is true, assuming the other already is known to be true, times the probability that the other is true (i.e., no longer assuming it is). |
 | $P(a \vee b) = P(a) + P(b) - P(a \wedge b)$ | The probability of either of two statements being true equals the sum of the probabilities that either is true separately minus the probability they are both true simultaneously.                                                  |
 
@@ -306,7 +301,7 @@ Table for $leaving$ ("are people leaving the building?"):
 |-----------+---------+----------------------------|
 | true      | true    | $0.88$                     |
 | true      | false   | $0.0$                      | 
-  
+
 Table for $alarm$ ("is there a fire alarm sounding?"):
 
 | $alarm$ | $tampering$ | $fire$ | $P(alarm \vert{} tampering \wedge fire)$ |
@@ -371,77 +366,15 @@ Bayes' formula in that derivation, because we never needed to
 If we asked instead, "what is the chance there is a fire when somebody
 reports a fire?" then we would need Bayes' formula.
 
-{% comment %}
+## Summary
 
-## Some helpful software
-
-Let's use some software to perform these calculations for us. Visit
-[[http://www.aispace.org/index.shtml][AISpace]], specifically the [[http://aispace.org/bayes][Belief and Decision Networks]] page. Download
-the Java program.
-
-Start it up, and you see this:
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-1.png]]
-#+END_CENTER
-
-Click "File > Load Sample Problem" and choose "Fire Alarm Belief
-Network." Now you have this:
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-2.png]]
-#+END_CENTER
-
-Click the "Solve" tab. Choose the "Make Observation" tool
-button. Then, click the "tampering" node and choose "F" (false):
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-3.png]]
-#+END_CENTER
-
-Do the same for the "fire" node but select "T" (true).
-
-We have set the assumed/observed events. Now we want to know, what is
-the chance of a report of a fire? I.e., we want to know,
-$P(report=T|tampering=F \wedge fire=T)$?
-
-Click the "Query" tool and then click the "report" node. Select
-"Brief".
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-4.png]]
-#+END_CENTER
-
-You get $P(report=T|tampering=F \wedge fire=T) = 0.655$ just as we
-calculated.
-
-Next, we'll ask "how likely is the observation?" I.e., what is
-$P(tampering=F \wedge fire=T)$?
-
-This is easy. After the observations have been set, just click the
-"P(e) Query" tool (which means "probability of the evidence"
-a.k.a. the observations).
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-5.png]]
-#+END_CENTER
-
-So, it seems $P(tampering=F \wedge fire=T)=0.0098$. This is easy to
-verify:
-
-$P(tampering=F \wedge fire=T) = P(tampering=F)P(fire=T) =
-(1.0-0.02)*0.01 = 0.0098$.
-
-Finally, we'll ask for a Bayesian inference. Clear the observations
-(set the observations to "<none>" for the "tampering" and "fire"
-nodes).
-
-Then, make a "T" observation for "report." Then query the "fire" node.
-
-#+BEGIN_CENTER
-[[./images/aispace-bayes-6.png]]
-#+END_CENTER
-
-It seems that the chance of a fire if somebody reports it is 23.7%.
-
-{% endcomment %}
+- $P(a|b) = P(b|a)P(a)/P(b)$ is Bayes' formula ("Bayes' rule", "Bayes'
+  theorem"); it is just a rewrite of the rules of probability. It is
+  required that $P(b) \neq 0$.
+- Sometimes, we only want to know if $P(h\_1|e) > P(h\_2|e)$
+  (probability of hypothesis 1 is greater than probability of
+  hypothesis 2, given the evidence). Then we only have to compare
+  $\alpha P(e|h\_1)P(h\_1)$ vs. $\alpha P(e|h\_2)P(h\_2)$, where $\alpha =
+  1/P(e)$, which we never need to calculate.
+- $P(h)$ is the "prior" of a hypothesis (cause/explanation) $h$.
+- $P(h\|e)$ is the "posterior" of $h$, given evidence $e$ is observed.
