@@ -64,21 +64,21 @@ $\vee$, and $\neg$ mean "and", "or", and "not" in the usual way. We'll
 also use $P()$ notation to represent the *probability* something being
 true or false.
 
-| Notation | Meaning |
-| -------- | ------- |
-| $P(a)$ | The probability that $a$ (a proposition) is true |
-| $P(a \wedge b)$ | The probability that both $a$ and $b$ are true |
-| $P(\neg a)$ | The probability that $a$ is false |
+| Notation         | Meaning                                  |
+| ---------------- | ---------------------------------------- |
+| $P(a)$           | The probability that $a$ (a proposition) is true |
+| $P(a \wedge b)$  | The probability that both $a$ and $b$ are true |
+| $P(\neg a)$      | The probability that $a$ is false        |
 | $P(a \vert{} b)$ | The probability that $a$ is true if $b$ is assumed to be true |
 
 Here are some rules of probabilities:
 
-| Rule | Explanation |
-| ---- | ----------- |
-| $0 \leq P(a) \leq 1$                        | A probability is always between $0$ and $1$.       |
-| $P(a) = 1.0 - P(\neg a)$                    | The probability of something being true and the probability of the opposite add up to $1$. |
-| $P(a \wedge b) = P(a \vert{} b) P(b)$       | The probability of two statements being true simultaneously equals the probability that one is true, assuming the other already is known to be true, times the probability that the other is true (i.e., no longer assuming it is). |
-| $P(a \vee b) = P(a) + P(b) - P(a \wedge b)$ | The probability of either of two statements being true equals the sum of the probabilities that either is true separately minus the probability they are both true simultaneously.                                                  |
+| Rule                                     | Explanation                              |
+| ---------------------------------------- | ---------------------------------------- |
+| $0 \leq P(a) \leq 1$                     | A probability is always between $0$ and $1$. |
+| $P(a) = 1.0 - P(\neg a)$                 | The probability of something being true and the probability of the opposite add up to $1$. |
+| $P(a \wedge b) = P(a \vert{} b) P(b)$    | The probability of two statements being true simultaneously equals the probability that one is true, assuming the other already is known to be true, times the probability that the other is true (i.e., no longer assuming it is). |
+| $P(a \vee b) = P(a) + P(b) - P(a \wedge b)$ | The probability of either of two statements being true equals the sum of the probabilities that either is true separately minus the probability they are both true simultaneously. |
 
 ## Causal graphs
 
@@ -132,7 +132,7 @@ the chance of having gum disease:
 - $P(g) = 0.05$
 
 To calculate $P(t)$, that is, the probability of having a toothache
-for whatever reason, we have to "condition" across all the possible
+for whatever reason, we have to "marginalize" across all the possible
 causes:
 
 $$

@@ -33,10 +33,9 @@ friend(joris,dimitar).
 friend(angelika,jonas).
 ```
 
-You would also typically add some evidence and a query to the end of the program, e.g.,
+You would also typically add a query to the end of the program, e.g.,
 
 ```
-evidence(asthma(jonas)).
 query(smokes(angelika)).
 ```
 
@@ -44,7 +43,7 @@ On londo, you can run a ProbLog program like so:
 
 ```
 $ problog smokes.pl
-smokes(angelika):       0.44
+smokes(angelika):       0.342
 ```
 
 Each `query()` predicate produces an output. Use a variable in the query to iterate over the possibilities:
@@ -57,24 +56,119 @@ Result:
 
 ```
 $ problog smokes.pl
+smokes(angelika):       0.342
+ smokes(dimitar):       0.3
+   smokes(jonas):       0.3
+   smokes(joris):       0.42301296
+```
+
+We can also add "evidence" which restricts the search for proofs:
+
+```prolog
+% add to smokes.pl:
+evidence(smokes(jonas)).
+```
+
+Now the result is:
+
+```
+$ problog smokes.pl
 smokes(angelika):       0.44
  smokes(dimitar):       0.3
    smokes(jonas):       1
    smokes(joris):       0.5199232
 ```
 
+We can also force evidence to be false:
+
+```prolog
+evidence(smokes(jonas), false).
+```
+
+Thus,
+
+```
+$ problog smokes.pl
+smokes(angelika):       0.3
+ smokes(dimitar):       0.3
+   smokes(joris):       0.38148
+```
+
+## Probabilistic semantics
+
+Given the syntax example above, we have enough knowledge to create probabilistic programs. However, it is important to know what it *means* to label a fact/rule with a probability. Note, an understanding of [Prolog](/notes/prolog.html) is important to understanding ProbLog's computational model.
+
+ProbLog makes the assumption that all probabilistic facts are *mutually independent*. Recall that if we have independent random variables $a$ and $b$, then $P(a,b)=P(a)P(b)$. This simple multiplication can use the probabilities for $a$ and $b$ specified by the user in the ProbLog program. If they are not assumed to be independent, we have the more tricky $P(a,b)=P(a|b)P(b)$, which involves a probability $P(a|b)$ which, presumably, the user has not specified in the program.
+
+The probability of a ProbLog query `query(f)` given a ProbLog program (facts and rules) `T`, which we can write as $P(q|T)$, is defined as:
+
+$$P(q|T)=\sum_{L} P(q|L)P(L|T),$$
+
+where $L$ ranges over facts/predicates, $P(q|L)=0$ if $q$ is not true given $L$ or $P(q|L)=1$ if $q$ is true given $L$, and $P(L|T)$ is defined as:
+
+$$P(L|T)=\prod_{c_i \in L} p_i \prod_{c_j \in L'} (1-p_j),$$
+
+where $c_i \in L$ ranges among the facts mentioned in $L$, and $c_j \in L'$ ranges among all the facts not mentioned in $L$.
+
+In other words, the probability of a particular set of facts $L$ for a given program $T$, written $P(L|T)$, is the multiplication (product) of the probability of each of those facts being true (as specified in the ProbLog program) times the product of the probability of all the unmentioned facts being false. This simple multiplication is possible because of the assumption (by ProbLog) that every fact is mutually independent, so their probabilities can just be multiplied.
+
+In summary, the probability of a particular query $q$ being true in a program $T$, written $P(q|T)$, is equal to the sum of probabilities of the different ways (proofs) the query is true. This is equivalent to *marginalization*, discussed on the [Bayesian inference](/notes/bayesian-inference.html#tocAnchor-1-3) notes.
+
+In the smoking example above, first imagine there are no probabilities, so we have a normal Prolog program:
+
+```prolog
+stress(X) :- person(X).
+influences(X,Y) :- person(X), person(Y).
+
+smokes(X) :- stress(X).
+smokes(X) :- friend(X,Y), influences(Y,X), smokes(Y).
+
+asthma(X) :- smokes(X).
+
+person(angelika).
+person(joris).
+person(jonas).
+person(dimitar).
+
+friend(joris,jonas).
+friend(joris,angelika).
+friend(joris,dimitar).
+friend(angelika,jonas).
+
+% "evidence": state that jonas has asthma
+asthma(jonas).
+```
+
+The query `smokes(angelika)` has the following proofs (and only these):
+
+- `person(angelika)` proves `stress(angelika)`, which proves `smokes(angelika)`.
+  - Facts involved: `person(angelika)`, `stress(angelika)`.
+- `friend(angelika, jonas)` with `influences(jonas, angelika)` (which is proved by `person(jonas)` and `person(angelika)`) with `smokes(jonas)` (which is proved by `person(jonas)` and `stress(jonas)`) altogether proves `smokes(angelika)`.
+  - Facts involved: `person(angelika)`, `person(jonas)`, `friend(angelika, jonas)`, `influences(jonas, angelika)`, `stress(jonas)`, `smokes(jonas)`.
+
+Looking back at the original ProbLog version of this program (shown at the top of the Syntax section on this page), we have the following probabilities involved in the two proofs of `smokes(angelika)`:
+
+- 0.3: `stress(angelika)`
+- 0.7: not `stress(angelika)` (needed to skip past first case); 0.2: `influences(jonas, angelika)`; 0.3: `stress(jonas)`.
+
+The resulting probability is, therefore, $0.3+0.7*0.2*0.3 = 0.342$.
+
+If we add `evidence(smokes(jonas))`, then the second proof does not need to involve `stress(jonas)`, thus dropping the $0.3$ multiplier, resulting in: $0.3+0.7*0.2=0.44$.
+
+If instead we add `evidence(smokes(jonas), false)`, then the second proof completely fails, leaving only the first proof with probability $0.3$.
+
 ## Example: Toothache
 
 Consider the toothache example from the [Bayesian inference](/notes/bayesian-inference.html) notes. We can solve it with ProbLog as follows:
 
 ```prolog
-0.10::catch.
+0.10::cavity.
 0.05::gum_disease.
 
-1.00::toothache :- catch, gum_disease.
-0.60::toothache :- catch, \+gum_disease.
-0.30::toothache :- \+catch, gum_disease.
-0.05::toothache :- \+catch, \+gum_disease.
+1.00::toothache :- cavity, gum_disease.
+0.60::toothache :- cavity, \+gum_disease.
+0.30::toothache :- \+cavity, gum_disease.
+0.05::toothache :- \+cavity, \+gum_disease.
 
 query(toothache).
 ```
@@ -86,19 +180,50 @@ $ problog toothache.pl
 toothache:      0.11825
 ```
 
-Now suppose we observe toothache. What's the probability of "catch"? ProbLog will perform Bayesian inference to satisfy that query. First, update the last line of the program:
+Now suppose we observe toothache. What's the probability of "cavity"? ProbLog will perform Bayesian inference to satisfy that query. First, update the last line of the program:
 
 ```prolog
-evidence(toothache, true).
-query(catch).
+evidence(toothache).
+query(cavity).
 ```
 
 And run it:
 
 ```
 problog toothache.pl
-catch:  0.5243129
+cavity:  0.5243129
 ```
+
+Or instead, we could indicate we have evidence there is no toothache:
+
+```
+evidence(toothache, false).
+```
+
+Now we get:
+
+```
+$ problog toothache.pl
+cavity: 0.043096116
+```
+
+Perhaps most interesting, if we had to decide one cause (cavity or gum disease), which is most likely, given a toothache?
+
+```prolog
+evidence(toothache).
+query(cavity).
+query(gum_disease).
+```
+
+Result:
+
+```
+$ problog toothache.pl
+     cavity:    0.5243129
+gum_disease:    0.1564482
+```
+
+Thus, we find out a cavity is much more likely given a toothache.
 
 ## Example: Report of a fire
 
@@ -127,8 +252,8 @@ evidence(fire, true).
 query(report).
 
 % second, backwards inference (Bayesian inference)
-%evidence(report, true).
-%query(fire).
+% evidence(report, true).
+% query(fire).
 ```
 
 ## Example: Who stole the cookies?
