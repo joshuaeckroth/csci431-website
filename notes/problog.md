@@ -96,9 +96,9 @@ smokes(angelika):       0.3
 
 ## Probabilistic semantics
 
-Given the syntax example above, we have enough knowledge to create probabilistic programs. However, it is important to know what it *means* to label a fact/rule with a probability. Note, an understanding of [Prolog](/notes/prolog.html) is important to understanding ProbLog's computational model.
+Given the syntax example above, we have enough knowledge to create probabilistic programs. However, it is important to know what it *means* to label a fact/rule with a probability (we'll just say "fact" for now on to refer to both facts and rules). Note, an understanding of [Prolog](/notes/prolog.html) is important to understanding ProbLog's computational model.
 
-ProbLog makes the assumption that all probabilistic facts are *mutually independent*. Recall that if we have independent random variables $a$ and $b$, then $P(a,b)=P(a)P(b)$. This simple multiplication can use the probabilities for $a$ and $b$ specified by the user in the ProbLog program. If they are not assumed to be independent, we have the more tricky $P(a,b)=P(a\|b)P(b)$, which involves a probability $P(a\|b)$ which, presumably, the user has not specified in the program.
+ProbLog makes the assumption that all probabilistic facts are *mutually independent*. Recall that if we have *independent* random variables $a$ and $b$, then $P(a,b)=P(a)P(b)$. This simple multiplication can use the probabilities for $a$ and $b$ that are specified by the user in the ProbLog program. If they are not assumed to be independent, we have the more tricky $P(a,b)=P(a\|b)P(b)$, which involves a probability $P(a\|b)$ which cannot be specified in a ProbLog program.
 
 The probability of a ProbLog query `query(f)` given a ProbLog program (facts and rules) `T`, which we can write as $P(q\|T)$, is defined as:
 
@@ -110,9 +110,9 @@ $$P(L|T)=\prod_{c_i \in L} p_i \prod_{c_j \in L'} (1-p_j),$$
 
 where $c_i \in L$ ranges among the facts mentioned in $L$, and $c_j \in L'$ ranges among all the facts not mentioned in $L$.
 
-In other words, the probability of a particular set of facts $L$ for a given program $T$, written $P(L\|T)$, is the multiplication (product) of the probability of each of those facts being true (as specified in the ProbLog program) times the product of the probability of all the unmentioned facts being false. This simple multiplication is possible because of the assumption (by ProbLog) that every fact is mutually independent, so their probabilities can just be multiplied.
+In other words, the probability of a particular set of facts $L$ for a given program $T$, written $P(L\|T)$, is the multiplication (product) of the probability of each of those facts being true (as specified in the ProbLog program) times the product of the probability of all the unmentioned facts being false. This simple multiplication is possible because of the *assumption* (by ProbLog) that every fact is mutually independent, so their probabilities can just be multiplied.
 
-In summary, the probability of a particular query $q$ being true in a program $T$, written $P(q\|T)$, is equal to the sum of probabilities of the different ways (proofs) the query is true. This is equivalent to *marginalization*, discussed on the [Bayesian inference](/notes/bayesian-inference.html#tocAnchor-1-3) notes.
+In summary, the probability of a particular query $q$ being true in a program $T$, written $P(q\|T)$, is equal to the sum of probabilities of the different ways (proofs) the query is true, accounting for all the variables in the program. This is equivalent to *marginalization*, discussed on the [Bayesian inference](/notes/bayesian-inference.html#tocAnchor-1-3) notes.
 
 In the smoking example above, first imagine there are no probabilities, so we have a normal Prolog program:
 
