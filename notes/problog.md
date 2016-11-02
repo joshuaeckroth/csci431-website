@@ -98,7 +98,7 @@ smokes(angelika):       0.3
 
 Given the syntax example above, we have enough knowledge to create probabilistic programs. However, it is important to know what it *means* to label a fact/rule with a probability. Note, an understanding of [Prolog](/notes/prolog.html) is important to understanding ProbLog's computational model.
 
-ProbLog makes the assumption that all probabilistic facts are *mutually independent*. Recall that if we have independent random variables $a$ and $b$, then $P(a,b)=P(a)P(b)$. This simple multiplication can use the probabilities for $a$ and $b$ specified by the user in the ProbLog program. If they are not assumed to be independent, we have the more tricky $P(a,b)=P(a|b)P(b)$, which involves a probability $P(a|b)$ which, presumably, the user has not specified in the program.
+ProbLog makes the assumption that all probabilistic facts are *mutually independent*. Recall that if we have independent random variables $a$ and $b$, then $P(a,b)=P(a)P(b)$. This simple multiplication can use the probabilities for $a$ and $b$ specified by the user in the ProbLog program. If they are not assumed to be independent, we have the more tricky $P(a,b)=P(a\|b)P(b)$, which involves a probability $P(a\|b)$ which, presumably, the user has not specified in the program.
 
 The probability of a ProbLog query `query(f)` given a ProbLog program (facts and rules) `T`, which we can write as $P(q|T)$, is defined as:
 
