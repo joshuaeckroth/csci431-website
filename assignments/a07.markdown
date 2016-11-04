@@ -7,4 +7,35 @@ categories: [assignments]
 
 # A07: Automated jury
 
-This assignment helps you practice probabilistic inference using the [ProbLog](/notes/problog.html) language. Details forthcoming; we'll develop the case-to-be-solved in class.
+This assignment helps you practice probabilistic inference using the [ProbLog](/notes/problog.html) language.
+
+## The evidence
+
+There was a murder of a female in an alley between a bar and a church. An intoxicated person saw a person running away last night after dropping a bottle. The bottle shards were found in the alley in the morning. "M." (a female) hasn't been seen in days, but she often disappears for long periods of time. But she was expected home today. A body was found by two nuns (in the alley). Investigators know it was not a suicide, due to the angle of the stab wounds. The autopsy shows that the cause of death was bleeding through a large, shallow open wound, which *appears* to be the result of a stabbing. The autopsy shows the victim has been dead for 4 hours (as of 6am). There was a pentagram drawn in the victim's blood on the church wall. Nobody has identified the body. The nuns were found to have five small knives in their pockets. The knives were clean and the knives smelled of bleach. These nuns are known to wash their knives compulsively. Satanic literature, written by "M.", was found in the drunk person's house.
+
+Suspects:
+
+- two nuns
+- "M."
+- the victim
+- the drunk person
+- the person the drunk saw
+- someone else?
+
+Murder weapons:
+
+- the five small knives
+- some other knives?
+- bottle shards
+
+## Task
+
+Write a ProbLog file that represents the story. Add commonsense logic as facts/rules to the file (e.g., what's the connection between the pentagram and the literature and the nuns?). 
+
+Write queries that help answer (compute the probabilities) of these questions:
+- who murdered the victim? (i.e., probabilities for all suspects, conditioned on the evidence)
+- what was the murder weapon?
+- who was the victim? ("M." or otherwise?)
+
+
+Finally, write a sentence or two for each question that interprets the outcome. Indicate if you can decide "beyond a reasonable doubt" if, for example, "M." committed the murder.
