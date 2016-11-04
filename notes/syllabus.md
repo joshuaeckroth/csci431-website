@@ -30,7 +30,7 @@ Several assignments require that you understand and write Python code, including
 ## Grading
 
 - Attendance on work days (usually Fridays): 5%
-- Homeworks (11 of them): 55%
+- Homeworks (10 of them): 55%
 - Midterm: 20%
 - Final exam: 20%
 
@@ -68,7 +68,7 @@ See the individual assignments for the grading rubric. Homeworks are always out 
 - Week 6: Prolog
 - Week 7: Abductive reasoning
 - Week 8: Midterm
-- Week 9: Clustering
+- Week 9: Probabilities
 - Week 10: Classification
 - Week 11: Neural networks / deep learning
 - Week 12: Text processing and classification

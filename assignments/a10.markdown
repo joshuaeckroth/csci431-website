@@ -1,11 +1,14 @@
 ---
 layout: note
-title: "A10: Cats vs. dogs"
-due: "Nov 14, 11:59pm"
+title: "A10: Metatron"
+due: "Dec 9, 11:59pm"
 categories: [assignments]
 ---
 
-# A10: Cats vs. dogs
+# A10: Metatron
 
-This assignment helps you practice classification of images with neural networks. Your task is to distinguish photos with cats from photos with dogs. We will use a dataset from a [Kaggle competition](https://www.kaggle.com/c/dogs-vs-cats/data). Details forthcoming.
+This assignment helps you practice with robotics and the Robot Operating System in particular. Details forthcoming.
+
+
+
 

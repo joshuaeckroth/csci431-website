@@ -1,30 +1,11 @@
 ---
 layout: note
-title: "A09: NFL play-by-play"
-due: "Nov 7, 11:59pm"
+title: "A09: Cats vs. dogs"
+due: "Nov 30, 11:59pm"
 categories: [assignments]
 ---
 
-# A09: NFL play-by-play
+# A09: Cats vs. dogs
 
-This assignment helps you practice classification and classification evaluation. Your task is to train a classifier that best predicts whether an NFL play will be successful. We will use the NFL play-by-play data from [NFLsavant.com](http://nflsavant.com/about.php) dataset.
-
-## Background
-
-The NFL play-by-play data includes the following details for each play:
-
-- offense team and defense team for the play
-- quarter, minute, second
-- down, yard line, yards to go
-- yards earned (zero or negative if unsuccessful)
-- play type: QB kneel, pass, rush, punt, etc.
-- outcome: incomplete, fumble, interception, sack, etc.
-
-There are about 140,000 plays recored across three seasons (2013-09-05 to 2016-01-03).
-
-## Task
-
-## Related stickers
-
-- Most Predictive NFL Play-by-Play Award
+This assignment helps you practice classification of images with neural networks. Your task is to distinguish photos with cats from photos with dogs. We will use a dataset from a [Kaggle competition](https://www.kaggle.com/c/dogs-vs-cats/data). Details forthcoming.
 
