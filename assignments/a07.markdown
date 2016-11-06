@@ -33,9 +33,10 @@ Murder weapons:
 Write a ProbLog file that represents the story. Add commonsense logic as facts/rules to the file (e.g., what's the connection between the pentagram and the literature and the nuns?). 
 
 Write queries that help answer (compute the probabilities) of these questions:
+
 - who murdered the victim? (i.e., probabilities for all suspects, conditioned on the evidence)
+
+
 - what was the murder weapon?
 - who was the victim? ("M." or otherwise?)
 
-
-Finally, write a sentence or two for each question that interprets the outcome. Indicate if you can decide "beyond a reasonable doubt" if, for example, "M." committed the murder.

@@ -5,18 +5,7 @@ layout: note
 
 # Classification evaluation
 
-- $precision = \frac{tp}{tp+fp}$.
-- $recall = \frac{tp}{tp+fn}$.
-- High precision can be achieved trivially, at the cost of recall; and
-  vice versa.
-- $fscore = 2\*\frac{precision\*recall}{precision+recall}$ is the
-  harmonic mean of precision and recall, which produces a better
-  average of the two measures than an arithmetic mean.
-- 10-fold cross validation means we choose 90% of the data to be the
-  training set, and 10% to be the testing set. We evaluate the
-  precision/recall/etc. with this split, then choose a different 90/10
-  split and do it again. Because there are 10 possible splits, we do
-  it 10 times and average 10 results.
+Suppose we have a classifier machine, trained from some set of training data. How can we know if it works? What does it mean for it to be an "accurate" classifier? How can we be sure the model is not just "memorizing" the training data, and therefore effectively useless on real world data?
 
 ## Precision, Recall, F1
 
@@ -86,4 +75,17 @@ by Borovicka, et al.)  illustrates k-fold cross validation.
 
 ![Cross validation](/images/k-fold-cross-validation.jpg)
 
+## Summary
 
+- $precision = \frac{tp}{tp+fp}$.
+- $recall = \frac{tp}{tp+fn}$.
+- High precision can be achieved trivially, at the cost of recall; and
+  vice versa.
+- $fscore = 2\*\frac{precision\*recall}{precision+recall}$ is the
+  harmonic mean of precision and recall, which produces a better
+  average of the two measures than an arithmetic mean.
+- 10-fold cross validation means we choose 90% of the data to be the
+  training set, and 10% to be the testing set. We evaluate the
+  precision/recall/etc. with this split, then choose a different 90/10
+  split and do it again. Because there are 10 possible splits, we do
+  it 10 times and average 10 results.
