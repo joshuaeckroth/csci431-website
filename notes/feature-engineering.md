@@ -94,7 +94,10 @@ $$
 where $I_{\text{all}}$ means "all instances" and $H(I)$ is defined as:
 
 $$
-H(I)=\frac{\text{num of instances in } I \text{ with class}}{\text{num of instances in } I} * \log\left(\frac{\text{num of instances in } I}{\text{num of instances in } I \text{ with class}}\right),
+\begin{eqnarray}
+H(I)&=&\frac{\text{num of instances in } I \text{ with class}}{\text{num of instances in } I} * \left(-\log\left(\frac{\text{num of instances in } I \text{ with class}}{\text{num of instances in } I}\right)\right) \\
+&&+\frac{\text{num of instances in } I \text{ without class}}{\text{num of instances in } I} * \left(-\log\left(\frac{\text{num of instances in } I \text{ without class}}{\text{num of instances in } I}\right)\right)
+\end{eqnarray}
 $$
 
 
@@ -124,7 +127,7 @@ $$
 We can compute $H(I_\text{all})$ first:
 
 $$
-H(I_\text{all})=\frac{2}{6}*\log\left(\frac{6}{2}\right) = 0.366.
+H(I_\text{all})=\frac{2}{6}*\left(-\log\left(\frac{2}{6}\right)\right) + \frac{4}{6}*\left(-\log\left(\frac{4}{6}\right)\right) = 0.918.
 $$
 
 Next, $H(\text{coat color})$ is:
@@ -137,30 +140,30 @@ i.e.,
 
 $$
 \begin{eqnarray}
-H(\text{coat color}) &=& (\text{black:} (2/6)*(1/2)*\log(2/1)) \\
-&& + (\text{blue:}(2/6)*(0/2)*\log(2/0)) \\
-&& + (\text{brown:}(2/6)*(1/2)*\log(2/1)) \\
-&=& 0.231,
+H(\text{coat color}) &=& (\text{black:} (2/6)*((1/2)*(-\log(1/2))+(1/2)*(-\log(1/2))) \\
+&& + (\text{blue:}(2/6)*((0/2)*(-\log(0/2))+(2/2)*(-\log(2/2))) \\
+&& + (\text{brown:}(2/6)*((1/2)*(-\log(1/2))+(1/2)*(-\log(1/2))) \\
+&=& 0.667,
 \end{eqnarray}
 $$
 
-and subtracting this from $H(I_\text{all})$ we have: $0.135$ for coat color.
+and subtracting this from $H(I_\text{all})$ we have: $0.251$ for coat color.
 
 On the other hand, $H(\text{hat color})$ comes out to be:
 
 $$
 \begin{eqnarray}
-H(\text{hat color}) &=& (\text{black:} (3/6)*(2/3)*\log(3/2)) \\
-&& + (\text{brown:} (3/6)*(0/3)*\log(3/0)) \\
-&=& 0.135,
+H(\text{hat color}) &=& (\text{black:} (3/6)*((2/3)*(-\log(2/3))+(1/3)*(-\log(1/3))) \\
+&& + (\text{brown:} (3/6)*((0/3)*(-\log(0/3))+(3/3)*(-\log(3/3))) \\
+&=& 0.459,
 \end{eqnarray}
 $$
 
-resulting in information gain (subtracting from $H(I_\text{all})$): $0.231$ for hat color.
+resulting in information gain (subtracting from $H(I_\text{all})$): $0.459$ for hat color.
 
-Thus, hat color has greater information gain than coat color. **In other words, hat color is a better predictor of Gentry. If we only knew the hat color (black or brown), we'd be closer to an answer than if we only knew the coat color.**
+Thus, hat color has greater information gain than coat color. **In other words, Hat Color is a better predictor of Gentry. If we only knew the hat color (black or brown), we'd be closer to an answer than if we only knew the coat color.**
 
-Weka finds the same results, though different numbers (perhaps due to a different logarithm base):
+Weka finds the same results:
 
 ```
 === Run information ===
