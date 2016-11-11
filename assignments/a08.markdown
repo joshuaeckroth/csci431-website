@@ -1,7 +1,7 @@
 ---
 layout: note
 title: "A08: NFL play-by-play"
-due: "Nov 16, 11:59pm"
+due: "Nov 18, 11:59pm"
 categories: [assignments]
 ---
 
@@ -27,4 +27,5 @@ There are about 140,000 plays recored across three seasons (2013-09-05 to 2016-0
 ## Related stickers
 
 - Most Predictive NFL Play-by-Play Award
+
 
