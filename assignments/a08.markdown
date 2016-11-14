@@ -1,13 +1,13 @@
 ---
 layout: note
 title: "A08: NFL play-by-play"
-due: "Nov 18, 11:59pm"
+due: "Nov 21, 11:59pm"
 categories: [assignments]
 ---
 
 # A08: NFL play-by-play
 
-This assignment helps you practice classification and classification evaluation. Your task is to train a classifier that best predicts whether an NFL play will be successful. We will use the NFL play-by-play data from [NFLsavant.com](http://nflsavant.com/about.php) dataset.
+This assignment helps you practice classification workflows. Your task is to train a classifier that best predicts whether an NFL play will be successful. We will use the NFL play-by-play data from [NFLsavant.com](http://nflsavant.com/about.php) dataset.
 
 ## Background
 
@@ -20,9 +20,31 @@ The NFL play-by-play data includes the following details for each play:
 - play type: QB kneel, pass, rush, punt, etc.
 - outcome: incomplete, fumble, interception, sack, etc.
 
-There are about 140,000 plays recored across three seasons (2013-09-05 to 2016-01-03).
+There are about 140,000 plays recored across three seasons (2013-09-05 to 2016-01-03). You are only required to work with the 2013 data.
+
+I also downloaded weather data (from NFLsavant) and statistics about passing for each team. I found team name abbreviations, which are necessary to connect the play-by-play data with these other files. All files may be found on londo in `/home/jeckroth/csci431/nfldata`.
 
 ## Task
+
+Decide whether you will predict successful passes or rushes or both (or something else entirely). Process the data appropriately, possibly merging in data about the weather and passing statistics. Find a good classifier and report its accuracy.
+
+Be sure to balance the successful/unsuccessful outcomes so ZeroR classifier gives 50% accuracy. This can be done in Weka by using the Resample filter in the preprocess tab (filter menu: supervised > instance > resample). Use values biasToUniformClass = 1.0, noReplacement = True, sampleSizePercent = 80.
+
+## Deliverables
+
+Submit each of the following:
+
+- Any code you write to transform the data files.
+- Documentation of the Weka operations you performed, in the order performed.
+- Definition of "success," that is, definition of what is being predicted.
+- A report of the accuracy of the ZeroR and OneR classifiers with 10-fold cross validation (include pct correct, prec/recall/f-measure, confusion matrix).
+- A report of the accuracy of your best classifier with 10-fold cross validation (include pct correct, prec/recall/f-measure, confusion matrix).
+
+## Grading rubric
+
+Grading of this assignment will be somewhat subjective. Having worked with the NFL dataset now for a significant amount of time, I'm aware of some easy mistakes that can be made in data processing and feature engineering. I'll be looking for evidence of these mistakes and otherwise poor methodology.
+
+To earn full credit, data must be processed correctly and the classifiers must be evaluated correctly. The best classifier must have an accuracy > 60% on balanced classes (if predicting passes; I have not attempted predicting successful rushes). The methodology must be sophisticated, correct, and well-documented.
 
 ## Related stickers
 

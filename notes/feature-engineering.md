@@ -161,6 +161,11 @@ $$
 
 resulting in information gain (subtracting from $H(I_\text{all})$): $0.459$ for hat color.
 
+Summarizing our results:
+
+- $IG(\text{coat color}) = 0.251$.
+- $IG(\text{hat color}) = 0.459$.
+
 Thus, hat color has greater information gain than coat color. **In other words, Hat Color is a better predictor of Gentry. If we only knew the hat color (black or brown), we'd be closer to an answer than if we only knew the coat color.**
 
 Weka finds the same results:
