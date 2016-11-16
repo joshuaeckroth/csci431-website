@@ -1,0 +1,5 @@
+digraph g {
+        coat -> gentry;
+        hat -> gentry;
+        
+}

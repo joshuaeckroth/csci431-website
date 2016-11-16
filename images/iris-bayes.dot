@@ -1,0 +1,22 @@
+digraph g {
+    sepal_length [label="Sepal length"];
+    sepal_width [label="Sepal width"];
+    petal_length [label="Petal length"];
+    petal_width [label="Petal width"];
+    iris_setosa [label="Iris-setosa"];
+    iris_versicolor [label="Iris-versicolor"];
+    iris_virginica [label="Iris-virginica"];
+    sepal_length -> iris_setosa;
+    sepal_length -> iris_versicolor;
+    sepal_length -> iris_virginica;
+    sepal_width -> iris_setosa;
+    sepal_width -> iris_versicolor;
+    sepal_width -> iris_virginica;
+    petal_length -> iris_setosa;
+    petal_length -> iris_versicolor;
+    petal_length -> iris_virginica;
+    petal_width -> iris_setosa;
+    petal_width -> iris_versicolor;
+    petal_width -> iris_virginica;
+        
+}

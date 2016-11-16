@@ -34,8 +34,8 @@ Consider the gentry dataset from the [feature engineering notes](/notes/feature-
 | Black      | Brown     | No      |
 | Blue       | Black     | No      |
 | Blue       | Brown     | No      |
-| Brown      | Brown     | No      |
 | Brown      | Black     | Yes     |
+| Brown      | Brown     | No      |
 
 We previously computed the information gain of the two possible attributes, coat color and hat color:
 

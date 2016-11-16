@@ -115,8 +115,8 @@ For example, consider this table of data:
 | Black      | Brown     | No      |
 | Blue       | Black     | No      |
 | Blue       | Brown     | No      |
-| Brown      | Brown     | No      |
 | Brown      | Black     | Yes     |
+| Brown      | Brown     | No      |
 
 We want to know which feature, Coat Color or Hat Color, has greater "information gain" with respect to the class Gentry. First, we'll ask about Coat Color:
 
