@@ -42,23 +42,7 @@ python json2csv.py train.json > train.csv
 
 ## delenn for training
 
-Feel free to use delenn to train. Configure your classifier in Weka, then right-click on the classifier options and choose "Copy configuration to clipboard." Your clipboard should contain something like this:
-
-```
-weka.classifiers.rules.OneR -B 6
-```
-
-Upload your ARFF file to delenn, then run Weka like so:
-
-```
-$ java -cp /opt/weka/weka-3.8.0.jar [paste classifier options] -t myfile.arff
-```
-
-E.g.,
-
-```
-$ java -cp /opt/weka/weka-3.8.0.jar weka.classifiers.rules.OneR -B 6 -t myfile.arff
-```
+Feel free to use delenn to train. Refer to the [Weka](/notes/weka-classification.html) notes for details.
 
 ## Deliverables
 
