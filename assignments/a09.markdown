@@ -40,6 +40,12 @@ Run the script as follows, assuming the script is saved as `json2csv.py`:
 python json2csv.py train.json > train.csv
 ```
 
+or if on delenn:
+
+```
+PYTHONIOENCODING=utf8 python2 json2csv.py train.json > train.csv
+```
+
 ## delenn for training
 
 Feel free to use delenn to train. Refer to the [Weka](/notes/weka-classification.html) notes for details.
