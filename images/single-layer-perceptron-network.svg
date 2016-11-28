@@ -13,11 +13,11 @@
    height="488.53403"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="single-layer-perceptron-network.svg"
-   inkscape:export-filename="/home/josh/t/cse3521/website/src/images/single-layer-perceptron-network.png"
-   inkscape:export-xdpi="50.017887"
-   inkscape:export-ydpi="50.017887">
+   inkscape:export-filename="/Users/JoshuaEckroth/Documents/git/csci431-website/images/single-layer-perceptron-network.png"
+   inkscape:export-xdpi="67.889999"
+   inkscape:export-ydpi="67.889999">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.54"
-     inkscape:cx="320.36317"
+     inkscape:cx="-4.63683"
      inkscape:cy="274.77757"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -186,7 +186,7 @@
        sodipodi:cy="372.66592"
        sodipodi:rx="290"
        sodipodi:ry="160"
-       d="m 817.14288,372.66592 c 0,88.36556 -129.83742,160 -290,160 -160.16257,0 -290,-71.63444 -290,-160 0,-88.36556 129.83743,-160 290,-160 160.16258,0 290,71.63444 290,160 z"
+       d="m 817.14288,372.66592 a 290,160 0 0 1 -290,160 290,160 0 0 1 -290,-160 290,160 0 0 1 290,-160 290,160 0 0 1 290,160 z"
        transform="matrix(0.4225503,0,0,0.4225503,265.03766,374.31006)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -257,7 +257,7 @@
        sodipodi:cy="372.66592"
        sodipodi:rx="290"
        sodipodi:ry="160"
-       d="m 817.14288,372.66592 c 0,88.36556 -129.83742,160 -290,160 -160.16257,0 -290,-71.63444 -290,-160 0,-88.36556 129.83743,-160 290,-160 160.16258,0 290,71.63444 290,160 z"
+       d="m 817.14288,372.66592 a 290,160 0 0 1 -290,160 290,160 0 0 1 -290,-160 290,160 0 0 1 290,-160 290,160 0 0 1 290,160 z"
        transform="matrix(0.4225503,0,0,0.4225503,265.03766,530.04642)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -328,7 +328,7 @@
        sodipodi:cy="372.66592"
        sodipodi:rx="290"
        sodipodi:ry="160"
-       d="m 817.14288,372.66592 c 0,88.36556 -129.83742,160 -290,160 -160.16257,0 -290,-71.63444 -290,-160 0,-88.36556 129.83743,-160 290,-160 160.16258,0 290,71.63444 290,160 z"
+       d="m 817.14288,372.66592 a 290,160 0 0 1 -290,160 290,160 0 0 1 -290,-160 290,160 0 0 1 290,-160 290,160 0 0 1 290,160 z"
        transform="matrix(0.4225503,0,0,0.4225503,265.03766,685.78279)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"

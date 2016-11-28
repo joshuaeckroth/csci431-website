@@ -5,81 +5,37 @@ layout: note
 
 # Neural networks
 
-- high
-- level
-- points
+Neural networks, also known as artificial neural networks, are a machine learning paradigm inspired by animal neurons. A neural network consists of many nodes, playing the role of neurons, connected via edges, playing the role of synaptic connections. Typically, the neurons are arranged in layers, with each layer fully connected to the next. The first and last layers are input and output layers, respectively. Inputs and outputs are binary. The network is "trained" by repeatedly examining the training set; each repetition is called an "epoch." During each epoch, the weights on each edge are slightly adjusted in order to reduce the prediction error for the next epoch. We must decide when to stop training, i.e., how many epochs to execute. The resulting learned "model" consists of the network topology as well as the various weights.
 
-## The neuron
+## The animal neuron
 
 ![Neuron](/images/neuron.png){: .right}
 
-The typical neuron consists of a cell body, a nucleus, the axon and
-axon terminals, and dendrites. The dendrites split into complex trees
-and receive signals from other neurons. Signals are sent through the
-axon terminals to other neurons.
+A neuron consists of a cell body, a nucleus, the axon and axon terminals, and dendrites. The dendrites split into complex trees and receive signals from other neurons. Signals are sent through the axon terminals to other neurons.
 
-Neurons are found throughout the nervous system (brain, spinal cord,
-periphery) but are most concentrated in the brain. A human brain has
-about 100 billion neurons. Each neuron has, on average, about 7000
-connections to other neurons.
+Neurons are found throughout the nervous system (brain, spinal cord, periphery) but are most concentrated in the brain. A human brain has about 100 billion neurons. Each neuron has, on average, about 7000 connections to other neurons. This wouldn't be particularly remarkable except for the generally-accepted theory that the brain is an "information processing machine." That is to say, it is *computing* something with all those neurons. The question is, then, can properties of the brain be the reason humans are intelligent, and can those properties be used in systems we create?
 
-This wouldn't be particularly remarkable except for the
-generally-accepted theory that the brain is an "information processing
-machine." That is to say, it is *computing* something with all those
-neurons. The question is, then, can properties of the brain be the
-reason humans are intelligent, and can those properties be used in
-systems we create?
+The most intriguing property of the brain, apart from its massive connectivity, is that each neuron is more-or-less doing the same thing. Most neurons "activate" (discharge an electrical signal down the axon) based on whether or not neurons connected to it have recently activated themselves. Each connection to another neuron has a certain strength, so that if the connected neuron activates, a signal of a certain strength is received. The received signals add up, and may cause the receiving neuron itself to activate.
 
-The most intriguing property of the brain, apart from its massive
-connectivity, is that each neuron is more-or-less doing the same
-thing. Most neurons "activate" (discharges an electrical signal down
-the axon) based on whether or not neurons connected to it have
-recently activated themselves. Each connection to another neuron has a
-certain strength, so that if the connected neuron activates, a signal
-of a certain strength is received. The signals received add up, and
-may cause the receiving neuron itself to activate.
+The signals have to add up in a certain time frame, otherwise they will just dissipate. If the receiving neuron does activate, it completely discharges. It is an "all or nothing" event. More received electrical charge does not create greater discharges; the amount of received charge only determines *if* an activation will occur.
 
-The signals have to add up in a certain time frame, otherwise they
-will just dissipate. If the receiving neuron does activate, it
-completely discharges. It is an "all or nothing" event. More received
-electrical charge does not create greater discharges; the amount of
-received charge only determines *if* an activation will occur.
-
-Some connections among neurons are excitatory, which increase the
-chance of activation by the receiving neuron, and inhibitory which do
-the opposite.
+Some connections among neurons are excitatory, which increase the chance of activation by the receiving neuron, and inhibitory which do the opposite.
 
 Here is an image of the action potential (from [Wikipedia](http://en.wikipedia.org/wiki/File:Action_potential_vert.png)):
 
 ![Action potential](/images/action-potential.png)
 
-The connections among neurons and their strengths are not
-hard-wired. "Learning" is essentially the process of changing
-connections ("synaptic pruning") and their strengths ("synaptic
-plasiticity").
+The connections among neurons and their strengths are not hard-wired. "Learning" is essentially the process of changing connections ("synaptic pruning") and their strengths ("synaptic plasiticity").
 
-One important theory about how these changes come about is the Hebbian
-learning rule (from Donald Hebb, 1949). It attempts to explain how
-connections strengthen:
+One important theory about how these changes come about is the Hebbian learning rule (from Donald Hebb, 1904-1985). It attempts to explain how connections strengthen:
 
-> Let us assume that the persistence or repetition of a reverberatory
-activity (or "trace") tends to induce lasting cellular changes that
-add to its stability. [...] When an axon of cell A is near enough to
-excite a cell B and repeatedly or persistently takes part in firing
-it, some growth process or metabolic change takes place in one or both
-cells such that A's efficiency, as one of the cells firing B, is
-increased.
+> Let us assume that the persistence or repetition of a reverberatory activity (or "trace") tends to induce lasting cellular changes that add to its stability. [...] When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased. — (Hebb, *The Organization of Behavior*, 1949)
 
-This is often summarized as: "Cells that fire together, wire
-together." The theory would basically explain associative memory: if
-you repeatedly hear the birthday song while you are simultaneously
-looking at a birthday cake, eventually whenever you see or think about
-a birthday cake, you are reminded of the song.
+This is often summarized as: "Cells that fire together, wire together." The theory would basically explain associative memory: if you repeatedly hear the birthday song while you are simultaneously looking at a birthday cake, eventually whenever you see or think about a birthday cake, you are reminded of the song.
 
 ## Neurons as inspiration: The perceptron
 
-We want to build systems that exhibit some properties of the
-brain. These properties are:
+We want to build systems that exhibit some properties of the brain. These properties are:
 
 - Simple, nearly-identical components (neurons)
 
@@ -87,38 +43,13 @@ brain. These properties are:
 
 - A learning mechanism
 
-These properties are important for several reasons. Systems built out
-of many similar (well, let's just say "identical") components may be
-more robust if we can be certain the design of the identical
-components is a good design. Massively-parallel computation promises
-that very complex tasks can be done in very little time; accomplishing
-this is still just pie in the sky for most systems built by
-humans. And if we have access to a reliable learning mechanisms,
-systems do not so much have to be designed but rather "trained."
-Perhaps we can build systems that begin like children but learn, on
-their own, to be highly capable. Perhaps we can just throw together a
-bunch of simple "neurons," show the system lots of training examples,
-and the system will do the rest of the work.
+These properties are important for several reasons. Systems built out of many similar (well, let's just say "identical") components may be more robust if we can be certain the design of the identical components is a good design. Massively-parallel computation promises that very complex tasks can be done in very little time; accomplishing this is still just pie in the sky for most systems built by humans. And if we have access to a reliable learning mechanisms, systems do not so much have to be designed but rather "trained." Perhaps we can build systems that begin like children but learn, on their own, to be highly capable. Perhaps we can just throw together a bunch of simple "neurons," show the system lots of training examples, and the system will do the rest of the work.
 
-The first attempt was by
-[Frank Rosenblatt](http://www.rutherfordjournal.org/article040101.html#rosenblatt)
-in 1957. He designed the "perceptron," a computational unit that can
-be described by the following diagram.
+The first attempt was by [Frank Rosenblatt](http://www.rutherfordjournal.org/article040101.html#rosenblatt) in 1957. He designed the "perceptron," a computational unit that can be described by the following diagram.
 
 ![Perceptron](/images/perceptron.png)
 
-The perceptron is analogous to a single neuron. It receives inputs
-from $x\_1, x\_2, x\_3$, etc. (any number of inputs). For convenience in
-the learning process, it also receives another input that is always
-the value 1.0. Each of these inputs are multiplied by a weight, to
-emulate the strength of the neural connection and whether it is
-excitatory or inhibitory (excitatory weights are positive, inhibitory
-weights are negative, usually). The inputs multiplied by the weights
-come into the perceptron and are summed. Then, a question has to be
-answered: does this perceptron (neuron) activate? A simple function
-decides this: if the sum is large enough, say above 0.5, then the
-perceptron activates, sending a 1 out the right side. Otherwise, it
-does not, sending a 0 out the right side.
+The perceptron is analogous to a single neuron. It receives inputs from $x\_1, x\_2, x\_3$, etc. (any number of inputs). For convenience in the learning process, it also receives another input that is always the value 1.0. Each of these inputs are multiplied by a weight, to emulate the strength of the neural connection and whether it is excitatory or inhibitory (excitatory weights are positive, inhibitory weights are negative, usually). The inputs multiplied by the weights come into the perceptron and are summed. Then, a question has to be answered: does this perceptron (neuron) activate? A simple function decides this: if the sum is large enough, say above 0.5, then the perceptron activates, sending a 1 out the right side. Otherwise, it does not, sending a 0 out the right side.
 
 $$
 f\left(\sum_{i=1}^k x_{i} w_{ji} + w_{j0}\right) =
@@ -128,34 +59,17 @@ f\left(\sum_{i=1}^k x_{i} w_{ji} + w_{j0}\right) =
 \end{cases}
 $$
 
-Each perceptron may be connected to others, so that a perceptron's
-output can be other perceptrons' inputs. However, it turns out that
-the complexity of the network greatly affects how learning will work.
+Each percepton may be connected to others, so that a perceptron's output can be other perceptrons' inputs. However, it turns out that the complexity of the network greatly affects how learning will work.
 
-The first property to notice about perceptrons is that a single
-perceptron can compute simple logic functions, assuming we have binary
-inputs. For example,
+The first property to notice about perceptrons is that a single perceptron can compute simple logic functions, assuming we have binary inputs. For example,
 
 ![NOT perceptron](/images/not-perceptron.png)
 
 ![AND perceptron](/images/and-perceptron.png)
 
-Outputs of perceptrons can become inputs to other perceptrons,
-allowing us to build all possible logic circuits. Thus, perceptrons
-are capable of general computation, putting them in the large class of
-fantastically different systems that are Turing-complete. A
-Turing-complete system is able to compute anything that can be
-computed; examples include electrical logic gates (i.e., a typical
-computer), the Lambda calculus, cellular automata, and now neural
-networks.
+Outputs of perceptrons can become inputs to other perceptrons, allowing us to build all possible logic circuits. Thus, perceptrons are capable of general computation, putting them in the large class of fantastically different systems that are Turing-complete. A Turing-complete system is able to compute anything that can be computed; examples include electrical logic gates (i.e., a typical computer), the Lambda calculus, cellular automata, and now neural networks.
 
-But can a complex network learn? When we say "learn," we mean: can the
-weights be assigned via a training process rather than assigned
-manually? This would be ideal: just put together a bunch of
-perceptrons, give it lots of examples (e.g., examples of prime numbers
-and composite numbers), and let it figure out how to set the weights
-so that it turns into a machine that computes that function (e.g., the
-function to determine if a number is prime or not).
+But can a complex network learn? When we say "learn," we mean: can the weights be assigned via a training process rather than assigned manually? This would be ideal: just put together a bunch of perceptrons, give it lots of examples (e.g., examples of prime numbers and composite numbers), and let it figure out how to set the weights so that it turns into a machine that computes that function (e.g., the function to determine if a number is prime or not).
 
 ## The perceptron learning algorithm
 
@@ -169,142 +83,63 @@ f\left(\sum_{i=1}^k x_{i} w_{ji} + w_{j0}\right) =
 \end{cases}
 $$
 
-Suppose we want to train a single perceptron. We want that function to
-be 1 for positive examples and 0 for negative examples. This means we
-want the sum of the inputs to be at least 0.5 for positive examples,
-and less for negative examples.
+Suppose we want to train a single perceptron. We want that function to be 1 for positive examples and 0 for negative examples. This means we want the sum of the inputs to be at least 0.5 for positive examples, and less for negative examples.
 
-The sum is a linear function. It can be "trained" using typical
-methods that work on linear functions. One such method is gradient
-descent (or ascent), a.k.a. hill-climbing. Normally, with gradient
-descent, we compute the derivative (gradient) of the objective
-function (the threshold function $f$) and determine which direction is
-the greatest gradient, and adjust the weights. However, the threshold
-function is not differentiable (it is a step function, discontinous at
-0.5), but we have a shortcut.
+The sum is a linear function. It can be "trained" using typical methods that work on linear functions. One such method is gradient descent (or ascent), a.k.a. hill-climbing. Normally, with gradient descent, we compute the derivative (gradient) of the objective function (the threshold function $f$) and determine which direction is the greatest gradient, and adjust the weights. However, the threshold function is not differentiable (it is a step function, discontinous at 0.5), but we have a shortcut.
 
-Let $d\_j$ be the true ($d$ for "desired") answer for some input
-vector, and $y\_j$ but the output computed by the $j$'th perceptron
-with its current weights $w\_{ij}$ (weight from input $i$ to this
-perceptron $j$). We do not want to adjust the weights if the output is
-correct. If the output is 0 and we should have yielded a 1, then the
-weights are too low, and should be adjusted up. If the output is a 1
-and we wanted a 0, the weights are too high. Of course, we only want
-to adjust a tiny bit, so we do not oscillate. Thus, we have the
-following adjustment for each weight:
+Let $d\_j$ be the true ($d$ for "desired") answer for some input vector, and $y\_j$ but the output computed by the $j$'th perceptron with its current weights $w\_{ij}$ (weight from input $i$ to this perceptron $j$). We do not want to adjust the weights if the output is correct. If the output is 0 and we should have yielded a 1, then the weights are too low, and should be adjusted up. If the output is a 1 and we wanted a 0, the weights are too high. Of course, we only want to adjust a tiny bit, so we do not oscillate. Thus, we have the following adjustment for each weight:
 
 $$w'_{ij} = w_{ij} + \alpha (d_j-y_j)x_i,$$
 
-where $w'\_{ij}$ is the new weight and $\alpha$ is a small number (0.1,
-or 0.01, etc.). Each weight is adjusted based on the input $x_i$ that
-corresponds to that weight since some inputs are large and others
-small (possibly even negative if we get away from boolean
-inputs). Weights may become large, small, or even negative depending
-on the nature of the function being learned and the nature of the
-inputs. Since each adjustment is so small, the same perceptron may
-need to be shown the same (positive and negative) examples many
-times. When a perceptron is shown all examples once, we say it has
-trained on one "epoch." Often we train across hundreds or thousands of
-epochs.
+where $w'\_{ij}$ is the new weight and $\alpha$ is a small number (0.1, or 0.01, etc.). Each weight is adjusted based on the input $x_i$ that corresponds to that weight since some inputs are large and others small (possibly even negative if we get away from boolean inputs). Weights may become large, small, or even negative depending on the nature of the function being learned and the nature of the inputs. Since each adjustment is so small, the same perceptron may need to be shown the same (positive and negative) examples many times. When a perceptron is shown all examples once, we say it has trained on one "epoch." Often we train across hundreds or thousands of epochs.
 
-A single perceptron can have many inputs; perhaps thousands. What
-kinds of functions can it learn? Recall the sum of the weighted inputs
-is a linear function. The threshold function just says "yes" or "no"
-based on this sum. Suppose there are two inputs: then the weighted sum
-describes a line in 2D. The threshold function just says "yes" if an
-input vector is above (or below) the line, or exactly on the line, and
-"no" otherwise.
+A single perceptron can have many inputs; perhaps thousands. What kinds of functions can it learn? Recall the sum of the weighted inputs is a linear function. The threshold function just says "yes" or "no" based on this sum. Suppose there are two inputs: then the weighted sum describes a line in 2D. The threshold function just says "yes" if an input vector is above (or below) the line, or exactly on the line, and "no" otherwise.
 
 Here is a diagram of this threshold line:
 
 ![Linearly separable](/images/linearly-separable.png)
 
-The answer is, therefore, that a perceptron can learn any "linearly
-separable" function. If the positive examples and negative examples
-can be plotted (possibly in higher dimensions), and there exists a
-line/plane that separates the two classes, then a perceptron can learn
-that line/plane. We know this because the line/plane can be described
-by a weighted sum of the inputs. This fact is why you may find
-perceptrons described in terms of "computational geometry" --- they
-are effectively learning geometric functions.
+The answer is, therefore, that a perceptron can learn any "linearly separable" function. If the positive examples and negative examples can be plotted (possibly in higher dimensions), and there exists a line/plane that separates the two classes, then a perceptron can learn that line/plane. We know this because the line/plane can be described by a weighted sum of the inputs. This fact is why you may find perceptrons described in terms of "computational geometry" — they are effectively learning geometric functions.
 
-It turns out that not all functions are linearly separable. The
-simplest case is the XOR function. You can plot it like so:
+It turns out that not all functions are linearly separable. The simplest case is the XOR function. You can plot it like so:
 
 ![XOR plot](/images/xor-plot.png)
 
-There is simply no line that separates the positive and negative
-examples of the XOR function. A perceptron cannot learn this function.
+There is simply no line that separates the positive and negative examples of the XOR function. A perceptron cannot learn this function.
 
-This is such a basic function that, when Minsky and Papert proved in
-1969 that XOR could not be learned, perceptrons took a huge
-hit. Research in neural networks did not fully recover until the
-1980s, when a new learning mechanism was discovered.
+This is such a basic function that, when Minsky and Papert proved in 1969 that XOR could not be learned, perceptrons took a huge hit. Research in neural networks did not fully recover until the 1980s, when a new learning mechanism was discovered.
 
 ## Single-layer perceptron networks
 
-Putting lots of perceptrons together in a single-layer network changes
-nothing. They all learn independently. (So XOR still cannot be
-learned.) However, we can get more than 0/1 as an output. We can get
-any number of outputs we wish.
+Putting lots of perceptrons together in a single-layer network changes nothing. They all learn independently. (So XOR still cannot be learned.) However, we can get more than 0/1 as an output. We can get any number of outputs we wish.
 
 ![Single layer perceptron network](/images/single-layer-perceptron-network.png)
 
-These networks are "fully connected" and "feed-forward" --- fully
-connected because each input connects to every perceptron, and
-feed-forward because there are no loops. "Recurrent" networks have
-loops, where the output of some perceptron becomes the input to
-another perceptron earlier in the chain, or an input to
-itself. Recurrent networks are decidedly more complex (they can be
-dynamic non-linear systems) but are able to keep memories and other
-such interesting features.
+These networks are "fully connected" and "feed-forward" — fully connected because each input connects to every perceptron, and feed-forward because there are no loops. "Recurrent" networks have loops, where the output of some perceptron becomes the input to another perceptron earlier in the chain, or an input to itself. Recurrent networks are decidedly more complex (they can be dynamic non-linear systems) but are able to keep memories and other such interesting features.
 
-## Logistic perceptrons
+## Logistic (sigmoid) perceptrons
 
-When the function being learned is not linearly separable, the
-threshold function causes some oscillating. This is because points
-near the separator are continually changing classifications as the
-weights update and move the separator.
+When the function being learned is not linearly separable, the threshold function causes some oscillating. This is because points near the separator are continually changing classifications as the weights update and move the separator.
 
-We also may desire probabilistic answers rather than yes/no
-answers. If the data cannot actually be separated, then
-classifications near boundary should be less confident than
-classifications far from the boundary. It would be nice if the
-perceptrons can report this confidence as a classification
-probability.
+We also may desire probabilistic answers rather than yes/no answers. If the data cannot actually be separated, then classifications near boundary should be less confident than classifications far from the boundary. It would be nice if the perceptrons can report this confidence as a classification probability.
 
-The threshold function we saw cannot do this for us. We need a
-continuous function that looks the same but gives graded answers.
+The threshold function we saw cannot do this for us. We need a continuous function that looks the same but gives graded answers.
 
-A good choice is the logistic function:
+A good choice is the logistic function, also known as the sigmoid function:
 
 $$f(s_j) = \frac{1}{1+e^{-s_j}}$$
 
-where $s\_j = \sum_{i=1}^k x\_{i} w\_{ij} + w\_{0j}$. This is what it
-looks like (from [Wikipedia](http://en.wikipedia.org/w/index.php?title=File:Logistic-curve.svg&page=1)):
+where $s\_j = \sum_{i=1}^k x\_{i} w\_{ij} + w\_{0j}$. This is what it looks like (from [Wikipedia](http://en.wikipedia.org/w/index.php?title=File:Logistic-curve.svg&page=1)):
 
 ![Logistic curve](/images/logistic-curve.png)
 
-Since we no longer have binary outputs, but rather probabilistic ones,
-we need to change our evaluation function. An output is no longer
-either correct or incorrect. If the true answer is 1.0, and the
-logistic function gives 0.79, then we say the error is 0.21. For the
-sake of easy derivatives, we'll go further and say the error, now
-called the "loss," is the square of the difference:
+Since we no longer have binary outputs, but rather probabilistic ones, we need to change our evaluation function. An output is no longer either correct or incorrect. If the true answer is 1.0, and the logistic function gives 0.79, then we say the error is 0.21. For the sake of easy derivatives, we'll go further and say the error, now called the "loss," is the square of the difference:
 
-$$L_j(d_j, p_j) = (d_j - p_j)^2,$$
+$$L_j(d_j, f(s_j)) = (d_j - f(s_j))^2,$$
 
-where $d\_j$ is the correct answer (1.0 or 0.0, binary), and
-$p\_j=f(s\_j)$ is the probability from the logistic function. We'll say
-the total loss is the sum of the loss from each perceptron. (Recall
-that a single-layer perceptron network is just a collection of
-independent perceptrons, which are essentially trained separately.)
+where $d\_j$ is the correct answer (1.0 or 0.0, binary), and $f(s\_j)$ is the value from the activation function. We'll say the total loss is the sum of the loss from each perceptron. (Recall that a single-layer perceptron network is just a collection of independent perceptrons, which are essentially trained separately.)
 
-Our learning algorithm needs to be revised. Luckily, we can just work
-backwards from the loss function and attempt to walk up/down the
-gradient. Since the logistic function and the loss function are
-differentiable, this gradient is easy to find for each weight
-separately.
+Our learning algorithm needs to be revised. Luckily, we can just work backwards from the loss function and attempt to walk up/down the gradient. Since the activation function and the loss function are differentiable, this gradient is easy to find for each weight separately.
 
 $$
 \begin{eqnarray}
@@ -312,95 +147,91 @@ $$
 &=& \frac{\partial}{\partial w_{ij}} (d_j - f(s_j))^2 \\
 &=& 2 (d_j - f(s_j)) \frac{\partial}{\partial w_{ij}} (d_j - f(s_j)) \qquad \text{chain rule} \\
 &=& -2 (d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} s_j \qquad \text{chain rule}\\
-&=& -2 (d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} \sum_{i'=1}^k x_{i'} w_{ij'} + w_{j0} \qquad \text{expand } s_j\\
+&=& -2 (d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} \sum_{i'=1}^k x_{i'} w_{i'j} + w_{0j} \qquad \text{expand } s_j\\
 &=& -2 (d_j - f(s_j)) f'(s_j) x_{i} \qquad \text{picks out } x_{i} w_{ij} \text{, whose derivative is } x_{i}
 \end{eqnarray}
 $$
 
-Note that $f'(z) = f(z)(1-f(z))$. This makes the logistic function a
-good choice (in addition to its shape, which approximates the
-threshold function). We can push the $2$ into the $\alpha$
-parameter, yielding:
+Note that $f'(z) = f(z)(1-f(z))$. This makes the logistic function a good choice (in addition to its shape, which approximates the threshold function). We can push the $2$ into the $\alpha$ parameter, yielding:
 
 $$\frac{\partial L_j}{\partial w_{ij}} = -\alpha (d_j - f(s_j)) f(s_j) (1 - f(s_j)) x_{i}$$
 
-We want to update our weights in the opposite direction of the loss
-gradient. So our weight update is the following, with $p\_j = f(s\_j)$:
+We want to update our weights in the opposite direction of the loss gradient. So our weight update is the following:
 
-$$w'_{ij} = w_{ij} + \alpha (d_j - p_j) p_j (1 - p_j)) x_{i}$$
+$$w^{\text{new}}_{ij} = w_{ij} + \alpha (d_j - f(s_j)) f(s_j) (1 - f(s_j))) x_{i}$$
 
 ### Example of a logistic single-layer perceptron network
 
-As an example, consider the task of classifying handwritten digits
-with classes 0-9. Here are some examples (intentionally pixelated to
-reduce the input space, i.e., the number of pixels):
+As an example, consider the task of classifying handwritten digits with classes 0-9. Here are some examples (intentionally pixelated to reduce the input space, i.e., the number of pixels):
 
 ![Digits](/images/optdigits.jpg)
+
+We can visualize the loss with respect to epochs for different learning rates. The plot shows the loss on the validation (testing) set of examples, not the training set. Notice at larger learning rates (say, 0.5), the loss increases with more epochs. This is called "overfitting," meaning that the training set loss is decreasing while the validation loss is increasing.
 
 ![Digits logistic](/images/optdigits-logistic-alpha.png)
 
 ## Multilayer perceptron networks
 
+Single layer perceptron networks can only learn linear functions, as before (except now there is a fuzzy boundary, matching that of the logistic curve). Each output neuron is independent of all others, so you can think of a single layer perceptron network as independent 1-perceptron networks.
+
+In order to be able to learn all possible functions, including XOR and everything else, we have to stack more layers. Each middle layer can combine outputs of the previous layer and thereby represent a more complex function. These complex functions are stacked, producing the ultimate arbitrarily complex function that best matches the data. The middle layers are called "hidden" layers because they do not directly relate to the output.
+
 ![MLP](/images/multi-layer-perceptron-network.png)
 
 ### Some definitions
 
-For convenience later, we define the output node error gradient as:
+For convenience later, we define the error gradient of the output node as:
 
-$$\Delta_k = -2 (d_k - p_k)f'(s_k)$$
+$$\Delta^{\text{output}}_k = -2 (d_k - f(s_k))f'(s_k)$$
 
-And the hidden node error gradient (contribution of error of next node $k$ on
-this node $j$):
+And the hidden node error gradient for weight $j$ on hidden node $k$:
 
-$$\Delta_{jk} = \Delta_k w_{jk} f'(s_j)$$
+$$\Delta_{jk} = \sum_{k' \in K} \Delta_{kk'} w_{jk} f'(s_j)$$
 
-And the total error on hidden node $j$:
+Note that $\sum\_{k' \in K} \Delta\_{kk'}$ means the sum of errors for each forward node $k'$.
 
-$$\Delta_j = \sum_k \Delta_k w_{jk} f'(s_j),$$
-
-i.e., the sum across all nodes $k$ to which the node $j$ is connected.
-
-### Derivation of learning rule
+### Derivation of learning rule (backpropagation)
 
 For an output node $k$:
 
 $$
 \begin{eqnarray}
 \frac{\partial L_k}{\partial w_{jk}}
-&=& -2(d_k - p_k) \frac{\partial p_k}{\partial w_{jk}} \\
-&=& -2(d_k - p_k) \frac{\partial f(s_k)}{\partial w_{jk}} \\
-&=& -2(d_k - p_k) f'(s_k) \frac{\partial s_k}{\partial w_{jk}} \\
-&=& -2(d_k - p_k) f'(s_k) \frac{\partial}{\partial w_{jk}}\Big( \sum_j
-w_{jk} p_j + w_{0k} \Big) \\
-&=& -2(d_k - p_k) f'(s_k) p_j \\
-&=& p_j \Delta_k
+&=& \frac{\partial}{\partial w_{jk}} L_k(d_k, f(s_k)) \\
+&=& \frac{\partial}{\partial w_{jk}} (d_k - f(s_k))^2 \qquad \text{by definition of }L\\
+&=& -2(d_k - f(s_k)) \frac{\partial f(s_k)}{\partial w_{jk}} \qquad \text{chain rule}\\
+&=& -2(d_k - f(s_k)) f'(s_k) \frac{\partial s_k}{\partial w_{jk}} \qquad \text{chain rule} \\
+&=& \Delta_k^{\text{output}} \frac{\partial s_k}{\partial w_{jk}} \qquad \text{notation, predefined }\Delta_k^{\text{output}} \\
+&=& \Delta_k^{\text{output}} \frac{\partial}{\partial w_{jk}}\left( \sum_{j'}
+w_{j'k} f(s_{j'}) + w_{0k} \right) \\
+&=& \Delta_k^{\text{output}} f(s_j) \qquad \text{apply partial derivative}.
 \end{eqnarray}
 $$
 
-For a hidden node $j$, connected (only) to output node $k$:
+In other words, the gradient of the error of a weight $w\_{jk}$ on output node $k$ is the input on that line ($f(s\_j)$) from a prior node times the total error of the output node ($\Delta\_k$).
+
+For a hidden node $j$ connected forward to nodes $K$:
+
 
 $$
 \begin{eqnarray}
-\frac{\partial L_k}{\partial w_{ij}}
-&=& -2(d_k - p_k) \frac{\partial p_k}{\partial w_{ij}} \\
-&=& -2(d_k - p_k) \frac{\partial f(s_k)}{\partial w_{ij}} \\
-&=& -2(d_k - p_k) f'(s_k) \frac{\partial s_k}{\partial w_{ij}} \\
-&=& \Delta_k \frac{\partial}{\partial w_{ij}} \Big( \sum_j w_{jk} p_j + w_{0k} \Big) \\
-&=& \Delta_k w_{jk} \frac{\partial p_j}{\partial w_{ij}} \\
-&=& \Delta_k w_{jk} \frac{\partial f(s_j)}{\partial w_{ij}} \\
-&=& \Delta_k w_{jk} f'(s_j) \frac{\partial s_j}{\partial w_{ij}} \\
-&=& \Delta_k w_{jk} f'(s_j) \frac{\partial}{\partial w_{ij}} \Big( \sum_i w_{ij} p_i + w_{0j} \Big) \\
-&=& \Delta_k w_{jk} f'(s_j) p_i \\
-&=& p_i \Delta_{jk}
+\frac{\partial L}{\partial w_{ij}}
+&=& \sum_{k \in K} \Delta_{jk} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{loss is sum of losses in next layer, plus chain rule}\\
+&=& \sum_{k \in K} \Delta_{jk} \frac{\partial}{\partial w_{ij}} \left( \sum_{j'} w_{j'j} f(s_{j'}) + w_{0j} \right) \qquad \text{rewrite}\\
+&=& \sum_{k \in K} \Delta_{jk} w_{ij} \frac{\partial f(s_j)}{\partial w_{ij}} \qquad \text{apply partial derivative, plus chain rule} \\
+&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule}\\
+&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} f(s_{i'}) + w_{0j} \right) \qquad \text{expand} \\
+&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) f(s_i) \qquad \text{apply partial derivative}.
 \end{eqnarray}
 $$
 
-If $j$ is connected to more nodes, we would use $\Delta\_j$ instead of
-$\Delta\_{jk}$ at the end.
+The error of the weights must be calculated at the output layer first, then those errors are used to calculate the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
 
-For input hidden node, $p_i = x_i$.
+Note, if the previous node is an input node, then $f(s\_i) = x\_i$.
 
 ### Performance of multilayer perceptron on optdigits
+
+From Weka:
 
 ~~~
 === Evaluation on test split ===
@@ -445,25 +276,4 @@ Weighted Avg.    0.98      0.002      0.981     0.98      0.98       1
   0  0  0  0  0  0  0  0  0 45 |  j = 9
 ~~~
 
-## NetTalk example
 
-![NetTalk](/images/nettalk.gif)
-
-[Image source](http://www.cs.trincoll.edu/~ram/cpsc352/notes/learning/ml.nn.html).
-
-> Like a biologist taking a scalpel to a rat, he can ablate his network,
-removing a few cells from the simulation. These ''lesions'' might
-cause NetTalk to act a little fuzzy, but it retains its general
-ability to pronounce English.
->
-> And so it is with humans. If one cuts a few wires in a conventional
-computer the whole system will crash. But brains have the kind of
-robustness demonstrated by Dr. Sejnowski's invention. --- [NY Times, 1988](http://www.nytimes.com/1988/08/16/science/learning-then-talking.html)
-
-{% comment %}
-
-[[http://youtu.be/4gzpd0irP58?t=38m][YouTube]] (38min - 49min)
-
-[[http://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html][Recognizing cats]]
-
-{% endcomment %}
