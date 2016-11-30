@@ -213,7 +213,7 @@ $$
 \end{eqnarray}
 $$
 
-The error of the weights must be calculated at the output layer first to derive the value $\Delta\_{jk}$, then those errors are used to calculate the weight updates for the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
+The error of the weights must be calculated at the output layer first to derive the value $\Delta\_{jk}​$, then those errors are used to calculate the weight updates for the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
 
 ### Performance of multilayer perceptron on optdigits
 
