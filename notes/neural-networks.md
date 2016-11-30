@@ -197,7 +197,7 @@ $$
 \end{eqnarray}
 $$
 
-For a hidden neuron $j​$ connected forward to nodes $K​$ and receiving input $t_i​$ attached weight $w_{ij}​$, the derivation is as follows. Note, if neuron $j​$ is in the first layer, then $t_i​$ is an actual input value $x_i​$.
+For a hidden neuron $j$ connected forward to nodes $K$ and receiving input $t_i$ attached weight $w_{ij}$, the derivation is as follows. Note, if neuron $j$ is in the first layer, then $t_i$ is an actual input value $x_i$.
 
 
 $$
@@ -208,8 +208,8 @@ $$
 &=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  \frac{\partial}{\partial f(s_j)} \left( \sum_{k'} t_{k'}w_{jk'} + w_{0k'} \right) \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } s_k\\
 &=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{since } f(s_j)=t_{k'} \text{ when } k'=k \\
 &=& \left( \sum_{k \in K} \Delta_{jk} w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \text{ as } \Delta_{jk} \text{, calculated previously}\\
-&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} f(s_{i'}) + w_{0j} \right) \qquad \text{expand} \\
-&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) f(s_i). \qquad \text{apply partial derivative}
+&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} t_{i'} + w_{0j} \right) \qquad \text{expand } s_j\\
+&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) t_i. \qquad \text{apply partial derivative}
 \end{eqnarray}
 $$
 
