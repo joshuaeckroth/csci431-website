@@ -5,7 +5,7 @@ layout: note
 
 # Neural networks
 
-Neural networks, also known as artificial neural networks, are a machine learning paradigm inspired by animal neurons. A neural network consists of many nodes, playing the role of neurons, connected via edges, playing the role of synaptic connections. Typically, the neurons are arranged in layers, with each layer fully connected to the next. The first and last layers are input and output layers, respectively. Inputs and outputs are binary. The network is "trained" by repeatedly examining the training set; each repetition is called an "epoch." During each epoch, the weights on each edge are slightly adjusted in order to reduce the prediction error for the next epoch. We must decide when to stop training, i.e., how many epochs to execute. The resulting learned "model" consists of the network topology as well as the various weights.
+Neural networks, also known as artificial neural networks, are a machine learning paradigm inspired by animal neurons. A neural network consists of many nodes, playing the role of neurons, connected via edges, playing the role of synaptic connections. Typically, the neurons are arranged in layers, with each layer fully connected to the next. The first and last layers are input and output layers, respectively. Inputs may be continuous (but normalized to [-1, 1]) or binary, while outputs are typically binary. The network is "trained" by repeatedly examining the training set; each repetition is called an "epoch." During each epoch, the weights on each edge are slightly adjusted in order to reduce the prediction error for the next epoch. We must decide when to stop training, i.e., how many epochs to execute. The resulting learned "model" consists of the network topology as well as the various weights.
 
 ## The animal neuron
 
@@ -178,56 +178,42 @@ In order to be able to learn all possible functions, including XOR and everythin
 
 ![MLP](/images/multi-layer-perceptron-network.png)
 
-### Some definitions
-
-For convenience later, we define the error gradient of the output node as:
-
-$$\Delta^{\text{output}}_k = -2 (d_k - f(s_k))f'(s_k)$$
-
-And the hidden node error gradient for weight $j$ on hidden node $k$:
-
-$$\Delta_{jk} = \sum_{k' \in K} \Delta_{kk'} w_{jk} f'(s_j)$$
-
-Note that $\sum\_{k' \in K} \Delta\_{kk'}$ means the sum of errors for each forward node $k'$.
-
 ### Derivation of learning rule (backpropagation)
 
-For an output node $k$:
+Above, we computed the learning procedure (weight update function) for a single logistic neuron. We can apply such a function to multiple perceptrons in a single layer, since they each activate and learn independently. However, learning is more complicated when hidden layers are involved. In this case, the output layer does not directly receive input from the training data; instead, the output layer receives inputs from neurons in an earlier layer. Likewise, a neuron that is not directly connected to the output cannot use the "loss" function to figure out the error for that inner neuron. Instead, the inner neuron must "propagate" the loss from the next layer back to the earlier layer. Hence, this technique is called "backpropagation."
 
-$$
-\begin{eqnarray}
-\frac{\partial L_k}{\partial w_{jk}}
-&=& \frac{\partial}{\partial w_{jk}} L_k(d_k, f(s_k)) \\
-&=& \frac{\partial}{\partial w_{jk}} (d_k - f(s_k))^2 \qquad \text{by definition of }L\\
-&=& -2(d_k - f(s_k)) \frac{\partial f(s_k)}{\partial w_{jk}} \qquad \text{chain rule}\\
-&=& -2(d_k - f(s_k)) f'(s_k) \frac{\partial s_k}{\partial w_{jk}} \qquad \text{chain rule} \\
-&=& \Delta_k^{\text{output}} \frac{\partial s_k}{\partial w_{jk}} \qquad \text{notation, predefined }\Delta_k^{\text{output}} \\
-&=& \Delta_k^{\text{output}} \frac{\partial}{\partial w_{jk}}\left( \sum_{j'}
-w_{j'k} f(s_{j'}) + w_{0k} \right) \\
-&=& \Delta_k^{\text{output}} f(s_j) \qquad \text{apply partial derivative}.
-\end{eqnarray}
-$$
-
-In other words, the gradient of the error of a weight $w\_{jk}$ on output node $k$ is the input on that line ($f(s\_j)$) from a prior node times the total error of the output node ($\Delta\_k$).
-
-For a hidden node $j$ connected forward to nodes $K$:
+For an output neurone $j$, we can directly use the loss (desired minus predicted, squared) and the output $t_i$ of the previous neuron $i$ attached to weight $w_{ij}$:
 
 
 $$
 \begin{eqnarray}
-\frac{\partial L}{\partial w_{ij}}
-&=& \sum_{k \in K} \Delta_{jk} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{loss is sum of losses in next layer, plus chain rule}\\
-&=& \sum_{k \in K} \Delta_{jk} \frac{\partial}{\partial w_{ij}} \left( \sum_{j'} w_{j'j} f(s_{j'}) + w_{0j} \right) \qquad \text{rewrite}\\
-&=& \sum_{k \in K} \Delta_{jk} w_{ij} \frac{\partial f(s_j)}{\partial w_{ij}} \qquad \text{apply partial derivative, plus chain rule} \\
-&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule}\\
-&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} f(s_{i'}) + w_{0j} \right) \qquad \text{expand} \\
-&=& \sum_{k \in K} \Delta_{jk} w_{ij} f'(s_j) f(s_i) \qquad \text{apply partial derivative}.
+\frac{\partial L_j}{\partial w_{ij}}
+&=& \frac{\partial L_j}{\partial f(s_j)} \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \\
+&=& \frac{\partial}{\partial f(s_j)} (d_j - f(s_j)^2) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{by definition of }L\\
+&=& -2(d_j - f(s_j)) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule}\\
+&=& -2(d_j - f(s_j)) f'(s_j) \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule} \\
+&=& -2(d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} t_{i'}w_{i'j} + w_{0j} \right) \qquad \text{by definition of }s_j \\
+&=& 2(d_j - f(s_j)) f'(s_j) t_i.
 \end{eqnarray}
 $$
 
-The error of the weights must be calculated at the output layer first, then those errors are used to calculate the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
+For a hidden neuron $j​$ connected forward to nodes $K​$ and receiving input $t_i​$ attached weight $w_{ij}​$, the derivation is as follows. Note, if neuron $j​$ is in the first layer, then $t_i​$ is an actual input value $x_i​$.
 
-Note, if the previous node is an input node, then $f(s\_i) = x\_i$.
+
+$$
+\begin{eqnarray}
+\frac{\partial L_j}{\partial w_{ij}}
+&=& \frac{\partial L_j}{\partial f(s_j)} \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{(as before)} \\
+&=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \frac{\partial s_k}{\partial f(s_j)} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{loss for this neuron is sum of losses in next layer}\\
+&=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  \frac{\partial}{\partial f(s_j)} \left( \sum_{k'} t_{k'}w_{jk'} + w_{0k'} \right) \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } s_k\\
+&=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{since } f(s_j)=t_{k'} \text{ when } k'=k \\
+&=& \left( \sum_{k \in K} \Delta_{jk} w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \text{ as } \Delta_{jk} \text{, calculated previously}\\
+&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} f(s_{i'}) + w_{0j} \right) \qquad \text{expand} \\
+&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) f(s_i). \qquad \text{apply partial derivative}
+\end{eqnarray}
+$$
+
+The error of the weights must be calculated at the output layer first to derive the value $\Delta\_{jk}$, then those errors are used to calculate the weight updates for the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
 
 ### Performance of multilayer perceptron on optdigits
 
