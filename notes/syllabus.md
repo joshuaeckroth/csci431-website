@@ -30,7 +30,7 @@ Several assignments require that you understand and write Python code, including
 ## Grading
 
 - Attendance on work days (usually Fridays): 5%
-- Homeworks (10 of them): 55%
+- Homeworks (10 of them, 1 extra credit): 55%
 - Midterm: 20%
 - Final exam: 20%
 
