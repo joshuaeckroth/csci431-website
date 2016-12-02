@@ -144,7 +144,7 @@ Our learning algorithm needs to be revised. Luckily, we can just work backwards 
 $$
 \begin{eqnarray}
 \frac{\partial L_j}{\partial w_{ij}}
-&=& \frac{\partial}{\partial w_{ij}} (d_j - f(s_j))^2 \\
+&=& \frac{\partial}{\partial w_{ij}} (d_j - f(s_j))^2 \qquad \text{by definition of } L \\
 &=& 2 (d_j - f(s_j)) \frac{\partial}{\partial w_{ij}} (d_j - f(s_j)) \qquad \text{chain rule} \\
 &=& -2 (d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} s_j \qquad \text{chain rule}\\
 &=& -2 (d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} \sum_{i'=1}^k x_{i'} w_{i'j} + w_{0j} \qquad \text{expand } s_j\\
@@ -174,22 +174,22 @@ We can visualize the loss with respect to epochs for different learning rates. T
 
 Single layer perceptron networks can only learn linear functions, as before (except now there is a fuzzy boundary, matching that of the logistic curve). Each output neuron is independent of all others, so you can think of a single layer perceptron network as independent 1-perceptron networks.
 
-In order to be able to learn all possible functions, including XOR and everything else, we have to stack more layers. Each middle layer can combine outputs of the previous layer and thereby represent a more complex function. These complex functions are stacked, producing the ultimate arbitrarily complex function that best matches the data. The middle layers are called "hidden" layers because they do not directly relate to the output.
+In order to be able to learn all possible functions, including XOR and everything else, we have to stack more layers. Each middle layer can combine outputs of the previous layer and thereby represent a more complex function. The middle layers are called "hidden" layers because they do not directly relate to the output.
 
 ![MLP](/images/multi-layer-perceptron-network.png)
 
 ### Derivation of learning rule (backpropagation)
 
-Above, we computed the learning procedure (weight update function) for a single logistic neuron. We can apply such a function to multiple perceptrons in a single layer, since they each activate and learn independently. However, learning is more complicated when hidden layers are involved. In this case, the output layer does not directly receive input from the training data; instead, the output layer receives inputs from neurons in an earlier layer. Likewise, a neuron that is not directly connected to the output cannot use the "loss" function to figure out the error for that inner neuron. Instead, the inner neuron must "propagate" the loss from the next layer back to the earlier layer. Hence, this technique is called "backpropagation."
+Above, we computed the learning procedure (weight update function) for a single logistic perceptron. We can apply such a function to multiple perceptrons in a single layer, since they each activate and learn independently. However, learning is more complicated when hidden layers are involved. In this case, the output layer does not directly receive input from the training data; instead, the output layer receives inputs from neurons in an earlier layer. Likewise, a neuron that is not directly connected to the output cannot use the "loss" function to figure out the error for that inner neuron. Instead, we must "propagate" the loss from the one layer back to an earlier layer. Hence, this technique is called "backpropagation."
 
-For an output neurone $j$, we can directly use the loss (desired minus predicted, squared) and the output $t_i$ of the previous neuron $i$ attached to weight $w_{ij}$:
+For an output neuron $j$, we can directly use the loss (desired value minus predicted value, squared) and the output $t_i$ of the previous neuron $i$ attached to weight $w_{ij}$:
 
 
 $$
 \begin{eqnarray}
 \frac{\partial L_j}{\partial w_{ij}}
 &=& \frac{\partial L_j}{\partial f(s_j)} \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \\
-&=& \frac{\partial}{\partial f(s_j)} (d_j - f(s_j)^2) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{by definition of }L\\
+&=& \frac{\partial}{\partial f(s_j)} (d_j - f(s_j))^2 \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{by definition of }L\\
 &=& -2(d_j - f(s_j)) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule}\\
 &=& -2(d_j - f(s_j)) f'(s_j) \frac{\partial s_j}{\partial w_{ij}} \qquad \text{chain rule} \\
 &=& -2(d_j - f(s_j)) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} t_{i'}w_{i'j} + w_{0j} \right) \qquad \text{by definition of }s_j \\
@@ -197,7 +197,9 @@ $$
 \end{eqnarray}
 $$
 
-For a hidden neuron $j$ connected forward to nodes $K$ and receiving input $t_i$ attached weight $w_{ij}$, the derivation is as follows. Note, if neuron $j$ is in the first layer, then $t_i$ is an actual input value $x_i$.
+Be forewarned that we're going to call $2(d\_j-f(s\_j))f'(s\_j)$ by the name $\Delta\_j$ (possibly with a different subscript) later on. That value represents the error before weighting that error by the particular input value $t\_i$.
+
+For a hidden neuron $j$ connected forward to various nodes $K$ and receiving input $t_i$ attached to weight $w_{ij}$, the derivation is as follows. Note, if neuron $j$ is in the first layer, then $t_i$ is an actual input value $x_i$.
 
 
 $$
@@ -207,13 +209,13 @@ $$
 &=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \frac{\partial s_k}{\partial f(s_j)} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{loss for this neuron is sum of losses in next layer}\\
 &=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  \frac{\partial}{\partial f(s_j)} \left( \sum_{k'} t_{k'}w_{jk'} + w_{0k'} \right) \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } s_k\\
 &=& \left( \sum_{k \in K} \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k}  w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{since } f(s_j)=t_{k'} \text{ when } k'=k \\
-&=& \left( \sum_{k \in K} \Delta_{jk} w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \text{ as } \Delta_{jk} \text{, calculated previously}\\
-&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} w_{i'j} t_{i'} + w_{0j} \right) \qquad \text{expand } s_j\\
-&=& \left(\sum_{k \in K} \Delta_{jk} w_{jk}\right) f'(s_j) t_i. \qquad \text{apply partial derivative}
+&=& \left( \sum_{k \in K} \Delta_{jk} w_{jk} \right) \frac{\partial f(s_j)}{\partial s_j} \frac{\partial s_j}{\partial w_{ij}} \qquad \text{rewrite } \frac{\partial L_k}{\partial f(s_k)} \frac{\partial f(s_k)}{\partial s_k} \text{ as } \Delta_{k} \text{, calculated previously}\\
+&=& \left(\sum_{k \in K} \Delta_{k} w_{jk}\right) f'(s_j) \frac{\partial}{\partial w_{ij}} \left( \sum_{i'} t_{i'} w_{i'j} + w_{0j} \right) \qquad \text{expand } s_j\\
+&=& \left(\sum_{k \in K} \Delta_{k} w_{jk}\right) f'(s_j) t_i. \qquad \text{apply partial derivative}
 \end{eqnarray}
 $$
 
-The error of the weights must be calculated at the output layer first to derive the value $\Delta\_{jk}​$, then those errors are used to calculate the weight updates for the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients.
+The error of the weights must be calculated at the output layer first to derive the value $\Delta\_{k}$, then those errors are used to calculate the weight updates for the preceding hidden layer, and so on backwards. This known as "backpropagation" of error gradients because each inner layer computes its weight updates based on the error, $\Delta\_{k}$, from the next layer. If the next layer is an output layer, then $\Delta\_{k} = 2(d\_k-f(s\_k))f'(s\_k)$ from before.
 
 ### Performance of multilayer perceptron on optdigits
 
