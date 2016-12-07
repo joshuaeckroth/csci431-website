@@ -2,7 +2,7 @@
 layout: note
 title: Final review
 categories: [studyguides]
-date: Tue Dec 13 1-3pm
+date: Due Thur Dec 15 11:59pm
 ---
 
 # Final review
