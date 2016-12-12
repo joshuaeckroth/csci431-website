@@ -2,7 +2,7 @@
 layout: note
 title: Final review
 categories: [studyguides]
-date: Due Thur Dec 15 11:59pm
+date: "Due Thur Dec 15 11:59pm"
 ---
 
 # Final review
