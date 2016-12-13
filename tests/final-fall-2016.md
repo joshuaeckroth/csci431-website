@@ -86,7 +86,7 @@ Take the [Iris dataset as an ARFF file](/iris.arff) and determine the best value
 
 Take the [mammographic masses](/mammographic_masses.csv) dataset (as a CSV file) and load into Weka. Remove the "birad" column since the [description of the dataset](http://archive.ics.uci.edu/ml/datasets/Mammographic+Mass) says it's non-predictive. Next change "shape," "margin," and "severity" to nominals, as the description states.
 
-Using Weka, "learn" a decision tree that has fewer than 10 leaves. Report the classifier's accuracy after 10-fold cross validation. Then describe this tree in English sentences so a non-expert can follow the logic and arrive at a conclusion.
+Using Weka, "learn" a decision tree that has fewer than 10 leaves ("leaves" as reported by Weka). Report the classifier's accuracy after 10-fold cross validation. Then describe this tree in English sentences so a non-expert can follow the logic and arrive at a conclusion.
 
 ## Question 6: Naïve Bayesian classification (15 pts)
 
