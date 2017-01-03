@@ -582,8 +582,7 @@ printed:
 print_location :-
     current_room(Current),
     room(Current, Name, Description),
-    % nl means "newline"
-    print(Name), nl, print(Description), nl.    
+    format('~s~n~s~n', [Name, Description]).
 ~~~
 
 This predicate requires that `current_room` is a predicate that gives
@@ -618,23 +617,13 @@ We'll want user input. Here is a quick & dirty way that supports the
 word "go" followed by a direction:
 
 ~~~ prolog
-:- use_module(library(readln)).
+:- prompt(_,'Type a command (or ''help''): ' ).
 
-:- prompt(_, 'Type a command (or ''help''): ').
-
-strip_punctuation([], []).
-
-strip_punctuation([Word|Tail], [Word|Result]) :-
-    \+(member(Word, ['.', ',', '?', '!'])),
-    strip_punctuation(Tail, Result).
-
-strip_punctuation([_|Tail], Result) :-
-    strip_punctuation(Tail, Result).
-
-read_sentence(Input) :-
-    % this is a special predicate from the readln library
-    readln(Input1, _, ".!?", "_0123456789", lowercase),
-    strip_punctuation(Input1, Input).
+read_sentence(Words) :-
+    %print('Type a command (or ''help''): '),
+    read_string(user_input, "\n", " ", _, Input1),
+    split_string(Input1, " ", " ", Input),
+    maplist(atom_string, Words, Input).
 
 get_input :- read_sentence(Input), get_input(Input).
 get_input([quit]).
@@ -642,18 +631,13 @@ get_input(Input) :-
     process_input(Input), print_location,
     read_sentence(Input1), get_input(Input1).
 
-process_input([help]) :- print('Help...'), nl.
-
-process_input([go, Direction]) :-
-    current_room(Current),
-    connected(Direction, Current, NewRoom),
-    change_room(NewRoom).
+process_input([help]) :- format('~s~n', 'Help...').
 
 process_input([go, _]) :-
-    print('No exit that direction.'), nl.
+    format('~s~n', 'No exit that direction.').
 
 process_input([_]) :-
-    print('Huh?'), nl, nl.
+    format('~s~n~n', 'Huh?').
 ~~~
 
 Finally, we define a `play` predicate that starts the whole thing:
