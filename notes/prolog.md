@@ -11,7 +11,7 @@ layout: note
 Prolog is a programming language that allows us to "program" with
 declarative, symbolic knowledge. It is a Turing-complete language, and thus supports loops, variables, etc. but Prolog programs consist primarily of "facts" and "rules" that state the relations between facts. The rules are activated by "queries". By using variables in the queries, we can find out the values of the variables that make the queries true (according to the facts and rules involved), and thus we get a kind of computation.
 
-Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or run it on londo with the command `pl`.
+Install [SWI Prolog](http://www.swi-prolog.org/download/stable) or run it on londo with the command `swipl`.
 
 ## Logic programming paradigm
 

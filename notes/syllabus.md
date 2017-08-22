@@ -5,7 +5,7 @@ layout: note
 
 # Syllabus
 
-CSCI 431 - 01, Fall 2016 --- Artificial Intelligence
+CSCI 431 - 01, Fall 2017 --- Artificial Intelligence
 
 MWF 3:30-4:20p Eliz 210; pre-reqs: CSCI 221
 
@@ -13,24 +13,20 @@ This course covers a wide array of topics related to contemporary artificial int
 
 ## About me
 
-- Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
+- Joshua Eckroth, Assistant Professor of Computer Science, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
 
 - Eliz Hall 214, 386-740-2519
 
-- Office hours:  Mon/Wed 12-2:30
+- Office hours: TBD
 
 ## Textbook
 
 There is no textbook for this class.
 
-## Python requirement
-
-Several assignments require that you understand and write Python code, including the first assignment. You will need to learn Python on your own, though we will spend a small amount of time reviewing the language in class. In all assignments involving Python, you will start with existing code that must be modified or extended. For quickly learning the essentials, I suggest the website [Learn X in Y Minutes, where X=Python](https://learnxinyminutes.com/docs/python/).
-
 ## Grading
 
 - Attendance on work days (usually Fridays): 5%
-- Homeworks (10 of them, 1 extra credit): 55%
+- Homeworks: 55%
 - Midterm: 20%
 - Final exam: 20%
 
@@ -38,10 +34,12 @@ Late work is penalized 20% for each day that it is late. Submissions
 more than 3 days late receive no credit. Tests cannot be made up
 unless a doctor's note is provided.
 
+The grading scale will follow the typical A = 93-100, A- = 90-92, B+ = 87-89, etc.
+
 ### Test dates
 
-- Midterm: Fri Oct 28 
-- Final exam: Tue Dec 13, 1-3pm
+- Midterm: Wed Sep 27
+- Final exam: Thur Dec 14, 11am-1pm
 
 ### Attendance
 
@@ -60,33 +58,42 @@ See the individual assignments for the grading rubric. Homeworks are always out 
 
 ## Calendar
 
-- Week 1: Search
-- Week 2: Planning
-- Week 3: Adversarial search
-- Week 4: Genetic algorithms
-- Week 5: Expert systems
-- Week 6: Prolog
-- Week 7: Abductive reasoning
-- Week 8: Midterm
-- Week 9: Probabilities
-- Week 10: Classification
-- Week 11: Neural networks / deep learning
-- Week 12: Text processing and classification
-- Week 13: Robotics
-- Week 14: Robotics
-- Week 15: Final exam
-
-Homework due dates:
-
-<ul>
-{% for p in site.pages sort_by:title order:ascending %}
-{% if p.categories contains 'assignments' %}
-<li>
-<a href="{{ p.url }}">{{ p.title }}</a>, due {{ p.due }}
-</li>
-{% endif %}
-{% endfor %}
-</ul>
+- W0: Aug 25
+  - Simple Prolog
+- W1: Aug 28, Aug 30, Sep 1
+  - Constraint logic programming
+  - Prolog recursion
+- W2: Sep 6, Sep 8
+  - Prolog lists, parsing
+- W3: Sep 11, Sep 13, Sep 15
+  - Probabilities, Bayesian inference, ProbLog
+- W4: Sep 18, Sep 20, Sep 22
+  - Genetic algorithms
+- W5: Sep 25, Sep 27, Sep 29
+  - Review
+  - **Midterm Sep 27**
+- W6: Oct 4, Oct 6
+  - Machine learning
+  - K-nearest neighbor classification
+- W7: Oct 9, Oct 11 (no class Oct 13)
+  - Feature engineering, text classification
+- W8: Oct 16, Oct 18, Oct 20
+  - Decision trees, ensemble methods, random forests
+- W9: Oct 23, Oct 25, Oct 27
+  - Neural networks, multilayer perceptrons (MLPs)
+- W10: Oct 30, Nov 1, Nov 3
+  - Keras for MLPs
+- W11: Nov 6, Nov 8, Nov 10
+  - Deep learning, convolutional neural networks
+- W12: Nov 13, Nov 15, Nov 17
+  - Recommendation engines
+- W13: Nov 20
+  - Recommendation engines
+- W14: Nov 27, Nov 29, Dec 1
+  - Reinforcement learning
+- W15: Dec 4, Dec 6, Dec 8
+  - Reinforcement learning
+- Final exam: Thur Dec 14, 11am-1pm
 
 ## Honor code
 

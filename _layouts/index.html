@@ -1,7 +1,9 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/code.css">
     <link href="http://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet" type="text/css">
@@ -9,50 +11,13 @@
     <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <div id="container-tight">
-      <table id="index">
-        <tr>
-          <td>
+    <div class="container" style="max-width: 1400px; margin: 0 auto;">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
             <h2>Notes</h2>
             <ul class="posts">
               <li>
                 <div class="post-title"><a href="/notes/syllabus.html">Syllabus</a></div>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/turing-test.html">Turing Test</a></div>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/search.html">Searching for a solution</a></div>
-                <ul>
-                <li>
-                  <div class="post-title"><a href="/notes/uninformed-search.html">Uninformed search</a></div>
-                </li>
-                <li>
-                  <div class="post-title"><a href="/notes/informed-search.html">Informed search</a></div>
-                </li>
-                </ul>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/planning.html">Finding a plan</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/pddl.html">PDDL</a></div>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/adversarial-search.html">Beating an adversary</a></div>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/genetic-algorithms.html">Evolving solutions</a></div>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/knowledge-representation.html">Representing expert knowledge</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/drools.html">Drools rules engine</a></div>
-                  </li>
-                </ul>
               </li>
               <li>
                 <div class="post-title"><a href="/notes/prolog.html">Logic programming with Prolog</a></div>
@@ -68,64 +33,9 @@
                   </li>
                 </ul>
               </li>
-              <li>
-                <div class="post-title"><a href="/notes/bayesian-inference.html">Reasoning with uncertainty</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/problog.html">ProbLog</a></div>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/classification.html">Learning to classify data</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/classification-evaluation.html">Classification evaluation</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/feature-engineering.html">Feature engineering</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/k-nn.html">K-nearest neighbor classification</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/decision-trees.html">Decision trees</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/naive-bayesian.html">Naïve Bayesian classification</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/ensemble-techniques.html">Ensemble techniques</a></div>
-                  </li>
-                  <li>
-                    <div class="post-title"><a href="/notes/weka-classification.html">Weka for classification</a></div>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/text-processing.html">Text processing</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/weka-text-processing.html">Weka for text processing</a></div>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <div class="post-title"><a href="/notes/neural-networks.html">Classifying with neural networks</a></div>
-                <ul>
-                  <li>
-                    <div class="post-title"><a href="/notes/deep-learning.html">Deep learning</a></div>
-                  </li>
-                </ul>
-              </li>
-    <!--
-              <li>
-                <div class="post-title"><a href="/notes/robotics.html">Doing robotics</a></div>
-              </li>
-    -->
             </ul>
-          </td>
-          <td>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
             <h2>Assignments</h2>
             <ul class="posts">
               {% for p in site.pages sort_by:title order:ascending %}
@@ -137,37 +47,32 @@
               {% endif %}
               {% endfor %}
             </ul>
-            <h2 style="margin-top: 20px;">Study guides</h2>
-            <ul class="posts">
-              <li>
-                <div class="post-title"><a href="/guide/midterm-review.html">Midterm review</a></div>
-                <div class="post-title"><a href="/guide/midterm-review-solutions.html">Midterm review solutions</a></div>
-                <div class="post-title"><a href="/tests/midterm-fall-2016.html">Midterm for Fall 2016</a></div>
-                <div class="post-due">Due Fri Oct 28, 11:59pm</div>
-              </li>
-              <li>
-                <div class="post-title"><a href="/guide/final-review.html">Final review</a></div>
-                <div class="post-title"><a href="/tests/final-fall-2016.html">Final exam for Fall 2016</a></div>
-                <div class="post-due">Due Thur Dec 15, 11:59pm</div>
-              </li>
-            </ul>
-          </td>
-          <td id="metabox">
-            <div class="classname">CSCI 431</div>
-            <div class="semester">Fall 2016</div>
-            <div class="email"><b><a href="mailto:jeckroth@stetson.edu">jeckroth@stetson.edu</a></b></div>
-            <div class="officehours">
-              Office hours:<br/>
-              Mon/Wed 12-2:30
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="row">
+            <div class="card">
+              <div class="section">
+                  <h1>CSCI 431</h1>
+                  <h3>Fall 2017</h3>
+                <p>
+                  <a href="http://www2.stetson.edu/~jeckroth/" target="_blank">Dr. Joshua Eckroth</a><br/>
+                  <a href="mailto:jeckroth@stetson.edu">jeckroth@stetson.edu</a>
+                </p>
+                <p>
+                  Office hours: TBD
+                </p>
+              </div>
             </div>
-          </td>
-        </tr>
-      </table>
-
-      <div class="license">
-        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">CSCI 431 material</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://csci431.artifice.cc" property="cc:attributionName" rel="cc:attributionURL">Joshua Eckroth</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Source code for this website available at <a href="https://github.com/joshuaeckroth/csci431-website/tree/gh-pages">GitHub</a>.
+          </div>
+        </div>
       </div>
-      
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <p class="license">
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">CSCI 431 material</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://csci431.artifice.cc" property="cc:attributionName" rel="cc:attributionURL">Joshua Eckroth</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Source code for this website available at <a href="https://github.com/joshuaeckroth/csci431-website/tree/gh-pages">GitHub</a>.
+          </p>
+        </div>
+      </div>
     </div>
   </body>
 
