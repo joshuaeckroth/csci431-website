@@ -1,0 +1,57 @@
+---
+layout: note
+title: "A02: Course Scheduler"
+due: "Sep 6, 11:59pm"
+categories: [assignments]
+---
+
+# A02: Course Scheduler
+
+This assignment uses Prolog and the biductive computing paradigm to allow a user to generate a schedule of courses for completing a computer science degree. For the sake of simplicity, only computer science and mathematics courses are included, though a more useful planner would include all university courses. Courses may be offered in spring, fall, or both. And some courses have one or more prerequisites that must be completed in prior semesters.
+
+Start with the code on londo in the directory `/home/jeckroth/csci431/assignments/A02/`. You'll need the files `courses.pl` and `planner_tests.pl`. You will create a new file, `planner.pl`.
+
+## Course planning rules
+
+There are only eight semesters available for scheduling courses (Fall first year through Spring fourth year). At most, only four courses may be scheduled each semester. A course cannot be scheduled more than once. A course with prerequisites can only be scheduled in a semester after all of its prerequisites have been scheduled. All courses required for the major must be scheduled.
+
+The included file `courses.pl` contains facts about course offerings (Fall or Spring or both), prerequisites, and courses required for the major. Refer to the test cases in `planner_tests.pl` for the list of required rules.
+
+## Biductive features
+
+A typical course planner simply tells the student which courses are still needed before they can complete their degree. But students often have more complex questions during advising sessions that cannot be easily answered. These questions include, “when should I take a particular course?”; “do I have to take this course in that semester?”; “when can I study abroad (and thereby possibly miss a semester of courses)?”; “can I still graduate if I only take at most two computer science courses per semester?” These questions require biductive computing because they mix partial initial conditions with partial goal conditions.
+
+Your course planner must support the following biductive features:
+
+*   generate a schedule of courses from a blank schedule
+*   generate a schedule of courses from a partially filled in schedule (some courses have already been decided to occur in certain semesters)
+*   generate a schedule of courses from a partially filled in schedule with a missing semester (study abroad semester)
+*   generate all possible schedules in any of the above situations, and then generate a frequency of course-semester pairings, e.g., required course CSCI 311 may be taken in Spring year three in 69% of cases, Spring year four in 24% of cases, and Spring year one in 7% of cases (thus suggesting to the student that he or she should plan to take CSCI 311 in Spring year three)
+
+## Test cases
+
+A series of test cases are given in `planner_tests.pl`. Run the test cases with this command:
+
+    swipl -q -s planner_tests.pl -t run_tests
+
+If the tests pass, you should see only some dots (1 dot per test) and no error or warning messages.
+
+## Deliverables
+
+Submit your `planner.pl` file. Include the files `planner_tests.pl` and `courses.pl` as well, even though you do not need to modify them.
+
+**Note: You must not write any new facts. Only write rules.** The file `courses.pl` has all the facts that are needed.
+
+You'll probably want to start your `planner.pl` file like so:
+
+    :- [courses]. % import courses.pl
+
+## Grading rubric
+
+*   5 pts: All tests pass with no warnings (no Singleton warnings, etc.).
+*   4 pts: At least 80% of tests pass with no warnings.
+*   3 pts: At least 60% of tests pass with no warnings.
+*   2 pts: At least 40% of tests pass with no warnings, or more tests pass with warnings.
+*   1 pt: No tests pass, but code has no syntax or logic errors (i.e., the code can be loaded and queried).
+*   0 pts: Code has syntax or logic errors, cannot be loaded and/or queried, or missing submission.
+
