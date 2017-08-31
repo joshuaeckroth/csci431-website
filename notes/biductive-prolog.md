@@ -18,8 +18,9 @@ Consider a familiar example of deductive programming: given a set of logic gates
 
     getWireState(Wires, WireName, State) :- member((WireName, State), Wires).
 
-    evalCombinationalLogic(_, _, []). % base case, no gates left to evaluate
-    evalCombinationalLogic(KnownGates, Wires, [(Gate, Inputs, Output)|RestGates]) :-
+    evalCombLogic(_, []). % base case, no gates left to evaluate
+    evalCombLogic(Wires, [(Gate, Inputs, Output)|RestGates]) :-
+        knownGates(KnownGates),
         % extract gate info
         member((Gate, InputCount, Table), KnownGates),
         % ensure inputs list is right length
@@ -31,7 +32,7 @@ Consider a familiar example of deductive programming: given a set of logic gates
         % ensure the wire's state is as computed
         getWireState(Wires, Output, OutputState),
         % look at rest of gates
-        evalCombinationalLogic(KnownGates, Wires, RestGates).
+        evalCombLogic(KnownGates, Wires, RestGates).
 
 The code below is an example of a deductive query. The first argument, `[(a,1),(b,0),(c,CState),...]` gives the state of each wire, or unknown state in the case of `CState` and other capitalized variables. The second argument, `[(and, [a,b], c), ...]` gives the logic gates, in this case an “and” gate, and indicates their inputs (a and b) and single output (c). The query asks for the value of the outputs on wires c, d, and e simply by leaving those parts of the argument as variables.
 
