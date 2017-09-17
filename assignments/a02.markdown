@@ -1,7 +1,7 @@
 ---
 layout: note
 title: "A02: Course Scheduler"
-due: "Unknown"
+due: "Sep 20, 11:59pm"
 categories: [assignments]
 ---
 

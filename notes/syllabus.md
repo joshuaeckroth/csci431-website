@@ -64,36 +64,40 @@ See the individual assignments for the grading rubric. Homeworks are always out 
   - Constraint logic programming
   - Prolog recursion
 - W2: Sep 6, Sep 8
-  - Prolog lists, parsing
+  - Prolog lists
+  - Hurricane
 - W3: Sep 11, Sep 13, Sep 15
-  - Probabilities, Bayesian inference, ProbLog
+  - Hurricane
 - W4: Sep 18, Sep 20, Sep 22
-  - Genetic algorithms
+  - Prolog parsing
 - W5: Sep 25, Sep 27, Sep 29
+  - Probabilities, Bayesian inference, ProbLog
+- W6: Oct 4, Oct 6
   - Review
   - **Midterm Sep 27**
-- W6: Oct 4, Oct 6
+- W7: Oct 9, Oct 11 (no class Oct 13)
+  - Genetic algorithms
+- W8: Oct 16, Oct 18, Oct 20
   - Machine learning
   - K-nearest neighbor classification
-- W7: Oct 9, Oct 11 (no class Oct 13)
   - Feature engineering, text classification
-- W8: Oct 16, Oct 18, Oct 20
-  - Decision trees, ensemble methods, random forests
 - W9: Oct 23, Oct 25, Oct 27
-  - Neural networks, multilayer perceptrons (MLPs)
+  - Decision trees, ensemble methods, random forests
 - W10: Oct 30, Nov 1, Nov 3
-  - Keras for MLPs
+  - Neural networks, multilayer perceptrons (MLPs)
 - W11: Nov 6, Nov 8, Nov 10
-  - Deep learning, convolutional neural networks
+  - Keras for MLPs
 - W12: Nov 13, Nov 15, Nov 17
-  - Recommendation engines
+  - Deep learning, convolutional neural networks
 - W13: Nov 20
   - Recommendation engines
 - W14: Nov 27, Nov 29, Dec 1
-  - Reinforcement learning
+  - Recommendation engines
 - W15: Dec 4, Dec 6, Dec 8
   - Reinforcement learning
-- Final exam: Thur Dec 14, 11am-1pm
+- W16: Dec 11, Dec 13
+  - Reinforcement learning
+- Final exam: Fri Dec 15, 3:30-4:30
 
 ## Honor code
 
