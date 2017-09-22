@@ -10,7 +10,7 @@ categories: [assignments]
 # A03: CiteMan: A friendly citation manager
 
 
-This assignment uses Prolog's parsing capabilities to keep traack of citations in various formats: MLA, APA, Chicago, and Harvard format (as seen on Google Scholar). The Prolog code should be able to parse a line of text in any of these styles, and extract the authors, title, year, etc. into Prolog data structures. Using the same parsing code, the program should also be able to take data structures holding authors, title, year, etc. and produce a citation string in any of the four styles. Additional code is provided that can read citations from a text file (one per line, bogus lines are skipped), search this database of citations by author and/or year, and produce a new list of filtered citations rendered in any of the four styles.
+This assignment uses Prolog's parsing capabilities to keep track of citations in various formats: MLA, APA, Chicago, and Harvard format (as seen on Google Scholar). The Prolog code should be able to parse a line of text in any of these styles, and extract the authors, title, year, etc. into Prolog data structures. Using the same parsing code, the program should also be able to take data structures holding authors, title, year, etc. and produce a citation string in any of the four styles. Additional code is provided that can read citations from a text file (one per line, bogus lines are skipped), search this database of citations by author and/or year, and produce a new list of filtered citations rendered in any of the four styles.
 
 Start with the code on londo in the directory `/home/jeckroth/csci431/assignments/A03/`. You will modify the file `citeman.pl`. Look for the TODO and large blank space in the code.
 
