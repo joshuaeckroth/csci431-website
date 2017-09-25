@@ -74,7 +74,7 @@ See the individual assignments for the grading rubric. Homeworks are always out 
   - Probabilities, Bayesian inference, ProbLog
 - W6: Oct 4, Oct 6
   - Review
-  - **Midterm Sep 27**
+  - **Midterm Oct 6**
 - W7: Oct 9, Oct 11 (no class Oct 13)
   - Genetic algorithms
 - W8: Oct 16, Oct 18, Oct 20

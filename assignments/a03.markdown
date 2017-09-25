@@ -1,7 +1,7 @@
 ---
 layout: note
 title: "A03: CiteMan"
-due: "Sep 27, 11:59pm"
+due: "Sep 29, 11:59pm"
 categories: [assignments]
 ---
 
