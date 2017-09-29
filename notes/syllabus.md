@@ -71,12 +71,12 @@ See the individual assignments for the grading rubric. Homeworks are always out 
 - W4: Sep 18, Sep 20, Sep 22
   - Prolog parsing
 - W5: Sep 25, Sep 27, Sep 29
-  - Probabilities, Bayesian inference, ProbLog
+  - Prolog parsing
 - W6: Oct 4, Oct 6
-  - Review
-  - **Midterm Oct 6**
+  - Probabilities, Bayesian inference, ProbLog
 - W7: Oct 9, Oct 11 (no class Oct 13)
-  - Genetic algorithms
+  - Review
+  - **Midterm Oct 11**
 - W8: Oct 16, Oct 18, Oct 20
   - Machine learning
   - K-nearest neighbor classification
