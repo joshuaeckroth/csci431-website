@@ -39,7 +39,7 @@ The grading scale will follow the typical A = 93-100, A- = 90-92, B+ = 87-89, et
 ### Test dates
 
 - Midterm: Wed Sep 27
-- Final exam: Thur Dec 14, 11am-1pm
+- Final exam: Fri Dec 15, 3:30-4:30p
 
 ### Attendance
 
