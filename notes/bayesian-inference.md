@@ -5,7 +5,7 @@ layout: note
 
 # Bayesian inference
 
-We have learned several techniques for representing knowledge and making inferences: search, planning, rules engines, and logic programming. In each of these cases, the knowledge was *certain*, meaning there was no question about whether the outcome of the action or rule would hold true when the action or rule preconditions were met. For example, we could state with Prolog that if you are female and have a child, you are a mother.
+We have learned how to represent knowledge as Prolog facts and rules. In these cases, the knowledge was *certain*, meaning there was no question about whether the outcome of the action or rule would hold true when the action or rule preconditions were met. For example, we could state with Prolog that if you are female and have a child, you are a mother.
 
 However, much real-world knowledge is partially *uncertain.* For example, being a smoker does not *imply* that you will develop lung cancer, but there is some probability of it. I order to handle uncertain knowledge and inference, we need a way to specify the degree of certainty, or probability, of the actions, rules, or other kinds of knowledge.
 
