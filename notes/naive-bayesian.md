@@ -16,8 +16,10 @@ Suppose we have some training examples:
 | Coat Color | Hat Color | Gentry? |
 | ---------- | --------- | ------- |
 | Black      | Black     | Yes     |
-| Black      | Brown     | No      |
+| Black      | Black     | No      |
+| Black      | Brown     | Yes     |
 | Blue       | Black     | No      |
+| Blue       | Brown     | No      |
 | Blue       | Brown     | No      |
 | Brown      | Black     | Yes     |
 | Brown      | Brown     | No      |
@@ -39,42 +41,31 @@ So far so good. We can easily learn $P(\text{Gentry})$ from the data:
 
 
 $$
-P(\text{Gentry}) = \frac{\text{# of training instances with Gentry = Yes}}{\text{# of training instances}} = 2/6 = 0.33.
+P(\text{Gentry}) = \frac{\text{# of training instances with Gentry = Yes}}{\text{# of training instances}} = 3/8 = 0.375.
 $$
 
 
-But $P(\text{Coat=Black},\text{Hat=Brown}\|\text{Gentry})$ and $P(\text{Coat=Black},\text{Hat=Brown})$ start to spell trouble. In this simple example, they are easy to compute. We can just count the number of rows in the table. But notice that $P(\text{Coat},\text{Hat}\|\text{Gentry})$ represents a table containing $3\*2\*2=12$ probabilities for all the variations of coat, hat, and gentry. First, consider the table for Gentry=Yes:
+But $P(\text{Coat=Black},\text{Hat=Brown}\|\text{Gentry})$ and $P(\text{Coat=Black},\text{Hat=Brown})$ start to spell trouble. In this simple example, they are easy to compute. We can just count the number of rows in the table. But notice that $P(\text{Coat},\text{Hat}\|\text{Gentry})$ represents a table containing $3\*2\*2=12$ probabilities for all the variations of coat, hat, and gentry. Consider the table for Gentry=Yes (the 3 is due to having 3 cases of Gentry=Yes):
 
 | Coat Color | Hat Color | $P(\text{Coat},\text{Hat}\|\text{Gentry=Yes})$ |
 | ---------- | --------- | ---------------------------------------- |
-| Black      | Black     | 1/2                                      |
-| Black      | Brown     | 0/2                                      |
-| Blue       | Black     | 0/2                                      |
-| Blue       | Brown     | 0/2                                      |
-| Brown      | Black     | 1/2                                      |
-| Brown      | Brown     | 0/2                                      |
+| Black      | Black     | 1/3 = 0.33                               |
+| Black      | Brown     | 1/3 = 0.33                               |
+| Blue       | Black     | 0/3 = 0.0                                |
+| Blue       | Brown     | 0/3 = 0.0                                |
+| Brown      | Black     | 1/3 = 0.33                               |
+| Brown      | Brown     | 0/3 = 0.0                                |
 
-And now the table for Gentry=No:
-
-| Coat Color | Hat Color | $P(\text{Coat},\text{Hat}\|\text{Gentry=No})$ |
-| ---------- | --------- | ---------------------------------------- |
-| Black      | Black     | 0/4                                      |
-| Black      | Brown     | 1/4                                      |
-| Blue       | Black     | 1/4                                      |
-| Blue       | Brown     | 1/4                                      |
-| Brown      | Black     | 0/4                                      |
-| Brown      | Brown     | 1/4                                      |
-
-We have a final table for the probability of Coat and Hat Color co-occurring:
+We also have a table for the probability of Coat and Hat Color co-occurring (the 8 is due to having 8 training examples in total):
 
 | Coat Color | Hat Color | $P(\text{Coat},\text{Hat})$ |
 | ---------- | --------- | --------------------------- |
-| Black      | Black     | 1/6                         |
-| Black      | Brown     | 1/6                         |
-| Blue       | Black     | 1/6                         |
-| Blue       | Brown     | 1/6                         |
-| Brown      | Black     | 1/6                         |
-| Brown      | Brown     | 1/6                         |
+| Black      | Black     | 2/8 = 0.25                  |
+| Black      | Brown     | 1/8 = 0.125                 |
+| Blue       | Black     | 1/8 = 0.125                 |
+| Blue       | Brown     | 2/8 = 0.25                  |
+| Brown      | Black     | 1/8 = 0.125                 |
+| Brown      | Brown     | 1/8 = 0.125                 |
 
 **Now imagine we had $n$ different attributes**, ignoring the predicted attribute. Bayes' rule gives us:
 
@@ -115,50 +106,152 @@ Now our probability tables are very small. First, the probability of a coat colo
 
 | Coat Color | $P(\text{Coat}\|\text{Gentry=Yes})$ |
 | ---------- | ----------------------------------- |
-| Black      | 1/2                                 |
-| Blue       | 0/2                                 |
-| Brown      | 1/2                                 |
-
-And the other gentry status:
-
-| Coat Color | $P(\text{Coat}\|\text{Gentry=No})$ |
-| ---------- | ---------------------------------- |
-| Black      | 1/4                                |
-| Blue       | 2/4                                |
-| Brown      | 1/4                                |
+| Black      | 2/3 = 0.66                          |
+| Blue       | 0/3 = 0.0                           |
+| Brown      | 1/3 = 0.33                          |
 
 Now the probability of hat color if you know the gentry status:
 
-| Hat Color | $P(\text{Coat}\|\text{Gentry=Yes})$ |
+| Hat Color | $P(\text{Hat}\|\text{Gentry=Yes})$ |
 | --------- | ----------------------------------- |
-| Black     | 2/2                                 |
-| Brown     | 0/2                                 |
-
-And the other gentry status:
-
-| Hat Color | $P(\text{Coat}\|\text{Gentry=No})$ |
-| --------- | ---------------------------------- |
-| Black     | 1/4                                |
-| Brown     | 3/4                                |
+| Black     | 2/3 = 0.66                          |
+| Brown     | 1/3 = 0.33                          |
 
 Now the "prior" probability of coat color:
 
 | Coat Color | $P(\text{Coat})$ |
 | ---------- | ---------------- |
-| Black      | 2/6              |
-| Blue       | 2/6              |
-| Brown      | 2/6              |
+| Black      | 3/8 = 0.375      |
+| Blue       | 3/8 = 0.375      |
+| Brown      | 2/8 = 0.25       |
 
 And the "prior" probability of hat color:
 
 | Hat Color | $P(\text{Hat})$ |
 | --------- | --------------- |
-| Black     | 3/6             |
-| Brown     | 3/6             |
+| Black     | 4/8 = 0.5       |
+| Brown     | 4/8 = 0.5       |
 
 The resulting Bayesian network, with the naïve assumption in place, looks like this:
 
 ![Gentry Bayesian network](/images/gentry.png)
+
+## Gentry example in ProbLog
+
+ProbLog can learn probabilities from data. Rather than add a number in front of a predicate, e.g., `0.5::coat(black)`, we can indicate the probability is "tunable" with `t()`: `t(_)::coat(black)` or we can start with an initial probability that will update from training: `t(0.5)::coat(black)`.
+
+Here is our domain logic:
+
+```
+coatColor(black).
+coatColor(blue).
+coatColor(brown).
+
+hatColor(black).
+hatColor(brown).
+
+t(_, CoatColor)::coat(CoatColor) :- coatColor(CoatColor).
+t(_, HatColor)::hat(HatColor) :- hatColor(HatColor).
+
+t(_, CoatColor, HatColor)::gentry :-
+    coatColor(CoatColor), hatColor(HatColor),
+    coat(CoatColor), hat(HatColor).
+```
+
+And here is our evidence file, with different cases separated by dashes:
+
+```
+evidence(gentry).
+evidence(coat(black)).
+evidence(coat(blue), false).
+evidence(coat(brown), false).
+evidence(hat(black)).
+evidence(hat(brown), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry, false).
+evidence(coat(black)).
+evidence(coat(blue), false).
+evidence(coat(brown), false).
+evidence(hat(black)).
+evidence(hat(brown), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry).
+evidence(coat(black)).
+evidence(coat(blue), false).
+evidence(coat(brown), false).
+evidence(hat(brown)).
+evidence(hat(black), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry, false).
+evidence(coat(blue)).
+evidence(coat(black), false).
+evidence(coat(brown), false).
+evidence(hat(black)).
+evidence(hat(blue), false).
+evidence(hat(brown), false).
+-----
+evidence(gentry, false).
+evidence(coat(blue)).
+evidence(coat(black), false).
+evidence(coat(brown), false).
+evidence(hat(brown)).
+evidence(hat(black), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry, false).
+evidence(coat(blue)).
+evidence(coat(black), false).
+evidence(coat(brown), false).
+evidence(hat(brown)).
+evidence(hat(black), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry).
+evidence(coat(brown)).
+evidence(coat(black), false).
+evidence(coat(blue), false).
+evidence(hat(black)).
+evidence(hat(brown), false).
+evidence(hat(blue), false).
+-----
+evidence(gentry, false).
+evidence(coat(brown)).
+evidence(coat(black), false).
+evidence(coat(blue), false).
+evidence(hat(brown)).
+evidence(hat(black), false).
+evidence(hat(blue), false).
+```
+
+Now we run the ProbLog command to learn the tunable probabilities from the evidence:
+
+```
+problog lfi -O gentry.model gentry.pl gentry-evidence.pl
+```
+
+The resulting model is:
+
+```
+coatColor(black).
+coatColor(blue).
+coatColor(brown).
+hatColor(black).
+hatColor(brown).
+0.375::coat(blue) :- coatColor(blue).
+0.25::coat(brown) :- coatColor(brown).
+0.375::coat(black) :- coatColor(black).
+0.5::hat(black) :- hatColor(black).
+0.5::hat(brown) :- hatColor(brown).
+0.0::gentry :- coatColor(brown), hatColor(brown), coat(brown), hat(brown).
+0.0::gentry :- coatColor(blue), hatColor(brown), coat(blue), hat(brown).
+0.0::gentry :- coatColor(blue), hatColor(black), coat(blue), hat(black).
+0.999999999702::gentry :- coatColor(black), hatColor(brown), coat(black), hat(brown).
+0.5::gentry :- coatColor(black), hatColor(black), coat(black), hat(black).
+0.999999999702::gentry :- coatColor(brown), hatColor(black), coat(brown), hat(black).
+```
 
 ## A larger example
 
