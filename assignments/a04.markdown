@@ -1,0 +1,40 @@
+---
+layout: note
+title: "A04: MMA Bookie"
+due: "Oct 25, 11:59pm"
+categories: [assignments]
+---
+
+# A04: MMA Bookie
+
+This assignment uses ProbLog to model mixed martial arts fights and to predict the probability of winning.
+
+Each fight has two fighters. Each fighter has the following attributes:
+
+- advanced training (yes/no)
+- height class (short, tall)
+- weight class (feather, middle, heavy)
+- age group (young, middle, old)
+
+There are several constraints and influences on the probability of winning:
+
+- more likely to be feather weight if young
+- more likely to be middle/heavy weight if middle/old
+- heavy vs. feather, heavy wins
+- tall always has advantage
+- better trained always wins
+- better trained are older
+- better trained is more important than age
+
+Write a ProbLog file, `mma.pl`, that represents this domain. Add data for at least four fighters, and write at least three queries that ask who is the most likely winner in a paired fight. Include some queries where one or both fighters are variable.
+
+## Deliverables
+
+Submit your `mma.pl` file.
+
+## Grading rubric
+
+- 5 pts: the full domain is represented, data for four fighters is included, three queries are included, everything functions properly, and the domain is consistent and reasonable.
+- 4 pts: the domain is fully described, consistent, and reasonable, but fighter data and/or queries are incomplete.
+- 0-3 pts: the domain is only partially described, is inconsistent, or unreasonable.
+

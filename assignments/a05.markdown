@@ -1,0 +1,29 @@
+---
+layout: note
+title: "A05: Predicting student performance"
+due: "Oct 30, 11:59pm"
+categories: [assignments]
+---
+
+# A05: Predicting student performance
+
+Using [this dataset](http://archive.ics.uci.edu/ml/datasets/Student+Performance), build a decision tree with scikit-learn that predicts student performance in a math course. Instead of using the dataset's G1,G2,G3 columns, create a new "Pass" column defined as Pass=1 whenever (G1+G2+G3)>=35, 0 otherwise.
+
+## Deliverables
+
+Produce a single PDF (using Jupyter most likely) that includes the following:
+
+- Code for all steps.
+- A tree diagram, produced by graphviz.
+- An explanation/interpretation of the tree diagram.
+- 5-fold cross-validation accuracy score for various max-tree-depths.
+- An example of using the best-scoring tree to predict a new row of data not included in the dataset (make up a row of data).
+
+## Grading rubric
+
+- 5 pts: All deliverables present.
+- 4 pts: All deliverables present except the search for the best tree across several max-tree-depths.
+- 3 pts: Only the code and tree diagram are present.
+- 2 pts: Inappropriate dataset cleaning and processing, but decision tree code is correct.
+- 0-1 pts: Inappropriate dataset cleaning and processing and incorrect decision tree code.
+
