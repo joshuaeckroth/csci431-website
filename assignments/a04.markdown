@@ -26,7 +26,7 @@ There are several constraints and influences on the probability of winning:
 - better trained are older
 - better trained is more important than age
 
-Write a ProbLog file, `mma.pl`, that represents this domain. Add data for at least four fighters, and write at least three queries that ask who is the most likely winner in a paired fight. Include some queries where one or both fighters are variable.
+Write a ProbLog file, `mma.pl`, that represents this domain. Add evidence for at least four fighters, and write at least three queries that ask who is the most likely winner in a paired fight. Include some queries where one or both fighters are variable.
 
 ## Deliverables
 
