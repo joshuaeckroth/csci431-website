@@ -1,0 +1,32 @@
+---
+layout: note
+title: "A06: Detecting Spam Comments"
+due: "Nov 8, 11:59pm"
+categories: [assignments]
+---
+
+# A06: Detecting Spam Comments
+
+Using [this dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection), build a random forest classifier that accurately (>= 95% accuracy) detects spam YouTube comments. Use all the data files, totalling 1956 rows.
+
+You are also required to demonstrate a few extra features:
+
+- use of scikit-learn's pipeline feature to sequence together several processing steps (e.g., bag-of-words, then tfidf, then random forest)
+- use of scikit-learn's `GridSearchCV` to search for optimal parameter values for bag-of-words, tfidf, and random forest parameters
+- use of scikit-learn's save model feature to save the random forest model and bag-of-words dictionary and reload them to predict spam/not-spam for a new comment not in the dataset (make one up)
+
+## Deliverables
+
+Produce a single PDF or Jupyter notebook that includes the following:
+
+- Code for all steps.
+- Loading the dataset, building a pipeline, performing a grid search for parameters, saving the models and reloading the models, predicting a single new comment.
+
+## Grading rubric
+
+- 5 pts: All deliverables present.
+- 4 pts: All deliverables present except the model saving and reloading.
+- 3 pts: All deliverables present except the model saving and reloading and grid search.
+- 2 pts: Inappropriate dataset cleaning and processing, but most code is correct.
+- 0-1 pts: Inappropriate dataset cleaning and processing and most code is incorrect.
+
