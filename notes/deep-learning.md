@@ -54,58 +54,68 @@ Keras docs: "Dropout consists in randomly setting a fraction of input units to 0
 ### Iris example
 
 ```python
-
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.utils.np_utils import to_categorical
 import numpy
 
-
+# load data
 alldata = numpy.genfromtxt('iris.csv', delimiter=',', names=True,
-                           dtype=(float,float,float,float,'|S15'))
+                           dtype=(float, float, float, float, '|S15'))
 
+# grab two things:
+# - the unique class names, in a sorted list (setosa, versicolor, virginica)
+# - every row's class replaced with a number (0,1,2)
 class_uniq_ids, class_row_ids = numpy.unique(alldata['Class'], return_inverse=True)
-alldata_noclass = numpy.array([list(row)[0:-1] for row in alldata])
+
+# strip off the class column
+alldata_noclass = numpy.array([list(row)[:-1] for row in alldata])
+# now add on the numeric class (0,1,2 produced above) as a column
 alldata_numeric = numpy.column_stack((alldata_noclass, class_row_ids))
 
-print(alldata_numeric)
-print(numpy.shape(alldata_numeric))
-
+# shuffle data
 numpy.random.shuffle(alldata_numeric)
+
+# figure out where to split
 splitidx = int(len(alldata_numeric)*0.7)
+
+# create train, test split
 train, test = alldata_numeric[:splitidx,:], alldata_numeric[splitidx:,:]
 
-print(train)
-print(numpy.shape(train))
-print(test)
-print(numpy.shape(test))
+# strip off class column
+train_input = train[:,:-1]
 
-train_input = train[:,0:-1]
+# grab class column
 train_labels = train[:,-1]
+# turn class column into an int32 (to appease numpy)
 train_labels = train_labels.astype(numpy.int32, copy=False)
+# turn class column into one-hot encoding; this turns the one column into three columns
 train_labels = to_categorical(train_labels, len(class_uniq_ids))
 
-test_input = test[:,0:-1]
+# do all the above for the test split
+test_input = test[:,:-1]
 test_labels = test[:,-1]
 test_labels = test_labels.astype(numpy.int32, copy=False)
 test_labels = to_categorical(test_labels, len(class_uniq_ids))
 
+# build a neural net model
 model = Sequential([
     Dense(10, input_dim=4),
     Activation('tanh'),
     Dense(len(class_uniq_ids)),
-    Activation('softmax'),
+    Activation('tanh'),
+    Activation('softmax')
     ])
+model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.compile(optimizer='rmsprop',
-              loss='categorical_crossentropy',
-              metrics=['accuracy'])
+# train for 200 iterations
+model.fit(train_input, train_labels, epochs=200)
 
-model.fit(train_input, train_labels, nb_epoch=200, batch_size=10)
+# predict a single new (fake) iris with its four measurements
+print(model.predict(numpy.array([[3.2, 4.5, 2.1, 4.3]])))
 
-loss, acc = model.evaluate(test_input, test_labels, batch_size=10)
-
-print("Done!")
-print("Loss: %.4f, accuracy: %.4f" % (loss, acc))
+# test the model on the test split
+# two numbers will print: loss (should be low) & accuracy (should be high)
+print(model.evaluate(test_input, test_labels))
 ```
 
