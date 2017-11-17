@@ -1,0 +1,23 @@
+---
+layout: note
+title: "A08: Identifying Birds"
+due: "Dec 1, 11:59pm"
+categories: [assignments]
+---
+
+# A08: Identifying Birds
+
+Using [this dataset](http://www.vision.caltech.edu/visipedia/CUB-200.html), build a convolutional neural network (CNN) that identifies a photograph of a bird as belonging to one of 200 species. (I have not completed the code myself, but I expect about 11% accuracy, based on [this paper](https://arxiv.org/pdf/1505.02269.pdf)). The data is already on delenn: `/bigdata/data/birds-200-caltech-ucsd-2011/`. Use the photos, not the human-labeled attributes!
+
+## Deliverables
+
+Your Python code (single file).
+
+## Grading rubric
+
+- 5 pts: All deliverables present.
+- 4 pts: All deliverables present except desired accuracy was not achieved (but it's close).
+- 3 pts: All deliverables present except very poor accuracy (but valid CNN design).
+- 2 pts: Inappropriate dataset processing, but most code is correct.
+- 0-1 pts: Inappropriate dataset processing and most code is incorrect.
+
