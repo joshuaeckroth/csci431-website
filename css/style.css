@@ -61,3 +61,7 @@ blockquote:after {
     display: none;
 }
 
+code {
+    padding: 0;
+}
+
