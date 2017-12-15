@@ -18,7 +18,7 @@ Grab the recent [Orlando Crime Data](https://data.cityoforlando.net/Orlando-Poli
 
 ## Task 3 (10pts)
 
-Suppose we have the following network, where ROWS=COLS=356 and CHANNELS=3.
+Suppose we have the following network, where ROWS=COLS=256 and CHANNELS=3.
 
 ```
 model = Sequential()
