@@ -50,6 +50,7 @@ ul.posts li {
 
 pre, code, tt, code > span {
     font-family: "Ubunto Mono", monospace;
+    line-height: 1.5;
 }
 
 img {
