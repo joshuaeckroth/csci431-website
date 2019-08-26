@@ -1,0 +1,11 @@
+---
+layout: note
+title: "A01: AI Workflow"
+due: "Aug 28, 2:30pm"
+categories: [assignments]
+---
+
+# A01: AI Workflow
+
+Read chapter 1 of *AI Blueprints* and choose a project idea that involves AI solving some real business need. Choose a project that is not already well-known. Then write a statement addressing every checklist item in every part of the AI Workflow described in that chapter. Email me or post on bitbucket your answers.
+
