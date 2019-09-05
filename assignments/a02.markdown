@@ -1,0 +1,44 @@
+---
+layout: note
+title: "A02: Flight Cage"
+due: "Sep 16, 11:59pm"
+categories: [assignments]
+---
+
+# A02: Flight Cage
+
+Read chapter 2 of *AI Blueprints*. Using OptaPlanner as described in that chapter, write a Java program that builds a schedule for birds in a flight cage. Each species of bird needs at least a certain number of hours per day in the cage (contiguously), and only so many birds can fit in the cage at once (according to their minimum space requirements). Also, some species cannot be in the cage together.
+
+Each day is made up of the hours 8am to 5pm, and birds can be moved in/out of the cage only on the hour. The output of your program should be a schedule like this, where `p1` etc. are arbitrary bird IDs:
+
+```
+p1: 8:00 - 13:00
+p2: 8:00 - 13:00
+g1: 13:00 - 16:00
+g2: 13:00 - 16:00
+g3: 14:00 - 17:00
+g4: 14:00 - 17:00
+```
+
+Set the following variables to your choosing. Try different values to see their impacts. I will also run your code with different values.
+
+- Flight cage maximum capacity (e.g., 100 square feet)
+- Bird species (e.g., pelican, gull, stork)
+- Minimum space requirement per species (e.g., 10 square feet)
+- Minimum time in cage per species (e.g., 4 contiguous hours)
+- Incompatible bird pairs (e.g., pelicans cannot be with gulls)
+- Number of birds of each species (e.g., two pelicans: `p1` and `p2`)
+
+The following constraints must be satisfied:
+
+- Each bird must get its required time in cage
+- The cage must not be over capacity (sum up bird sizes, compare to cage size)
+- Incompatible birds must not be in the cage together
+
+## Grading rubric
+
+- 5 pts: all requirements met
+- 4 pts: missing "bird incompatibility" constraint, other constraints work, solution (day schedule) is found
+- 3 pts: missing more or all constraints, solution (day schedule) is found
+- 0-2 pts: solution (day schedule) not found or code does not run
+
