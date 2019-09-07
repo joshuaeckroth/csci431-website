@@ -35,6 +35,14 @@ The following constraints must be satisfied:
 - The cage must not be over capacity (sum up bird sizes, compare to cage size)
 - Incompatible birds must not be in the cage together
 
+## Hints
+
+Refer to my airplane seating example: https://github.com/joshuaeckroth/csci431-airplaneseating
+
+## Submission
+
+Create a repo on bitbucket called `csci431-a02` and add me (`joshuaeckroth`) as a reader.
+
 ## Grading rubric
 
 - 5 pts: all requirements met
