@@ -17,7 +17,7 @@ This course covers a wide array of topics related to contemporary artificial int
 
 - Eliz Hall 214, 386-740-2519
 
-- Office hours: TBD
+- Office hours: M 1:15-2, T 2-4, F 1-2
 
 ## Textbook
 
