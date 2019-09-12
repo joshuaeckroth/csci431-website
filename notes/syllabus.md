@@ -30,6 +30,8 @@ We will use my book, [AI Blueprints](https://www.amazon.com/dp/1788992873). I'll
 - Midterm: 20%
 - Final exam: 20%
 
+Final exam time: Wednesday, Dec 11 (5p-7p)
+
 Late work is penalized 20% for each day that it is late. Submissions
 more than 3 days late receive no credit. Tests cannot be made up
 unless a doctor's note is provided.
