@@ -69,3 +69,65 @@ Create a repo on bitbucket called `csci431-a03` and add me (`eckroth@cse.ohio-st
 - 3 pts: TBD
 - 0-2 pts: solution (housing configuration) not found or code does not run
 
+## Example Prolog code: Student Advisor
+
+```
+% features:
+% - database of students and courses taken (plus grades received)
+% - does student meet requirements for courses & grades for csci major
+% - calculate current gpa
+% - find courses still remaining (accounting for failed courses)
+% - allow for "partially known" grade in current courses (e.g., "can't get better than a C+")
+% - find best possible gpa upon graduation (accounting for courses in-progress and to be taken)
+% - find min grade necessary in in-progress/remaining courses to meet requirements
+% - find min grades necessary in in-progress/remaining courses to achieve specified min gpa
+% - TODO: support for electives
+
+:- use_module(library(clpr)).
+
+requiredCourses([csci141, csci142, csci221, csci321]).
+
+student(jane, [(csci141, 2.33), (csci142, 1.0), (csci221, G)]) :- { G < 2.0 }.
+
+sumGpa([], 0).
+sumGpa([(_, Grade)|Rest], Sum) :-
+    { Grade >= 0.0, Grade =< 4.0 },
+    sumGpa(Rest, RestSum),
+    { Sum = Grade + RestSum }.
+
+calcGpa([], 0.0).
+calcGpa(Courses, Gpa) :-
+    length(Courses, N),
+    sumGpa(Courses, Sum),
+    { Gpa = Sum / N }.
+
+% student(Name, Courses), calcGpa([(csci321, G)|Courses], Gpa), { G =< 4.0, G >= 0.0 }, maximize(Gpa).
+
+requiredCoursesMet([], _).
+requiredCoursesMet([Req|ReqRest], Courses) :-
+    member((Req, Grade), Courses),
+    { Grade >= 1.0 },
+    requiredCoursesMet(ReqRest, Courses).
+
+meetsRequirements(Courses) :-
+    calcGpa(Courses, Gpa),
+    { Gpa >= 2.0 },
+    requiredCourses(Required),
+    requiredCoursesMet(Required, Courses).
+
+finishRequirements(Courses, RemainingCourses) :-
+    append(RemainingCourses, Courses, AllCourses),
+    meetsRequirements(AllCourses), !.
+
+findMinGrades([], []).
+findMinGrades([(Course, G)|Rest], [(Course, GMin)|MinRest]) :-
+    inf(G, GMin), !,
+    findMinGrades(Rest, MinRest).
+```
+
+Example query:
+
+```
+student(Name, Courses), finishRequirements(Courses, RemainingCourses), findMinGrades(RemainingCourses, MinGrades).
+```
+
