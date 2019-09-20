@@ -1,0 +1,71 @@
+---
+layout: note
+title: "A03: Habitat Helper"
+due: "Oct 2, 11:59pm"
+categories: [assignments]
+---
+
+# A03: Habitat Helper
+
+Read the Prolog notes on this website, pages 182-188 in *AI Blueprints*, and the example source code below. Refer to pages 31-49 (according to footer) of the [NWRA Minimum Standards for Wildlife Rehabilitation](https://theiwrc.org/wp-content/uploads/2011/05/Standards-4th-Ed-2012-final.pdf) and pages 27-29 (section 68A-6.01215) in [Florida Administrative Code 68A-6](https://www.flrules.org/gateway/readFile.asp?sid=0&tid=0&cno=68A-6&caid=1305249&type=4&file=68A-6.doc).
+
+Write a Prolog program that determines whether/how birds can be assigned to available housing (cages). Each bird species has specific minimum requirements for housing, and each available housing has dimensions and ameneties (defined by codes like `ch` = artificial chimney, `pi` = piling for perching, etc.). Each house also supports a maximum number of birds of the same species, so depending on how many birds we have, more than one house may be required for that bird species. Various species may also cohabit (details given below). Refer to both the NWRA and Florida Code for minimum size requirements and multipliers for housing multiple birds.
+
+Support at least 20 different bird species, spread evenly across songbirds, waterbirds, and raptors.
+
+## Inputs and Outputs
+
+In order to make the program somewhat usable by regular people, data will be provided to the system via two CSV files, and output will be written to two new CSV files. Any table cell with '?' means the program will have to fill in that value with minimum size and code requirements (in the case of housing) or maximum bird count.
+
+### birds.csv
+
+| Species (lowercase) | Count (or ?) |
+|----
+| pigeon | ? |
+| doves | 10 |
+
+As CSV:
+
+```
+Species (lowercase),Count (or ?)
+pigeon,?
+doves,10
+```
+
+### housing.csv
+
+| Name | Species (or ?) | Width (ft or ?) | Length (ft or ?) | Height (ft or ?) | Codes (comma-separated, no spaces, lowercase; or ?) |
+|---
+| house1 | ? | 16 | 8 | 8 | p,pi |
+| house2 | ? | 16 | 8 | 8 | p,pi |
+| house3 | ? | ? | ? | ? | ? |
+| house4 | ? | ? | ? | ? | ? |
+
+As CSV:
+
+```
+Name,Species (or ?),Width (ft or ?),Length (ft or ?),Height (ft or ?),"Codes (comma-separated, no spaces, lowercase; or ?)"
+house1,?,16,8,8,"p,pi"
+house2,?,16,8,8,"p,pi"
+house3,?,?,?,?,?
+house4,?,?,?,?,?
+```
+
+## Bird Cohabitation Rules
+
+The following species may be in the same house. When computing minimum size requirements (e.g., "For each additional bird, increase original floor area by 10 percent." as mentioned in the Florida Code), ignore the species of each bird and just calculate based on count.
+
+- Pelicans, gulls, storks
+- Herons, egrets, storks
+
+## Submission
+
+Create a repo on bitbucket called `csci431-a03` and add me (`eckroth@cse.ohio-state.edu`) as a reader.
+
+## Grading rubric
+
+- 5 pts: all requirements met
+- 4 pts: TBD
+- 3 pts: TBD
+- 0-2 pts: solution (housing configuration) not found or code does not run
+
