@@ -1,7 +1,7 @@
 ---
 layout: note
 title: "A03: Habitat Helper"
-due: "Oct 2, 11:59pm"
+due: "Oct 4, 11:59pm"
 categories: [assignments]
 ---
 
@@ -130,4 +130,29 @@ Example query:
 ```
 student(Name, Courses), finishRequirements(Courses, RemainingCourses), findMinGrades(RemainingCourses, MinGrades).
 ```
+
+## CSV input/output
+
+```
+:- use_module(library(clpr)).
+
+read_birds_csv(Filename, Birds) :-
+    csv_read_file(Filename, [_|Rows]),
+    parse_birds_csv_rows(Rows, Birds).
+
+parse_birds_csv_rows([], []).
+parse_birds_csv_rows([row(BirdTmp, CountTmp)|Rest], [(Bird, Count)|ParseRest]) :-
+    ( BirdTmp = '?' -> Bird = _ ; Bird = BirdTmp ),
+    ( CountTmp = '?' -> Count = _ ; Count = CountTmp ),
+    { Count >= 0, Count =< 100 },
+    parse_birds_csv_rows(Rest, ParseRest).
+```
+
+And to write CSV files:
+
+
+```
+csv_write_file(Filename, Data)
+```
+
 
