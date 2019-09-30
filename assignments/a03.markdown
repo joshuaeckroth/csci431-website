@@ -11,7 +11,7 @@ Read the Prolog notes on this website, pages 182-188 in *AI Blueprints*, and the
 
 Write a Prolog program that determines whether/how birds can be assigned to available housing (cages). Each bird species has specific minimum requirements for housing, and each available housing has dimensions and ameneties (defined by codes like `ch` = artificial chimney, `pi` = piling for perching, etc.). Each house also supports a maximum number of birds of the same species, so depending on how many birds we have, more than one house may be required for that bird species. Various species may also cohabit (details given below). Refer to both the NWRA and Florida Code for minimum size requirements and multipliers for housing multiple birds.
 
-Support at least 20 different bird species, spread evenly across songbirds, waterbirds, and raptors.
+Support at least 20 different bird species, spread evenly across songbirds, waterbirds, and raptors. Ignore requirements related to wading pools, and use the "Unlimited Activity" requirements from the tables.
 
 ## Inputs and Outputs
 
@@ -65,9 +65,10 @@ Create a repo on bitbucket called `csci431-a03` and add me (`eckroth@cse.ohio-st
 ## Grading rubric
 
 - 5 pts: all requirements met
-- 4 pts: TBD
-- 3 pts: TBD
-- 0-2 pts: solution (housing configuration) not found or code does not run
+- 4 pts: housing constraints are checked for a list of birds and houses, with bird counts and housing 'codes,' but ignoring cohabitation
+- 3 pts: housing constraints are checked for a list of birds and houses, ignoring count of birds and/or housing 'codes'
+- 2 pts: housing constraints are checked for a single bird/house (non-recursive), possibly ignoring count of birds
+- 0-1 pts: solution (housing configuration) not found or code does not run
 
 ## Example Prolog code: Student Advisor
 
@@ -146,6 +147,19 @@ parse_birds_csv_rows([row(BirdTmp, CountTmp)|Rest], [(Bird, Count)|ParseRest]) :
     ( CountTmp = '?' -> Count = _ ; Count = CountTmp ),
     { Count >= 0, Count =< 100 },
     parse_birds_csv_rows(Rest, ParseRest).
+```
+
+And for parsing housing.csv:
+
+```
+parse_housing_csv_rows([], []).
+parse_housing_csv_rows([row(Name, SpeciesTmp, WTmp, LTmp, HTmp, CodesTmp)|RowsRest], [(Name, Species, W, L, H, Codes)|ParseRest]) :-
+    ( WTmp = '?' -> W = _ ; W = WTmp ),
+    ( LTmp = '?' -> L = _ ; L = LTmp ),
+    ( HTmp = '?' -> H = _ ; H = HTmp ),
+    ( CodesTmp = '?' -> Codes = _ ; split_string(CodesTmp, ',', '', CodesStrSplit), maplist(atom_string, Codes, CodesStrSplit) ),
+    ( SpeciesTmp = '?' -> Species = _ ; split_string(SpeciesTmp, ',', '', SpeciesStrSplit), maplist(atom_string, Species, SpeciesStrSplit) ),
+    parse_housing_csv_rows(RowsRest, ParseRest).
 ```
 
 And to write CSV files:
