@@ -172,7 +172,13 @@ parse_birds_csv_rows([row(BirdTmp, CountTmp)|Rest], [(Bird, Count)|ParseRest]) :
 And to write CSV files:
 
 ```
-csv_write_file(Filename, Data)
+prepare_birds_csv([], []).
+prepare_birds_csv([(Species, Count)|BRest], [row(Species, Count)|Rest]) :-
+    prepare_birds_csv(BRest, Rest).
+
+write_birds_csv(Filename, Data) :-
+    prepare_birds_csv(Data, PreparedData),
+    csv_write_file(Filename, PreparedData).
 ```
 
 ## CSV input/output for houses
