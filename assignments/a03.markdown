@@ -36,7 +36,7 @@ doves,10
 
 | Name | Species (or ?) | Width (ft or ?) | Length (ft or ?) | Height (ft or ?) | Codes (comma-separated, no spaces, lowercase; or ?) |
 |---
-| house1 | ? | 16 | 8 | 8 | p,pi |
+| house1 | pigeons,doves | 16 | 8 | 8 | p,pi |
 | house2 | ? | 16 | 8 | 8 | p,pi |
 | house3 | ? | ? | ? | ? | ? |
 | house4 | ? | ? | ? | ? | ? |
@@ -45,7 +45,7 @@ As CSV:
 
 ```
 Name,Species (or ?),Width (ft or ?),Length (ft or ?),Height (ft or ?),"Codes (comma-separated, no spaces, lowercase; or ?)"
-house1,?,16,8,8,"p,pi"
+house1,"pigeons,doves",16,8,8,"p,pi"
 house2,?,16,8,8,"p,pi"
 house3,?,?,?,?,?
 house4,?,?,?,?,?
@@ -69,6 +69,26 @@ Create a repo on bitbucket called `csci431-a03` and add me (`eckroth@cse.ohio-st
 - 3 pts: housing constraints are checked for a list of birds and houses, ignoring count of birds and/or housing 'codes'
 - 2 pts: housing constraints are checked for a single bird/house (non-recursive), possibly ignoring count of birds
 - 0-1 pts: solution (housing configuration) not found or code does not run
+
+## Example Prolog code: Habitat Helper
+
+```
+species(pigeon, 8, 16, 8, 16, [p,pi]).
+species(dove, 4, 16, 8, 16, [pi,q]).
+
+house_meets_req((Species, Count), (_, HSpecies, HW, HL, HH, HCodes)) :-
+    species(Species, MaxCount, MinW, MinL, MinH, MinCodes),
+    member(Species, HSpecies),
+    { Count =< MaxCount },
+    { MinW =< HW, MinL =< HL, MinH =< HH },
+    subset(MinCodes, HCodes).
+
+some_house_meets_req((Species, Count), [House|_]) :-
+    print(House), nl,
+    house_meets_req((Species, Count), House).
+some_house_meets_req((Species, Count), [_|HRest]) :-
+    some_house_meets_req((Species, Count), HRest).
+```
 
 ## Example Prolog code: Student Advisor
 
@@ -132,7 +152,7 @@ Example query:
 student(Name, Courses), finishRequirements(Courses, RemainingCourses), findMinGrades(RemainingCourses, MinGrades).
 ```
 
-## CSV input/output
+## CSV input/output for birds
 
 ```
 :- use_module(library(clpr)).
@@ -149,9 +169,21 @@ parse_birds_csv_rows([row(BirdTmp, CountTmp)|Rest], [(Bird, Count)|ParseRest]) :
     parse_birds_csv_rows(Rest, ParseRest).
 ```
 
+And to write CSV files:
+
+```
+csv_write_file(Filename, Data)
+```
+
+## CSV input/output for houses
+
 And for parsing housing.csv:
 
 ```
+read_houses_csv(Filename, Houses) :-
+    csv_read_file(Filename, Rows),
+    parse_housing_csv_rows(Rows, Houses).
+
 parse_housing_csv_rows([], []).
 parse_housing_csv_rows([row(Name, SpeciesTmp, WTmp, LTmp, HTmp, CodesTmp)|RowsRest], [(Name, Species, W, L, H, Codes)|ParseRest]) :-
     ( WTmp = '?' -> W = _ ; W = WTmp ),
@@ -162,11 +194,22 @@ parse_housing_csv_rows([row(Name, SpeciesTmp, WTmp, LTmp, HTmp, CodesTmp)|RowsRe
     parse_housing_csv_rows(RowsRest, ParseRest).
 ```
 
-And to write CSV files:
-
+And writing:
 
 ```
-csv_write_file(Filename, Data)
+prepare_houses_csv([], []).
+prepare_houses_csv([(HouseName, HouseSpecies, HW, HL, HH, HCodes)|HRest], [row(HouseName, HouseSpeciesStr, MinHW, MinHL, MinHH, HCodesStr)|Rest]) :-
+    length(HouseSpecies, _), !,
+    atomics_to_string(HouseSpecies, ',', HouseSpeciesStr),
+    atomics_to_string(HCodes, ',', HCodesStr),
+    inf(HW, MinHW), inf(HL, MinHL), inf(HH, MinHH),
+    prepare_houses_csv(HRest, Rest).
+
+write_houses_csv(Filename, Data) :-
+    prepare_houses_csv(Data, PreparedData),
+    csv_write_file(Filename, PreparedData).
 ```
+
+Note, to get 4/5 or 5/5 points, you'll need to keep track of # of birds in each house. You'll need to update the house data structures to keep track of count per species for `HouseSpecies`: `[(pigeons,5), (dove,3)]`, etc. You don't necessarily need to change the CSV reading/writing code, as you can just avoid storing this info in the CSV files.
 
 
