@@ -1,0 +1,20 @@
+---
+layout: note
+title: "A04: Lazy Doctor"
+due: "Oct 16, 11:59pm"
+categories: [assignments]
+---
+
+# A04: Lazy Doctor
+
+Using Problog (installed on londo using command `problog`), represent the diagnostic graph below. Make the probabilities unknown ("tunable") and create examples of evidence to train the model. Then perform meaningful queries and write notes indicating their output. Further support the following constraints: `pregnant` can only be true for females, and if someone has a cold then they don't have the flu, and vice versa. As usual, make a bitbucket repo and add me as a reader.
+
+![](doctor.png)
+
+## Grading
+
+- 5 pts: all requirements met
+- 4 pts: all requirements except constraints met
+- 3 pts: model built (perhaps missing constraints) but no evidence or learning takes place
+- 0-2 pts: partial completion of the above points
+
