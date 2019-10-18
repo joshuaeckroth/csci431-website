@@ -25,6 +25,6 @@ The midterm will be on blackboard. Coding, if any, will be minimal, and will be 
 
 ## Probability (ProbLog)
 
-- Be able to compute a very simple Bayesian formula, e.g., given P(a) and P(b|a) and P(b|~a), compute P(a|b).
+- Be able to compute a very simple Bayesian formula, e.g., given P(a) and P(b\|a) and P(b\|~a), compute P(a\|b).
 - Be able to write a couple ProbLog facts/rules that use proabilities appropriately, given a scenario.
 
