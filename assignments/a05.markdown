@@ -11,7 +11,7 @@ Using logistic regression and the StackOverflow 2018 developer survey, predict w
 
 - Only load the columns you need. Use `pandas` and load them as categorical values (since they're strings but we need numbers).
 - Shuffle the dataset, then split it into 80% training and 20% testing.
-- Print the % of developers who use your preferred IDE in the training and testing datasets. Your model must achieve better accuracy than these %'s (i.e., your model must be better than a random guess).
+- Print the % of developers who use your preferred IDE in the training and testing datasets (or don't use it, whichever number is higher). Your model must achieve better accuracy than these %'s (i.e., your model must be better than a random guess).
 - Use a single logistic regression function, predicting one output (yes/no your favorite IDE is used by that developer).
 - Report statistics for each epoch: loss, accuracy on training data, accuracy on test data.
 - Use TensorFlow for the model, like we did in class.
