@@ -1,11 +1,11 @@
 ---
 layout: note
-title: "A05: Can you predict who prefers to use [insert your favorite IDE here]?"
+title: "A05: Can you predict which developers prefer to use [insert your favorite IDE here]?"
 due: "Oct 30, 11:59pm"
 categories: [assignments]
 ---
 
-# A05: Can you predict who prefers to use [insert your favorite IDE here]?
+# A05: Can you predict which developers prefer to use [insert your favorite IDE here]?
 
 Using logistic regression and the StackOverflow 2018 developer survey, predict which developers prefer to use your favorite IDE, e.g., Vim. Use the dataset on delenn found in `/home/jeckroth/csci431-public/stackoverflow_survey_2018`. Also be sure to meet the following criteria:
 
