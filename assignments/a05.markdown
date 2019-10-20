@@ -10,6 +10,7 @@ categories: [assignments]
 Using logistic regression and the StackOverflow 2018 developer survey, predict which developers prefer to use your favorite IDE, e.g., Vim. Use the dataset on delenn found in `/home/jeckroth/csci431-public/stackoverflow_survey_2018`. Also be sure to meet the following criteria:
 
 - Only load the columns you need. Use `pandas` and load them as categorical values (since they're strings but we need numbers).
+- Use "one-hot encoding" for the input columns (and use 1/0 for the IDE column if it has your IDE of choice). The pandas `pd.get_dummies` function is good here: [https://stackoverflow.com/a/37269683](https://stackoverflow.com/a/37269683)
 - Shuffle the dataset, then split it into 80% training and 20% testing.
 - Print the % of developers who use your preferred IDE in the training and testing datasets (or don't use it, whichever number is higher). Your model must achieve better accuracy than these %'s (i.e., your model must be better than a random guess).
 - Use a single logistic regression function, predicting one output (yes/no your favorite IDE is used by that developer).
