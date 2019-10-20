@@ -1,0 +1,71 @@
+---
+layout: note
+title: "A05: Can you predict who prefers to use [insert your favorite IDE here]?"
+due: "Oct 30, 11:59pm"
+categories: [assignments]
+---
+
+# A05: Can you predict who prefers to use [insert your favorite IDE here]?
+
+Using logistic regression and the StackOverflow 2018 developer survey, predict which developers prefer to use your favorite IDE, e.g., Vim. Use the dataset on delenn found in `/home/jeckroth/csci431-public/stackoverflow_survey_2018`. Also be sure to meet the following criteria:
+
+- Only load the columns you need. Use `pandas` and load them as categorical values (since they're strings but we need numbers).
+- Shuffle the dataset, then split it into 80% training and 20% testing.
+- Print the % of developers who use your preferred IDE in the training and testing datasets. Your model must achieve better accuracy than these %'s (i.e., your model must be better than a random guess).
+- Use a single logistic regression function, predicting one output (yes/no your favorite IDE is used by that developer).
+- Report statistics for each epoch: loss, accuracy on training data, accuracy on test data.
+- Use TensorFlow for the model, like we did in class.
+- Do not write more code than necessary; i.e., do not attempt to blindly adapt existing code from the internet. Write code specific to this assignment.
+
+## Grading
+
+TBD
+
+## Example code from class
+
+```
+import tensorflow as tf                                                                                                                                                                                     
+import random                                                                                                                                                                                               
+                                                                                                                                                                                                            
+num_examples = 100                                                                                                                                                                                          
+xs = []                                                                                                                                                                                                     
+ys = []
+random.seed(123)
+for i in range(num_examples):
+    x = random.uniform(-4, 17)
+    xs.append([x])
+    if x < 12:
+        ys.append([1])
+    else:
+        ys.append([0])
+
+x = tf.placeholder(tf.float32, [None, 1])
+y = tf.placeholder(tf.float32, [None, 1])
+
+W = tf.Variable(tf.zeros([1, 1]))
+b = tf.Variable(tf.zeros([1]))
+
+pred = tf.nn.sigmoid(tf.matmul(x, W) + b)
+
+cost = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred+1e-07)+(1-y)*tf.log(1-pred+1e-07), reduction_indices=1))
+
+num_epochs = 200
+print("learningrate,epoch,loss,accuracy,W,b")
+for learning_rate in [0.001, 0.01, 0.1, 0.3]:
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
+    init = tf.global_variables_initializer()
+    with tf.Session() as sess:
+        sess.run(init)
+
+        for epoch in range(num_epochs):
+            total_loss = 0
+            for example_x, example_y in zip(xs, ys):
+                _, loss = sess.run([optimizer, cost], feed_dict={x: [example_x], y: [example_y]})
+                total_loss += loss
+            correct_prediction = tf.equal(tf.round(pred), y)
+            accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)).eval({x: xs, y: ys})
+            Wtmp = sess.run(W)
+            btmp = sess.run(b)
+            print("%.4f,%d,%.4f,%.4f,%.4f,%.4f" % (learning_rate, epoch, total_loss, accuracy, Wtmp[0][0], btmp[0]))
+```
+
