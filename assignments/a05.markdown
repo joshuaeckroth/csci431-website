@@ -75,3 +75,20 @@ for learning_rate in [0.001, 0.01, 0.1, 0.3]:
             print("%.4f,%d,%.4f,%.4f,%.4f,%.4f" % (learning_rate, epoch, total_loss, accuracy, Wtmp[0][0], btmp[0]))
 ```
 
+## Data demo from class
+
+```
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+
+df = pd.read_csv('/home/jeckroth/csci431-public/stackoverflow_survey_2018/survey_results_public.csv',
+                 usecols=['Hobby', 'Employment', 'IDE'], dtype='category')
+
+df = pd.get_dummies(df, prefix=['hobby_', 'emp_'], columns=['Hobby', 'Employment'])
+df['IDE'] = df['IDE'].apply(lambda s: 1 if 'Vim' in s else 0)
+
+print(df.columns)
+print(df.head())
+```
+
