@@ -25,7 +25,7 @@ Note, most of the effort in this assignment is spent on data processing, not mac
 
 ## Grading
 
-TBD
+- 4/5 points: all requirements complete, learning occurs, but model does not predict any better than chance
 
 ## Example code from class
 
