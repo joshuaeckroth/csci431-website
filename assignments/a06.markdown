@@ -1,0 +1,109 @@
+---
+layout: note
+title: "A06: Hyperparameters"
+due: "Nov 15, 11:59pm"
+categories: [assignments]
+---
+
+# A06: Hyperparameters
+
+Take the IMDB review sentiment classifier we developed in class below. Pick 5 hyperparameters and at least 4 values for each (unless it's a binary parameter, and then show both values) and plot the accuracy for each combination of hyperparameters. Possible hyperparameters include number of epochs, learning rate, neural network size (layers and count of neurons on each layer), choice of activation function, choice of optimizer, choice of weight initializer, number of words to keep, whether or not words should be lower-cased or punctuation stripped or stemmed or lemmatized. Some of these terms might be new to you; google them!
+
+Create PNG graphs that make it clear how the hyperparameters affect accuracy. Do not create confusing graphs.
+
+Starting code:
+
+```
+import tensorflow as tf
+import tensorflow_datasets as tfdata
+import nltk                 
+import re    
+                                                                   
+dtrain, dtest = tfdata.load(name="imdb_reviews", split=["train", "test"])                                                              
+
+train_reviews = []                                      
+train_answers = []                                   
+for d in tfdata.as_numpy(dtrain.batch(100)):                                                                                           
+    for review in d["text"]:                                                                                                           
+        train_reviews.append(review.decode("utf-8"))                                                                                   
+    for label in d["label"]:                                       
+        train_answers.append([label])                                                                                                  
+
+test_reviews = []                                                  
+test_answers = []
+for d in tfdata.as_numpy(dtest.batch(100)):
+    for review in d["text"]:             
+        test_reviews.append(review.decode("utf-8"))
+    for label in d["label"]:                                                                                                           
+        test_answers.append([label])        
+                                                                   
+print("# of train: %d, # of test: %d" % (len(train_reviews), len(test_reviews)))                                                       
+
+print("%% of reviews = 1: %.2f" % float(sum(map(lambda x: x[0], test_answers)) / len(test_answers)))                                   
+                                                                   
+stop = set(nltk.corpus.stopwords.words('english'))                                                                                     
+                                                                                                                                                                                                                                                                               
+dictionary = {}                   
+for r in train_reviews:                                       
+    tokens = nltk.word_tokenize(r.lower())                                                                                             
+    for tok in tokens:                                                                                                                 
+        if tok not in stop and re.match(r'^[a-z]+$', tok):         
+            if tok in dictionary:                                  
+                dictionary[tok] += 1
+            else:                                                                                                                      
+                dictionary[tok] = 1                                
+                                                                   
+words = sorted(dictionary.keys(), key=lambda k: dictionary[k], reverse=True)[:1000]                                                    
+print(words)                             
+                                                                   
+train_reviews_binary = []                                                                                                              
+for r in train_reviews:                     
+    binary = []               
+    tokens = set(nltk.word_tokenize(r.lower()))
+    for word in words:                                             
+        if word in tokens:             
+            binary.append(1)
+        else:                                                                                                                          
+            binary.append(0)                                                                                                                                                                                                                                                   
+    train_reviews_binary.append(binary)
+                                                                   
+test_reviews_binary = []                                                                                                               
+for r in test_reviews:                                                                                                                 
+    binary = []                                                    
+    tokens = set(nltk.word_tokenize(r.lower()))
+    for word in words: 
+        if word in tokens:          
+            binary.append(1)
+        else:
+            binary.append(0)                                       
+    test_reviews_binary.append(binary)                                                                                                 
+
+x = tf.placeholder(shape=[None, 1000], dtype=tf.float32)
+y = tf.placeholder(shape=[None, 1], dtype=tf.float32)
+layer1 = tf.layers.dense(x, 100, activation=tf.nn.sigmoid, bias_initializer=tf.truncated_normal_initializer)                           
+layer2 = tf.layers.dense(layer1, 50, activation=tf.nn.sigmoid, bias_initializer=tf.truncated_normal_initializer)                       
+layer3 = tf.layers.dense(layer2, 1, activation=tf.nn.sigmoid, bias_initializer=tf.truncated_normal_initializer)                        
+                                                                   
+cost = tf.reduce_mean(-tf.reduce_sum(y * tf.log(layer3+1e-07) + (1-y) * tf.log(1-layer3+1e-07), reduction_indices=1))                  
+
+                                                                   
+num_epochs = 200 
+batch_size = 100                           
+print("learningrate,epoch,loss,accuracy")
+for learning_rate in [0.1, 0.001, 0.01, 0.3]:      
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)                                                        
+    init = tf.global_variables_initializer()
+    with tf.Session() as sess:                                     
+        sess.run(init)                                                                                                                 
+
+        for epoch in range(num_epochs):                                                                                                
+            total_loss = 0                                         
+            for b in range(batch_size, len(train_reviews_binary), batch_size):                                                         
+                _, loss = sess.run([optimizer, cost], feed_dict={x: train_reviews_binary[b:b+batch_size], y: train_answers[b:b+batch_size]})                                                                                                                                   
+                total_loss += loss
+            correct_prediction = tf.equal(tf.round(layer3), y)
+            accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)).eval({x: test_reviews_binary, y: test_answers})         
+            print("%.4f,%d,%.4f,%.4f" % (learning_rate, epoch, total_loss, accuracy))                                                  
+```
+
+
