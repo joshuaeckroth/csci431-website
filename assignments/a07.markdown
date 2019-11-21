@@ -1,0 +1,24 @@
+---
+layout: note
+title: "A07: Indoor Scene Recognition"
+due: "Dec 2, 11:59pm"
+categories: [assignments]
+---
+
+# A07: Indoor Scene Recognition
+
+## Task
+
+1. Build an accurate model for the indoor scenes dataset (from [here](http://web.mit.edu/torralba/www/indoor.html)). Achieve at least 60% accuracy on the test files. Use the files (as split into train/validation/test) from delenn: `/bigdata/data/indoor-scenes/`
+2. Save the model to a file (as simple as `model.save(fname)`), and write a separate program that loads the model and predicts the scene for a given image provided by the user. Note, you'll have to resize the image to fit the model's expectations. Show the top three predictions & probabilities.
+
+## Hints
+
+- Read my book, chapter 5, and watch the beginner AI videos about CNNs.
+- Look at the book's source code: [https://github.com/PacktPublishing/AIBlueprints/tree/master/ch05-detecting-your-logo-in-social-media](https://github.com/PacktPublishing/AIBlueprints/tree/master/ch05-detecting-your-logo-in-social-media)
+- Look at the videos' source code: [https://github.com/PacktPublishing/Python-Artificial-Intelligence-Projects-for-Beginners/tree/master/Chapter05](https://github.com/PacktPublishing/Python-Artificial-Intelligence-Projects-for-Beginners/tree/master/Chapter05)
+- My model achieved its best accuracy using transfer learning (I tried the InceptionV3 model).
+- You'll probably experience overfitting. This is noticeable when the `acc` value (training data accuracy) gets really high (>0.95) so loss is really low, but the validation accuracy (`val_acc`) starts dropping and is far below `acc`. The model will never perform any better because there is so little loss to fix on the training data. Solutions to overfitting include reducing the model size and adding Dropout layers; when you do these things, you probably will need more epochs.
+- Training my model takes about three hours, so plan accordingly for your own experiments.
+
+
