@@ -11,7 +11,7 @@ You may choose to complete this assignment for extra credit. If you get a good g
 
 ## Task
 
-1. Find 50 "absent" and 50 "present" files from `/bigdata/data/manatees/splits` and place them in `/bigdata/data/manatees/present` and `/bigdata/data/manatees/absent` on delenn. I can see who created which files based on the file username (seen with `ls -l`). Copy equal splits of your files into the `train/` and `test/` folders also. Make sure you keep channels together (don't put ch6.split123 in test and ch5.split123 in train). Consider also using [Sonic Visualiser](https://www.sonicvisualiser.org/) on the MIXPRE files in the folders named after dates.
+1. Find 50 "absent" and 10 "present" files from `/bigdata/data/manatees/splits` and place them in `/bigdata/data/manatees/present` and `/bigdata/data/manatees/absent` on delenn. I can see who created which files based on the file username (seen with `ls -l`). Copy equal splits of your files into the `train/` and `test/` folders also. Make sure you keep channels together (don't put ch6.split123 in test and ch5.split123 in train). Consider also using [Sonic Visualiser](https://www.sonicvisualiser.org/) on the MIXPRE files in the folders named after dates.
 2. Build a convolutional neural net with binary outputs to predict present/absent. Include an appropriate evaluation on the test data. Try to get the highest possible accuracy.
 
 Your submission will be graded on completeness and insight, i.e., finding a good model.
